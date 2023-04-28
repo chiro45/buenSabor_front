@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { InputGeneric } from './components/InputGeneric'
 import { useInput } from './hooks/useInput'
+import { RegisterFirst } from './components/RegisterFirst'
 
 function App() {
 
@@ -12,16 +13,18 @@ function App() {
 })
   return (
     <>
-      <InputGeneric 
+      {/* <InputGeneric 
       placeholder='EL PLAHOLDER EA' 
       value={username} 
       name='username' 
       onChange={onInputChange}
       label="ESTO ES EL LABEL"
-      type='password'  
-      height={200}
+      type='password'
+      className="inputGeneric"  
+      height={40}
       width={500}
-      />
+      /> */}
+      <RegisterFirst/>
     </>
   )
 }

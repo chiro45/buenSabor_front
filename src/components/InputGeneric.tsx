@@ -1,3 +1,5 @@
+import "./InputGeneric.css"
+
 interface Props {
   placeholder: string;
   name?: string;
@@ -6,28 +8,29 @@ interface Props {
   label?: string;
   type?: 'text' | 'password' | 'email' | 'number';
   value?: string;
+  className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputGeneric: React.FC<Props> = ({
   placeholder,
   name,
-  height = 40,
-  width = 200,
+  height = 30,
+  width = 300,
   label,
   type = 'text',
   value,
   onChange,
+  className,
 }) => {
   return (
-    <div>
+    <div className={className}>
       {label && <label htmlFor={label}>{label}</label>}
       <input
         name={name}
         type={type}
         placeholder={placeholder}
         style={{ height, width }}
-        //id={label}
         value={value}
         onChange={onChange}
       />

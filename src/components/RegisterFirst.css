@@ -1,0 +1,90 @@
+.register_container{
+    background: var(--backgroundSecundario);
+    background: #fea02f;
+    background: linear-gradient(to bottom, #fea02f, #ebd9c8);
+  
+    height: 60vh;
+    width: 100%;
+  
+  }
+  .register{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .register_image-container{
+    align-items: center;
+    background: linear-gradient(to bottom, var(--principal), #132939, var(--backgroundSecundario));
+    background: linear-gradient(to bottom, #003f5a, #007a7a);
+    background: linear-gradient(to bottom, #de6600, #fea02f);
+  
+  
+    border-radius:  2rem 2rem 0 0;
+    color: #003f5a;
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    padding-bottom: 2rem;
+  }
+  .register_image-container img{
+    margin: auto;
+    object-fit: contain;
+    padding-top: 1rem;
+    width: 30%;
+  }
+  .register_image-container h1{
+    font-size: 1.7rem;
+  }
+  .register_image-container p{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+  }
+  .register-info_container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-register{
+    color: #003f5a;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+  }
+  .input-register label{
+    padding-bottom: .3rem;
+  }
+  .input-register input{
+    /* background: #007a7a; */
+    border: none;
+    border-radius: .5rem;
+    text-indent: 1rem;
+  }
+  .input-register input::placeholder{
+    color: var(--principal);
+  }
+  .register-btn_container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  
+  }
+  .btn_register {
+    background-color: #003f5a;
+    border: none;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: .7rem;
+    transition: background-color 0.2s ease-in-out;
+    width: 80%;
+  }
+  
+  .btn_register:hover {
+    background-color: #002636;
+    cursor: pointer;
+  }
+  
