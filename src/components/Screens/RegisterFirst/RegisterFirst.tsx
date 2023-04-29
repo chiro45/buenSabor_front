@@ -1,6 +1,7 @@
-import { InputGeneric } from "./InputGeneric"
-import logo from "../assets/logopng.webp"
+import { InputGeneric } from "../../ui/InputGeneric/InputGeneric"
+import logo from "../../../assets/logopng.webp"
 import "./RegisterFirst.css"
+import { NavBarMobile } from "../../ui/NavBarMobile/NavBarMobile"
 
 export const RegisterFirst = () => {
     return (
@@ -46,6 +47,7 @@ export const RegisterFirst = () => {
                         <button className="btn_register">Registrarse</button>
                     </div>
                 </div>
+                <NavBarMobile/>
             </div>
 
         </>

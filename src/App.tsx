@@ -1,10 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
-import { InputGeneric } from './components/InputGeneric'
 import { useInput } from './hooks/useInput'
-import { RegisterFirst } from './components/RegisterFirst'
+import { RegisterFirst } from './components/Screens/RegisterFirst/RegisterFirst'
 
 function App() {
 

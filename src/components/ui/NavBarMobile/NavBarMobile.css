@@ -1,0 +1,32 @@
+.navBarMobile__containerPrincipal {
+    position: absolute;
+    bottom: 2vh;
+    height: 10vh;
+    width: 100vw;
+    background-color: #3f4043;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.navBarMobile__contaierItems {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+
+}
+
+.navBarCarItemActive,
+.navBarCarItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navBarCarItem {
+    color: #fff;
+}
+.navBarCarItemActive{
+    color: #f9af57;
+}
