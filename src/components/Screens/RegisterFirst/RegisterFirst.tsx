@@ -47,7 +47,7 @@ export const RegisterFirst = () => {
                         <button className="btn_register">Registrarse</button>
                     </div>
                 </div>
-                <NavBarMobile/>
+                
             </div>
 
         </>
