@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-export const useInput = (intialInput:object) => {
-  
-    const [inputState, setInputState] = useState(intialInput);
+export const useInput = (intialInput: object) => {
+
+    const [inputState, setInputState] = useState<any>(intialInput);
 
     const onInputChange = ({ target }: any) => {
         const { name, value } = target;
@@ -13,9 +13,5 @@ export const useInput = (intialInput:object) => {
         });
     }
 
-    return{
-        ...inputState,
-        inputState,
-        onInputChange
-    }
+    return [inputState,onInputChange]
 }
