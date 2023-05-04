@@ -1,6 +1,7 @@
+import {FunctionComponent} from "react";
 import "./InputGeneric.css"
-import {FC} from "react";
-interface InputProps {
+
+interface Props {
   placeholder: string;
   name?: string;
   height?: number;
@@ -12,7 +13,7 @@ interface InputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputGeneric: FC<InputProps> = ({
+export const InputGeneric: FunctionComponent<Props> = ({
   placeholder,
   name,
   height = 30,
