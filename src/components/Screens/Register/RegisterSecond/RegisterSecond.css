@@ -1,0 +1,147 @@
+:root{
+  --backgroundRegister:#2A3C47;
+  --backgroundBordoOscuro:#671c1c;
+  --backgroundBordoClaro:#bc3434;
+  --letraplaceholder:#9c7474;
+  --letra:white;
+}
+
+/* * {
+  outline: white dashed 1px;
+} */
+
+.containerPrincipalRegister {
+  align-items: center;
+  background-color: var(--letra);
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.containerRegister {
+  align-items: center;
+  /* background: linear-gradient(to bottom, var(--backgroundBordoOscuro), var(--backgroundBordoOscuro)); */
+  background: var(--backgroundBordoClaro);
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: center;
+  width: 90vw;
+}
+
+
+
+
+.register_image-container {
+  align-items: center;
+  color: var(--letra);
+  display: flex;
+  flex-direction: column;
+  height: 35%;
+  justify-content: space-around;
+}
+
+.register_image-container img {
+  object-fit: contain;
+  width: 25%;
+}
+
+.register_image-container p {
+  /* font-size: 1.2rem; */
+  font-weight: 400;
+  text-align: center;
+}
+
+.register-info_containerSecond {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-inputs_containerSecond {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  justify-content: center;
+  width: 80%;
+}
+.column{
+  width: 100%;
+}
+.register-columns_container{
+  display: flex;
+  gap: 5%;
+  height: 60%;
+  justify-content: space-between;
+  width: 100%;
+}
+.register-columnD, .register-columnI{
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+  width: 100%;
+}
+.register-columnD{
+  align-items: flex-end;
+
+}
+.register-columnI{
+  align-items: flex-start;
+
+}
+
+.input-register {
+  color: var(--letra);
+  display: flex;
+  flex-direction: column;
+}
+
+.input-register label {
+  padding-bottom: 2%;
+}
+
+.input-register input {
+  border: none;
+  border-radius: .5rem;
+  color: var(--backgroundBordoOscuro);
+  text-indent: .7rem;
+}
+
+.input-register input::placeholder {
+  color: var(--letraplaceholder);
+}
+
+
+.containerbuttonsRegisterSecond {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+}
+
+.buttonRegister-register__divPrincipal {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonRegister-register__divPrincipal button {
+  background-color: var(--backgroundBordoOscuro);
+  border: 2px solid var(--letra);
+  border-radius: .4rem;
+  color: var(--letra);
+  font-size: 4vw;
+  font-weight: 600;
+  height: 5vh;
+  padding: .4rem;
+  width: 60vw;
+}
