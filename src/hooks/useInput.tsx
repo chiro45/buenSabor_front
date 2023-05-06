@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-export const useInput = (intialInput: object) => {
+export const useInput = (intialInput: object = {}) => {
 
-    const [inputState, setInputState] = useState<any>(intialInput);
+    const [inputState, setInputState] = useState(intialInput);
 
-    const onInputChange = ({ target }: any) => {
-        const { name, value } = target;
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
         setInputState({
             ...inputState,
             [name]: value,

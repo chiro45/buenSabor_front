@@ -1,0 +1,22 @@
+:root{
+  --principal: #0f232f;
+  --secundario: #fcfffc;
+  --terciario: #ba3423;
+  --background: #ffffff;
+  --backgroundSecundario: #eae8d8;
+}
+table {
+    border-collapse: collapse;
+    margin: auto;
+  }
+  
+  thead {
+    background-color: #BCC1CA;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid black;
+  }
+  

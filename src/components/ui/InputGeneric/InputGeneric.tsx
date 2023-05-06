@@ -1,6 +1,6 @@
 import "./InputGeneric.css"
-
-interface Props {
+import {FC} from "react";
+interface InputProps {
   placeholder: string;
   name?: string;
   height?: number;
@@ -12,7 +12,7 @@ interface Props {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputGeneric: React.FC<Props> = ({
+export const InputGeneric: FC<InputProps> = ({
   placeholder,
   name,
   height = 30,
