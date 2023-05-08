@@ -1,0 +1,21 @@
+.category-icon{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    width:30%;
+    align-items: center;
+
+}
+.circunferencia{
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: 50%;
+    background-color: #2bc940;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.category-icon img,.fa-icon{
+    width: 1rem;
+    height: 1rem;
+}
