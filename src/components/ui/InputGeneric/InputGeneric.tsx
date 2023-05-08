@@ -4,7 +4,7 @@ interface InputProps {
   placeholder: string;
   name?: string;
   height?: number;
-  width?: number;
+  width?: string;
   label?: string;
   type?: 'text' | 'password' | 'email' | 'number';
   value?: string;
