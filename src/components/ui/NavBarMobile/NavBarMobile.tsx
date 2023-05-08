@@ -1,5 +1,7 @@
 
 import "./NavBarMobile.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faShop, faList, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 export const NavBarMobile = () => {
 
   return (
@@ -7,17 +9,17 @@ export const NavBarMobile = () => {
       <div className="navBarMobile__contaierItems">
         {
           [{
-            text: "Home", icon: "fas fa-house", active: false
+            text: "Home", icon: faHome, active: false
           }, {
-            text: "Store", icon: "fas fa-shop", active: true
+            text: "Store", icon: faShop, active: true
           }, {
-            text: "Ordenes", icon: "fas fa-list-ol", active: false
+            text: "Ordenes", icon: faList, active: false
           }, {
-            text: "cart", icon: "fas fa-cart-shopping", active: false
-          }].map(({text, icon,active}) => (
-            <div className={active ? "navBarCarItemActive" :"navBarCarItem"}>
+            text: "cart", icon: faShoppingCart, active: false
+          }].map(({ text, icon, active }) => (
+            <div className={active ? "navBarCarItemActive" : "navBarCarItem"}>
               <div>
-                <i className={`${icon}`}></i>
+                <FontAwesomeIcon icon={icon} />
               </div>
               <div>
                 <p>{text}</p>

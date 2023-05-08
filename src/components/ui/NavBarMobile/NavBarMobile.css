@@ -1,6 +1,6 @@
 .navBarMobile__containerPrincipal {
-    position: absolute;
-    bottom: 2vh;
+    position: fixed;
+    bottom: 0vh;
     height: 10vh;
     width: 100vw;
     background-color: #3f4043;
