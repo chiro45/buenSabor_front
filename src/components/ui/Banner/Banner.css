@@ -1,0 +1,51 @@
+:root{
+    --backgroundRegister:#2A3C47;
+    --backgroundBordoOscuro:#671c1c;
+    --backgroundBordoClaro:#bc3434;
+    --letraplaceholder:#9c7474;
+    --letra:white;
+  }
+
+/* * {
+  outline: red dashed 1px;
+} */
+
+.containerPrincipal-Banner{
+    align-items: center;
+    background: var(--backgroundBordoClaro);
+    display: flex;
+    height: 35vh;
+    justify-content: space-around;
+    width: 100vw;
+}
+
+.containerBanner-Info{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    justify-content: space-evenly;
+    width: 40%;
+
+}
+.containerBanner-Info h1{
+    color: var(--letra);
+    font-size: 1.3rem;
+}
+
+.containerBanner-img{
+    max-width: 30vh;
+    width: 35vw;
+}
+
+.btnComprar-Banner {
+    background-color: var(--backgroundBordoOscuro);
+    border: 2px solid var(--letra);
+    border-radius: .4rem;
+    color: var(--letra);
+    font-size: 1rem;
+    font-weight: 600;
+    height: fit-content;
+    padding: .4rem;
+    padding: .5rem 1rem .5rem 1rem;
+    width: fit-content;
+  }
