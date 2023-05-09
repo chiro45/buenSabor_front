@@ -1,21 +1,18 @@
 
-import './App.css'
 import { useInput } from './hooks/useInput'
-import { RegisterFirst } from './components/Screens/RegisterFirst/RegisterFirst'
-import { InputGeneric } from './components/ui/InputGeneric/InputGeneric'
 import { NavBarMobile } from './components/ui/NavBarMobile/NavBarMobile'
+import { RegisterFirst } from './components/Screens/Register/RegisterFirst/RegisterFirst'
+import { Landing } from './components/Screens/Landing/Landing'
+
+import './styles/Global.css'
 
 function App() {
-
-  const [inputState, onInputChange, username]: any = useInput({
-    username: '',
-})
+  
   return (
-    <>
-      
-      <RegisterFirst/>
+    <div >
+      <Landing/>
       <NavBarMobile/>
-    </>
+    </div>
   )
 }
 
