@@ -1,8 +1,7 @@
 .containerPrincipal__Landing{
     background-color: #000;
     width: 100vw;
-    height: 95vh;
-    margin-bottom: 2vh;
+    margin-bottom: 11vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -12,9 +11,6 @@
     margin-top: 2vh;
     background-color: #222222;
     width: 95vw;
-    height: 100vh;
-    max-height: 88vh;
-    overflow-y:auto ;
     overflow-x: hidden;
     border-radius: .4rem;
 }

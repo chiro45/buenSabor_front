@@ -94,9 +94,7 @@ export const Landing = () => {
                 <ProductFavorities productFav={initial} />
                 <ProductFavorities productFav={initial2} />
                 <ProductFavorities productFav={initial3} />
-
             </div>
-            <NavBarMobile />
         </div>
     )
 }
