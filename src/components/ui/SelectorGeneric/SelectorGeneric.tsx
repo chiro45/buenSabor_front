@@ -33,8 +33,8 @@ export const SelectorGeneric: React.FC<SelectorProps> = ({
                 onChange={onSelectorChange}
                 style={{ height, width }}
             >
-                {options.map((option) => (
-                    <option key={option} value={option}>
+                {options.map((option, i) => (
+                    <option key={i} value={option}>
                         {option}
                     </option>
                 ))}

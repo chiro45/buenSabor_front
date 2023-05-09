@@ -24,8 +24,8 @@ export const ProductFavorities = ({ productFav }:any) => {
                 <div className="productFavorities__cardItemsContainer">
                     {
                         arrItems !== undefined &&
-                        arrItems.map((el:any) => (
-                            <CardItem  item={el}/>
+                        arrItems.map((el:any, i:number) => (
+                            <CardItem key={i} item={el}/>
                         ))
                     }
                 </div>
