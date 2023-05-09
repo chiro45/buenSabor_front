@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #000;
+}
+
+:root {
+    --principal: #0f232f;
+    --secundario: #fcfffc;
+    --terciario: #ba3423;
+    --background: #ffffff;
+    --backgroundSecundario: #eae8d8;
+}
