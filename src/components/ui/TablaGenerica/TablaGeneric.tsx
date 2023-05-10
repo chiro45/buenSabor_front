@@ -36,11 +36,11 @@ export const GenericTable = <T extends { id: any }>({ columns, data }: TableProp
                 <td  key={column.key}>
                   <div className="tdTableGeneric">
                     {
-                      column.render
+                      column.render// render existe ejecuta render
                         ? column.render(item[column.key])
-                        : column.isTrueOrFalse
+                        : column.isTrueOrFalse//si existe si es booleano 
                           ? column.isTrueOrFalse(item[column.key])
-                          : column.label === "Acciones"
+                          : column.label === "Acciones" //si el label es acciones 
                             ? <BtnsTable />
                             : item[column.key]
                     }
