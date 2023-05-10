@@ -16,7 +16,15 @@ interface TableProps<T> {
 }
 
 export const GenericTable = <T extends { id: any }>({ columns, data }: TableProps<T>) => {
+  const handledelete = ()=>{
+    
+  }
+  const handleEdit = ()=>{
 
+  }
+  const handleView = ()=>{
+
+  }
   return (
     <div className="containerTablegeneric">
       <table className="GenericTableContainer">
