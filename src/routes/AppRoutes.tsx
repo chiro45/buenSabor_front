@@ -10,6 +10,7 @@ export const AppRoutes = () => {
       <Route path="/" element={<Landing />} />
       <Route path="/config/category" element={<ConfigCategory/>}/>
       <Route path="/config/articuloInsumo" element={<ConfigArticuloInsumo/>}/>
+      <Route path="/config/unidadMedida" element={<ConfigArticuloInsumo/>}/>
     </Routes>
   )
 }
