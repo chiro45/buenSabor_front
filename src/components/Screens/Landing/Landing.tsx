@@ -1,4 +1,3 @@
-
 import { CategoryList } from "../../CategoryList/CategoryList"
 import { Banner } from "../../ui/Banner/Banner"
 import { Header } from "../../ui/Header/Header"

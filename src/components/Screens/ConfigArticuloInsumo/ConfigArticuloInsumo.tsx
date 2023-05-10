@@ -25,17 +25,17 @@ export interface Categoria {
 }
 
 
-export const ConfigCategory = () => {
+export const ConfigArticuloInsumo = () => {
 
     const columnsArtInsumo = [
         { label: 'Denominación', key: 'denominacion' },
-        { label: 'Es Insumo', key: 'esInsumo' , isTrueOrFalse:(insumoT: boolean) =>(( insumoT===true )?"Insumo": "NoInsumo")},
+        { label: 'Es Insumo', key: 'esInsumo', isTrueOrFalse: (insumoT: boolean) => ((insumoT === true) ? "Insumo" : "NoInsumo") },
         { label: 'Precio Compra', key: 'precioCompra' },
         { label: 'Precio Venta', key: 'precioVenta' },
         { label: 'Stock Actual', key: 'stockActual' },
         { label: 'Stock Mínimo', key: 'stockMinimo' },
         { label: 'Unidad de Medida', key: 'unidadMedida', render: (unidadMedida: UnidadMedida) => unidadMedida.tipo },
-        {label: "Acciones", key:"acciones"}
+        { label: "Acciones", key: "acciones" }
     ];
 
     const dataArtInsumo: ArticuloInsumo[] = [
