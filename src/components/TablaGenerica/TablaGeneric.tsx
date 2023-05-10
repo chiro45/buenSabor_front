@@ -1,3 +1,4 @@
+import { BtnsTable } from "../ui/Buttons/BtnsTable";
 import "./TablaGeneric.css";
 
 interface Column {
@@ -31,7 +32,9 @@ export const TablaGeneric: React.FC<Props> = ({ columns, data }) => {
               {row.map((cell, cellIndex) => (
                 <td key={cellIndex}>{cell}</td>
               ))}
-              <td><button>Boton</button></td>
+              <td>
+                <BtnsTable/>
+              </td>
             </tr>
           ))}
           

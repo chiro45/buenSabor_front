@@ -1,7 +1,6 @@
 .containerPrincipal__Landing{
     background-color: #000;
     width: 100vw;
-    margin-bottom: 11vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
