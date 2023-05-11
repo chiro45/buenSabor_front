@@ -5,6 +5,7 @@ import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
 import { ABMComponent } from "../../ui/ABMComponent/ABMComponent";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { InputGeneric } from "../../ui/InputGeneric/InputGeneric";
 
 
 
@@ -107,7 +108,6 @@ export const ConfigUnidadMedida = () => {
                 Subheader
             </div>
             <SearchGeneric label={"Unidad Medida"} placeholder={"Ingrese su categoria"} />
-
             {
                 openModal ==false
                 ? <button onClick={() => { setOpenModal(true)}}> Agregar Unidad Medida</button> 
