@@ -8,23 +8,19 @@ interface TableColumn {
   width?: string | number; // Ancho opcional de la columna
   render?: (item: any) => React.ReactNode; // Función opcional para personalizar la renderización del contenido de la celda
   isTrueOrFalse?: (item: any) => React.ReactNode; // Función opcional para personalizar la renderización del contenido de la celda
+  
+  
 }
 
 interface TableProps<T> {
   columns: TableColumn[]; // Definición de las columnas de la tabla
   data: T[]; // Datos a mostrar en la tabla
+  deleted(id:number): void ;
+  get(id:number): void;
+  update(id:number): void;
 }
 
-export const GenericTable = <T extends { id: any }>({ columns, data }: TableProps<T>) => {
-  const handledelete = ()=>{
-    
-  }
-  const handleEdit = ()=>{
-
-  }
-  const handleView = ()=>{
-
-  }
+export const GenericTable = <T extends { id: any }>({ columns, data, update, get ,deleted }: TableProps<T>) => {
   return (
     <div className="containerTablegeneric">
       <table className="GenericTableContainer">
@@ -49,7 +45,11 @@ export const GenericTable = <T extends { id: any }>({ columns, data }: TableProp
                         : column.isTrueOrFalse//si existe si es booleano 
                           ? column.isTrueOrFalse(item[column.key])
                           : column.label === "Acciones" //si el label es acciones 
-                            ? <BtnsTable />
+                            ? <BtnsTable 
+                            functionDelete={deleted} 
+                            functionEdit={update} 
+                            functionView={get}
+                            element={item} />
                             : item[column.key]
                     }
                   </div>

@@ -4,24 +4,24 @@ import "./BtsTable.css"
 import { FunctionComponent } from "react"
 
 interface IBtnsTable {
-    functionEdit?: () => {}
-    functionView?: () => {}
-    functionDelete?: () => {}
-    element?: {}
+    functionEdit(id:number): any;
+    functionView(id:number): any;
+    functionDelete(id:number): any;
+    element: any
 
 }
 export const BtnsTable: FunctionComponent<IBtnsTable> = ({ functionDelete, functionEdit, functionView, element }) => {
 
     const handleView = () => {
-        //functionView()
+        functionView(element.id)
     }
 
     const handleDelete = () => {
-        //functionDelete()
+        functionDelete(element.id)
     }
 
     const handleEdit = () => {
-        //functionEdit()
+        functionEdit(element.id)
     }
 
     return (

@@ -13,5 +13,5 @@ export const useInput = (intialInput: object = {}) => {
         });
     }
 
-    return [inputState,onInputChange]
+    return [inputState,onInputChange, setInputState]
 }
