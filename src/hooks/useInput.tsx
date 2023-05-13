@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export const useInput = (intialInput: object = {}) => {
-
+    console.log(intialInput)
     const [inputState, setInputState] = useState(intialInput);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
