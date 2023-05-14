@@ -1,67 +1,88 @@
 import { TypesTableGeneric } from '../../Types/TypesTableGeneric';
+import axios from 'axios';
 
+// Definimos la interfaz para el estado de la tabla
 interface TableState {
-    elementActive: any;
-    data: any[];
+  elementActive: any;
+  data: any[];
 }
 
+// Definimos la interfaz para las acciones que se pueden realizar sobre el estado
 interface TableAction {
-    type: string;
-    payload?: any;
+  type: string;
+  payload?: any;
 }
 
-// Definimos el estado inicial
+// Definimos el estado inicial de la tabla
 const initialState: TableState = {
-    elementActive: null,
-    data: []
-}
+  elementActive: null,
+  data: []
+};
 
-// Creamos el reducer
-export const TableReducer = (state: TableState = initialState, action: TableAction) => {
-    switch (action.type) {
-        case TypesTableGeneric.addData:
-            return {
-                ...state,
-                data: action.payload
-            }
-        case TypesTableGeneric.removeData:
-            return {
-                elementActive: null,
-                data: []
-            }
-        case TypesTableGeneric.addElementActive:
-            return {
-                ...state,
-                elementActive: action.payload
-            }
-        case TypesTableGeneric.removeElementActive:
-            return {
-                ...state,
-                elementActive: null
-            }
-        default:
-            return state;
+// Creamos el reducer que maneja el estado de la tabla
+export const TableReducer = (state: TableState = initialState, action: TableAction): TableState => {
+  switch (action.type) {
+    // Agregamos los datos a la tabla
+    case TypesTableGeneric.addData:
+      return {
+        ...state,
+        data: action.payload
+      };
+    // Removemos todos los datos de la tabla
+    case TypesTableGeneric.removeData:
+      return {
+        elementActive: null,
+        data: []
+      };
+    // Agregamos un elemento activo a la tabla
+    case TypesTableGeneric.addElementActive:
+      return {
+        ...state,
+        elementActive: action.payload
+      };
+    // Removemos el elemento activo de la tabla
+    case TypesTableGeneric.removeElementActive:
+      return {
+        ...state,
+        elementActive: null
+      };
+    // En caso de que no se realice ninguna acción, devolvemos el estado actual
+    default:
+      return state;
+  }
+};
+
+// Función asincrónica que hace una solicitud GET a la URL especificada y actualiza el estado de la tabla
+export const getDataTable = (url: string): any => {
+  return async (dispatch: any): Promise<void> => {
+    try {
+      const respuesta = await axios.get(url);
+      // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
+      dispatch(addDataTable(respuesta.data));
+    } catch (error) {
+      console.error(error);
     }
-}
+  };
+};
 
-export const addDataTable = (data: {}) => ({
-    // Se define una acción "addDataTable" que recibe un objeto "data" como argumento
-    type: TypesTableGeneric.addData, // Se especifica el tipo de acción que se está ejecutando
-    payload: data // Se especifica el dato que se va a pasar como parámetro en la acción
-})
+// Función que crea una acción para agregar datos a la tabla
+const addDataTable = (data: {}): TableAction => ({
+  type: TypesTableGeneric.addData,
+  payload: data
+});
 
-export const addElementActiveTable = (data: {}) => ({
-    // Se define una acción "addElementActiveTable" que recibe un objeto "data" como argumento
-    type: TypesTableGeneric.addElementActive, // Se especifica el tipo de acción que se está ejecutando
-    payload: data // Se especifica el dato que se va a pasar como parámetro en la acción
-})
+// Función que crea una acción para agregar un elemento activo a la tabla
+export const addElementActiveTable = (data: {}): TableAction => ({
+  type: TypesTableGeneric.addElementActive,
+  payload: data
+});
 
-export const removeDataTable = () => ({
-    // Se define una acción "removeDataTable" que no recibe argumentos
-    type: TypesTableGeneric.removeData // Se especifica el tipo de acción que se está ejecutando
-})
+// Función que crea una acción para remover todos los datos de la tabla
+export const removeDataTable = (): TableAction => ({
+  type: TypesTableGeneric.removeData
+});
 
-export const removeElementActiveTable = () => ({
-    // Se define una acción "removeElementActiveTable" que no recibe argumentos
-    type: TypesTableGeneric.removeElementActive // Se especifica el tipo de acción que se está ejecutando
-})
+// Función que crea una acción para remover el elemento activo de la tabla
+export const removeElementActiveTable = (): TableAction => ({
+  type: TypesTableGeneric.removeElementActive
+});

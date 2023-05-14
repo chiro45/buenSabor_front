@@ -1,7 +1,11 @@
 import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
 import { Header } from "../../ui/Header/Header"
 import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
-import "./ConfigCategory.css"
+import { ModalArticuloInsumo } from "../../ui/Modals/ModalTables/ModalArticuliInsumo/ModalArticuloInsumo";
+import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 
 interface ArticuloInsumo {
     id: number;
@@ -13,20 +17,17 @@ interface ArticuloInsumo {
     stockMinimo: number;
     unidadMedida: UnidadMedida,
 }
+
 export interface UnidadMedida {
     id: number;
     tipo: string;
 }
-export interface Producto {
 
-}
-export interface Categoria {
-
-}
-
+const urlMedidas = "http://localhost:9000/articulosinsumos"
 
 export const ConfigArticuloInsumo = () => {
 
+    // Definimos las columnas que va a tener la tabla
     const columnsArtInsumo = [
         { label: 'Denominación', key: 'denominacion' },
         { label: 'Es Insumo', key: 'esInsumo', isTrueOrFalse: (insumoT: boolean) => ((insumoT === true) ? "Insumo" : "NoInsumo") },
@@ -38,61 +39,40 @@ export const ConfigArticuloInsumo = () => {
         { label: "Acciones", key: "acciones" }
     ];
 
-    const dataArtInsumo: ArticuloInsumo[] = [
-        {
-            id: 1,
-            denominacion: 'denominacion_value2',
-            esInsumo: true,
-            precioCompra: 10.99,
-            precioVenta: 19.99,
-            stockActual: 100.0,
-            stockMinimo: 50.0,
-            unidadMedida: {
-                id: 1,
-                tipo: 'tipo_value',
-            }
-        },
-        {
-            id: 1,
-            denominacion: 'denominacion_value2',
-            esInsumo: false,
-            precioCompra: 10.99,
-            precioVenta: 19.99,
-            stockActual: 100.0,
-            stockMinimo: 50.0,
-            unidadMedida: {
-                id: 1,
-                tipo: 'tipo_value',
-            }
-        },
-        {
-            id: 1,
-            denominacion: 'denominacion_value2',
-            esInsumo: true,
-            precioCompra: 10.99,
-            precioVenta: 19.99,
-            stockActual: 100.0,
-            stockMinimo: 50.0,
-            unidadMedida: {
-                id: 1,
-                tipo: 'tipo_value',
-            }
-        }
+    const dispatch = useDispatch()
 
-    ];
+    // Utilizamos useEffect para actualizar los datos de la tabla en el estado global cuando cambia la propiedad "data"
+    useEffect(() => {
+        dispatch(getDataTable(urlMedidas))
+    }, [])
 
     return (
         <div>
             <Header />
+
+            {/* Subheader */}
             <div style={{ height: "5vh", backgroundColor: "#fea" }}>
                 Subheader
             </div>
-            <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
-            <div>
-                <button>Agregar Categoria</button>
-            </div>
 
-            <GenericTable<ArticuloInsumo> columns={columnsArtInsumo} data={dataArtInsumo} />
+            {/* Búsqueda genérica */}
+            <SearchGeneric
+                label={"categoria"}
+                placeholder={"Ingrese su categoria"}
+            />
+
+            {/* Modal de artículo insumo */}
+            <ModalArticuloInsumo />
+
+            {/* Modal de visualización de elementos */}
+            <ModalViewElements />
+
+            {/* Tabla genérica */}
+            <GenericTable<ArticuloInsumo>
+                columns={columnsArtInsumo}
+                urlFetch={urlMedidas}
+                nameTable={"modalArticuloInsumo"}
+            />
 
         </div>
     )

@@ -3,15 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./BtsTable.css"
 import { FunctionComponent } from "react"
 import { useDispatch } from "react-redux"
-import { addElementActiveTable } from "../../../Redux/Reducers/TableReducer/TableReducer"
+import { addElementActiveTable, getDataTable } from '../../../Redux/Reducers/TableReducer/TableReducer';
 import { handleModalsTable } from "../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import Swal from "sweetalert2"
+import axios from 'axios';
 
 interface IBtnsTable {
     element: any,
     nameTable?: string
+    urlFetch: string
 }
-export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable }) => {
+export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, urlFetch }) => {
     const dispatch = useDispatch()
     const handleView = () => {
         dispatch(addElementActiveTable(element))
@@ -29,10 +31,12 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable })
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-
+                axios.delete(`${urlFetch}/${element.id}`)
+                    .then((response) => { dispatch(getDataTable(urlFetch)) })
+                    .catch((error) => console.error(error))
                 Swal.fire(
                     'Deleted!',
-                    'Cliente Eliminado.',
+                    'Eliminado',
                     'success'
                 )
             }

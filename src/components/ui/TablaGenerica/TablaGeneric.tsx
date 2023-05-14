@@ -17,10 +17,11 @@ interface TableColumn {
 interface TableProps<T> {
   columns: TableColumn[]; // Definición de las columnas de la tabla
   nameTable?: string
+  urlFetch: string
 }
 
 // Creamos el componente para la tabla genérica
-export const GenericTable = <T extends { id: any }>({ columns, nameTable }: TableProps<T>) => {
+export const GenericTable = <T extends { id: any }>({ columns, nameTable, urlFetch }: TableProps<T>) => {
   // Obtenemos los datos de la tabla del estado global con useSelector
   const dataTable = useSelector((state: any) => state.TableReducer)
   return (
@@ -55,7 +56,10 @@ export const GenericTable = <T extends { id: any }>({ columns, nameTable }: Tabl
                           : column.isTrueOrFalse // Si existe la función "isTrueOrFalse" y el contenido de la celda es booleano, se ejecuta
                             ? column.isTrueOrFalse(item[column.key])
                             : column.label === "Acciones" // Si el label de la columna es "Acciones" se renderizan los botones de acción
-                              ? <BtnsTable element={item} nameTable={nameTable} />
+                              ? <BtnsTable
+                                element={item}
+                                nameTable={nameTable}
+                                urlFetch={urlFetch} />
                               : item[column.key] // Si no hay una función personalizada, se renderiza el contenido de la celda tal cual
                       }
                     </div>

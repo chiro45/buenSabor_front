@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { removeElementActiveTable } from "../../../../Redux/Reducers/TableReducer/TableReducer"
 import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { LayoutModal } from "../ModalTables/LayoutModal/LayoutModal"
 
 
 export const ModalViewElements = () => {
@@ -15,18 +16,17 @@ export const ModalViewElements = () => {
     dispatch(handleModalsTable("modalview"))
     dispatch(removeElementActiveTable())
   }
+  console.log(elemetActive)
   return (
     <div>
       {
-
         openModal === true
-          ? <div>
+          ? <LayoutModal>
+            <div>
 
-            {Object.entries(elemetActive).map(([key, value]: any) => (
-              <p key={key}> {key}: {value}</p>
-            ))}
-            <button onClick={() => { handleCloseModal() }}>Cerrar</button>
-          </div>
+              <button onClick={() => { handleCloseModal() }}>Cerrar</button>
+            </div>
+          </LayoutModal>
           : null
       }
     </div>
