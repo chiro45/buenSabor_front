@@ -19,7 +19,7 @@ interface Parent {
         denominacion?: string,
         parent?: {}
 }
-const urlMedidas = "http://localhost:9000/categorias"
+const urlMedidas = `${import.meta.env.VITE_URL_API}categorias`
 
 export const ConfigCategory = () => {
 

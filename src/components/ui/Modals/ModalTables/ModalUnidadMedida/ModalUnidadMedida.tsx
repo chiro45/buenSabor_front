@@ -8,7 +8,7 @@ import { LayoutModal } from "../LayoutModal/LayoutModal";
 import axios from 'axios';
 
 
-const urlFetch = ' http://localhost:9000/unidadmedidas'
+const urlFetch = `${import.meta.env.VITE_URL_API}/unidadmedidas`
 export const ModalUnidadMedida = () => {
 
     const dispatch = useDispatch()

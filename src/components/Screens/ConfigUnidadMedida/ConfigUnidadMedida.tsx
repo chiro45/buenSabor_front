@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
 
-const urlMedidas = "http://localhost:9000/unidadmedidas";
+const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
 
 // Define la interfaz de UnidadMedida con sus propiedades y tipos
 interface UnidadMedida {

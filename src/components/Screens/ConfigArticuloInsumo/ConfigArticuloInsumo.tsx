@@ -23,7 +23,7 @@ export interface UnidadMedida {
     tipo: string;
 }
 
-const urlMedidas = "http://localhost:9000/articulosinsumos"
+const urlMedidas = `${import.meta.env.VITE_URL_API}/articulosinsumos`
 
 export const ConfigArticuloInsumo = () => {
 

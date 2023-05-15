@@ -7,7 +7,7 @@ import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Red
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
-const urlFetch = ' http://localhost:9000/categorias'
+const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 
 export const ModalCategoria = () => {
     const dispatch = useDispatch()

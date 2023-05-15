@@ -10,9 +10,9 @@ import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
 
 // URL base para las solicitudes HTTP
-const urlFetch = "http://localhost:9000/articulosinsumos",
-    urlMedidas = 'http://localhost:9000/unidadmedidas',
-    urlCategorias = 'http://localhost:9000/categorias'
+const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
+    urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`,
+    urlCategorias = `${import.meta.env.VITE_URL_API}/categorias`
 export const ModalArticuloInsumo = () => {
     const dispatch = useDispatch();
 
@@ -112,6 +112,9 @@ export const ModalArticuloInsumo = () => {
                 },
                 unidadMedida: {
                     id: parseFloat(valuesSelector.unidadMedida)
+                },
+                producto :{
+                    id: parseFloat(elemetActive.id)
                 }
 
             })
