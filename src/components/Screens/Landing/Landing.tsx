@@ -1,4 +1,4 @@
-
+import { CategoryList } from "../../CategoryList/CategoryList"
 import { Banner } from "../../ui/Banner/Banner"
 import { Header } from "../../ui/Header/Header"
 import { NavBarMobile } from "../../ui/NavBarMobile/NavBarMobile"
@@ -89,12 +89,14 @@ export const Landing = () => {
     return (
         <div className="containerPrincipal__Landing">
             <Header />
+            <CategoryList />
             <Banner bannerItem={bannerItem} />
             <div className="containerItems__landing">
                 <ProductFavorities productFav={initial} />
                 <ProductFavorities productFav={initial2} />
                 <ProductFavorities productFav={initial3} />
             </div>
+            <NavBarMobile />
         </div>
     )
 }

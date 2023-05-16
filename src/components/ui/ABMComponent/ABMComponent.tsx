@@ -6,16 +6,21 @@ import { SelectorGeneric } from "../SelectorGeneric/SelectorGeneric";
 
 interface ABMProps {
     title: string;
-    arrElement?: any[],
+    arrElement?: any[];
+    element?: {};
+    handleSubmit: Function;
+    closeModal: Function;
 }
 
 
 export const ABMComponent: FC<ABMProps> = ({
     title,
-    arrElement
+    arrElement,
+    element,
+    handleSubmit,
+    closeModal,
 }) => {
 
-    const [propsForm, setPropsForm] = useState({})
 
     const handlePropsForm = () => {
         const result = arrElement?.filter(element => element.type === "input")
@@ -29,20 +34,17 @@ export const ABMComponent: FC<ABMProps> = ({
 
         if (parseResult != undefined) {
             for (let item of parseResult) {
-
                 obj[item.name] = item.value;
             }
         }
-
-        setPropsForm(obj)
+        setInputState(obj)
     }
-
     useEffect(() => {
         handlePropsForm()
     }, [])
 
 
-    const [inputState, onInputChange, username]: any = useInput(propsForm)
+    const [inputState, onInputChange, setInputState]: any = useInput({})
 
     const [valuesSelector, setValuesSelector] = useState<any>([])
 
@@ -64,37 +66,55 @@ export const ABMComponent: FC<ABMProps> = ({
     }
 
     const btnCancelar = () => {
-
-
+        closeModal(false)
     }
+    const submit = () => {
+        handleSubmit(
+            {
+                inputsValues: inputState,
+                selectorValues: valuesSelector
+            })
+    }
+    
+
     return (
+
         <div>
-            <h2>{title}</h2>
             <div>
-                {
-                    arrElement && arrElement.length > 0 &&
-                    arrElement?.map(option => (
-                        option.type === "selector"
-                            ? <SelectorGeneric
-                                options={option.options}
-                                label={option.label}
-                                handleSelector={handleSelector}
-                                name={option.name}
-                            />
-                            : <InputGeneric
-                                placeholder={option.placeholder}
-                                label={option.label}
-                                onChange={onInputChange}
-                                name={option.name}
-                                value={inputState[option.name]}
-                            />
-                    ))
-                }
+                <h2>{title}</h2>
+                <div>
+                    {
+                        arrElement && arrElement.length > 0 &&
+                        arrElement?.map(option => (
+                            option.type === "selector"
+                                ? <SelectorGeneric
+                                    options={option.options}
+                                    label={option.label}
+                                    handleSelector={handleSelector}
+                                    name={option.name}
+                                    
+                                />
+                                : <InputGeneric
+                                    placeholder={inputState[option.name]}
+                                    label={option.label}
+                                    onChange={onInputChange}
+                                    name={option.name}
+                                    value={inputState[option.name]}
+                                />
+                        ))
+                    }
+                </div>
+                <div>
+                    <button onClick={() => {
+                        btnCancelar()
+                    }}>Cancelar</button>
+                    <button onClick={() => {
+                        submit()
+                    }}>Guardar</button>
+                </div>
             </div>
-            <div>
-                <button onClick={() => { console.log(inputState, valuesSelector) }}>Cancelar</button>
-                <button>Guardar</button>
-            </div>
+
+
         </div>
     )
 }
