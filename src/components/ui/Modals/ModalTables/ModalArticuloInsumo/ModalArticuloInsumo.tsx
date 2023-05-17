@@ -8,6 +8,8 @@ import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/M
 import axios from 'axios';
 import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
+import { ArticuloInsumo } from "../../../../../interfaces/entidades"
+import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 
 // URL base para las solicitudes HTTP
 const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
@@ -20,7 +22,7 @@ export const ModalArticuloInsumo = () => {
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloInsumo);
 
     // Obtiene el elemento activo de la tabla actual de Redux
-    const elemetActive = useSelector((state: any) => state.TableReducer.elementActive);
+    const elementActive: ArticuloInsumo = useSelector((state: any) => state.TableReducer.elementActive);
 
     // Define variables de estado para almacenar los datos de las listas desplegables
     const [dataUnidadMediads, setDataUnidadMedidas] = useState([]);
@@ -33,6 +35,7 @@ export const ModalArticuloInsumo = () => {
     const [inputState, onInputChange, setInputState]: any = useInput();
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         esInsumo: false,
+        altaBaja: false
     });
 
     // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
@@ -52,18 +55,21 @@ export const ModalArticuloInsumo = () => {
     useEffect(() => {
         if (openModal === true) {
             setInputState({
-                denominacion: elemetActive !== null ? elemetActive.denominacion : "",
-                precioCompra: elemetActive !== null ? elemetActive.precioCompra : 0,
-                precioVenta: elemetActive !== null ? elemetActive.precioVenta : 0,
-                stockActual: elemetActive !== null ? elemetActive.stockActual : 0,
-                stockMinimo: elemetActive !== null ? elemetActive.stockMinimo : 0
+                denominacion: elementActive !== null ? elementActive.denominacion : "",
+                descripcion: elementActive !== null ? elementActive.descripcion : "",
+                precioCompra: elementActive !== null ? elementActive.precioCompra : 0,
+                precioVenta: elementActive !== null ? elementActive.precioVenta : 0,
+                stockActual: elementActive !== null ? elementActive.stockActual : 0,
+                stockMinimo: elementActive !== null ? elementActive.stockMinimo : 0,
+                imagen: elementActive !== null ? elementActive.imagen : "",
             })
             setSelectorsValues({
-                categoria: elemetActive !== null ? elemetActive.categoria.id : "",
-                unidadMedida: elemetActive !== null ? elemetActive.unidadMedida.id : "",
+                categoria: elementActive !== null ? elementActive.categoria.id : "",
+                unidadMedida: elementActive !== null ? elementActive.unidadMedida.id : "",
             })
             setCheckboxStates({
-                esInsumo: elemetActive !== null ? elemetActive.esInsumo : false,
+                esInsumo: elementActive !== null ? elementActive.esInsumo : false,
+                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
             })
             getDataCategories()
             getDataUnidadMedidas()
@@ -76,15 +82,18 @@ export const ModalArticuloInsumo = () => {
 
     const handleSubmitModal = () => {
         //TODO: SACAR LAS FUNCIONES DE POST PUT
-        if (elemetActive === null) {
+        if (elementActive === null) {
             axios.post(urlFetch,
                 {
                     denominacion: inputState.denominacion,
+                    descripcion: inputState.descripcion,
                     esInsumo: checkboxStates.esInsumo,
                     precioCompra: parseFloat(inputState.precioCompra),
                     precioVenta: parseFloat(inputState.precioVenta),
                     stockActual: parseFloat(inputState.stockActual),
                     stockMinimo: parseFloat(inputState.stockMinimo),
+                    imagen: inputState.imagen,
+                    altaBaja: checkboxStates.altaBaja,
                     categoria: {
                         id: parseFloat(valuesSelector.categoria)
                     },
@@ -99,22 +108,26 @@ export const ModalArticuloInsumo = () => {
                 })
                 .catch((error) => console.error(error))
         } else {
-            axios.put(`${urlFetch}/${elemetActive.id}`, {
-                ...elemetActive,
+            axios.put(`${urlFetch}/${elementActive.id}`, {
+                ...elementActive,
                 denominacion: inputState.denominacion,
+                descripcion: inputState.descripcion,
                 esInsumo: checkboxStates.esInsumo,
                 precioCompra: parseFloat(inputState.precioCompra),
                 precioVenta: parseFloat(inputState.precioVenta),
                 stockActual: parseFloat(inputState.stockActual),
                 stockMinimo: parseFloat(inputState.stockMinimo),
+                imagen: inputState.imagen,
+                altaBaja: checkboxStates.altaBaja,
                 categoria: {
                     id: parseFloat(valuesSelector.categoria)
                 },
                 unidadMedida: {
                     id: parseFloat(valuesSelector.unidadMedida)
                 },
-                producto :{
-                    id: parseFloat(elemetActive.id)
+                // cambio parseFloat(elementActive.id)
+                producto: {
+                    id: elementActive.producto.id
                 }
 
             })
@@ -132,72 +145,97 @@ export const ModalArticuloInsumo = () => {
                 ? <button onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>Modal Unidad Medida</button>
                 : <LayoutModal>
                     <div>
-                        <label>Denominacion</label>
-                        <input type="text"
+
+                        <InputGeneric
+                            label="¿Es insumo?"
+                            onChange={onInputCheckboxChange}
+                            name="esInsumo"
+                            checked={checkboxStates.esInsumo}
+                            value={checkboxStates.esInsumo}
+                            type="checkbox" />
+                        <InputGeneric
+                            label="Denominacion"
+                            type="text"
                             name="denominacion"
                             value={inputState.denominacion}
                             placeholder="Denominacion"
                             onChange={onInputChange}
                         />
-                        <label>Precio de compra</label>
-                        <input
+                        {!checkboxStates.esInsumo && (
+                            <>
+                                <InputGeneric
+                                    label="Descripcion"
+                                    type="text"
+                                    name="descripcion"
+                                    value={inputState.descripcion}
+                                    placeholder="Descripcion"
+                                    onChange={onInputChange}
+                                /><InputGeneric
+                                    label="Imagen"
+                                    type="text"
+                                    name="imagen"
+                                    value={inputState.imagen}
+                                    placeholder="imagen"
+                                    onChange={onInputChange}
+                                />
+                            </>
+                        )}
+                        <InputGeneric
+                            label="Precio de compra"
                             type="number"
                             name="precioCompra"
                             value={inputState.precioCompra}
                             placeholder="Precio de compra"
                             onChange={onInputChange}
                         />
-                        <label>Precio de venta</label>
-                        <input
+                        <InputGeneric
+                            label="Precio de venta"
                             type="number"
                             name="precioVenta"
                             value={inputState.precioVenta}
                             placeholder="Precio de venta"
                             onChange={onInputChange}
                         />
-                        <label>Stock Actual</label>
-                        <input
+
+                        <InputGeneric
+                            label="Stock Actual"
                             type="number"
                             name="stockActual"
                             value={inputState.stockActual}
                             placeholder="Stock Actual"
                             onChange={onInputChange}
                         />
-                        <label>Stock Minimo</label>
-                        <input
+                        <InputGeneric
+                            label="Stock Minimo"
                             type="number"
                             name="stockMinimo"
                             value={inputState.stockMinimo}
                             placeholder="Stock Minimo"
                             onChange={onInputChange}
                         />
-                        <label>¿Es insumo?</label>
-                        <input
-                            onChange={onInputCheckboxChange}
-                            name="esInsumo"
-                            checked={checkboxStates.esInsumo}
-                            value={checkboxStates.esInsumo}
-                            type="checkbox" />
+
+
+                        <label htmlFor="categoria">Categoría:</label>
                         <select onChange={onSelectorChange} name="categoria" >
                             <option>selecciona</option>
                             {
                                 dataCategories.map((el: any) => (
                                     <option
                                         value={el.id}
-                                        selected={elemetActive !== null && elemetActive.categoria.id === el.id ? true : false}>
+                                        selected={elementActive !== null && elementActive.categoria.id === el.id ? true : false}>
                                         {el.denominacion}
                                     </option>
                                 ))
                             }
                         </select>
-
+                        <label htmlFor="categoria">Unidad de Medida:</label>
                         <select onChange={onSelectorChange} name="unidadMedida" >
                             <option>selecciona</option>
                             {
                                 dataUnidadMediads.map((el: any) => (
                                     <option
                                         value={el.id}
-                                        selected={elemetActive !== null && elemetActive.unidadMedida.id === el.id ? true : false}>
+                                        selected={elementActive !== null && elementActive.unidadMedida.id === el.id ? true : false}>
                                         {el.tipo}
                                     </option>
                                 ))
@@ -207,7 +245,7 @@ export const ModalArticuloInsumo = () => {
                             <button
                                 onClick={handleSubmitModal}>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar "
                                         : "Crear "
                                 }

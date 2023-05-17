@@ -7,27 +7,35 @@ import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Red
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
+import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
+import { InputGeneric } from "../../../InputGeneric/InputGeneric"
+import { Categoria } from "../../../../../interfaces/entidades"
 const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 
 export const ModalCategoria = () => {
     const dispatch = useDispatch()
-    const openModal = useSelector((state: any) => state.ModalsReducer.modalcategoria)
-    const elemetActive = useSelector((state: any) => state.TableReducer.elementActive)
+    const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
+    const elementActive:Categoria = useSelector((state: any) => state.TableReducer.elementActive)
     const [dataCategories, setDataCategories] = useState([]);
     const [inputState, onInputChange, setInputState]: any = useInput()
     // Define una variable de estado para almacenar los valores de las listas desplegables seleccionados por el usuario
     const [valuesSelector, onSelectorChange, setSelectorsValues]: any = useSelectorInput();
-
+    const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
+        altaBaja: false,
+    });
 
     useEffect(() => {
         if (openModal === true) {
-            setInputState({ denominacion: elemetActive !== null ? elemetActive.denominacion : "" })
+            setInputState({ denominacion: elementActive !== null ? elementActive.denominacion : "" })
             setSelectorsValues({
-                categoria: elemetActive !== null ?
-                    elemetActive.parent !== null
-                        ? elemetActive.parent.id
+                categoria: elementActive !== null ?
+                    elementActive.parent !== null
+                        ? elementActive.parent.id
                         : ""
                     : ""
+            })
+            setCheckboxStates({
+                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
             })
             getDataCategories()
         } else {
@@ -45,25 +53,27 @@ export const ModalCategoria = () => {
 
     const handleSubmitModal = () => {
 
-        if (elemetActive === null) {
+        if (elementActive === null) {
             axios.post(urlFetch, {
                 parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion
+                denominacion: inputState.denominacion,
+                altaBaja: checkboxStates.altaBaja
             })
                 .then(() => {
                     dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalcategoria"))
+                    dispatch(handleModalsTable("modalCategoria"))
                 })
                 .catch((error) => console.error(error))
         } else {
-            axios.put(`${urlFetch}/${elemetActive.id}`, {
-                ...elemetActive,
+            axios.put(`${urlFetch}/${elementActive.id}`, {
+                ...elementActive,
                 parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion
+                denominacion: inputState.denominacion,
+                altaBaja: checkboxStates.altaBaja
             })
                 .then(() => {
                     dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalcategoria"))
+                    dispatch(handleModalsTable("modalCategoria"))
                 })
                 .catch((error) => console.error(error))
         }
@@ -72,17 +82,17 @@ export const ModalCategoria = () => {
         <div>
             {
                 openModal === false
-                    ? <button onClick={() => { dispatch(handleModalsTable("modalcategoria")) }}>AgregarCategoria</button>
+                    ? <button onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>AgregarCategoria</button>
                     : <LayoutModal>
                         <div>
                             <h1>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar Categoria"
                                         : "Crear Categoria"
                                 }
                             </h1>
-                            <input
+                            <InputGeneric
                                 type="text"
                                 placeholder="Ingrese denominacion de la Categoria"
                                 name="denominacion"
@@ -90,16 +100,16 @@ export const ModalCategoria = () => {
                                 onChange={onInputChange}
                             />
                             <select onChange={onSelectorChange} name="categoria" >
-                                <option>selecciona</option>
+                                <option >Selecciona</option>
                                 {
                                     dataCategories.map((el: any) => (
                                         <option
                                             key={el.id}
                                             value={el.id}
                                             selected={
-                                                elemetActive !== null
+                                                elementActive !== null
                                                     ?
-                                                    elemetActive.parent !== null && elemetActive.parent.id === el.id
+                                                    elementActive.parent !== null && elementActive.parent.id === el.id
                                                         ? true
                                                         : false
                                                     : false}
@@ -109,15 +119,23 @@ export const ModalCategoria = () => {
                                     ))
                                 }
                             </select>
+
+                            <InputGeneric
+                                label="Dar Alta?"
+                                onChange={onInputCheckboxChange}
+                                name="altaBaja"
+                                checked={checkboxStates.altaBaja}
+                                value={checkboxStates.altaBaja}
+                                type="checkbox" />
                             <button
                                 onClick={handleSubmitModal}>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar "
                                         : "Crear "
                                 }
                             </button>
-                            <button onClick={() => { dispatch(handleModalsTable("modalcategoria")) }}>Cancelar</button>
+                            <button onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>Cancelar</button>
                         </div>
                     </LayoutModal>
 
