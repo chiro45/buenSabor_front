@@ -17,7 +17,7 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, u
     const dispatch = useDispatch()
     const handleView = () => {
         dispatch(addElementActiveTable(element))
-        dispatch(handleModalsTable("modalview"))
+        dispatch(handleModalsTable("modalView"))
     }
     const handleDelete = () => {
         Swal.fire({
