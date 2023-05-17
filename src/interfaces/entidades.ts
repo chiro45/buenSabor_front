@@ -1,5 +1,6 @@
 export interface UnidadMedida {
     id: number;
+    tipoClase: string;
     denominacion: string;
     tipo: string;
     altaBaja: boolean;
@@ -7,6 +8,7 @@ export interface UnidadMedida {
 
 export interface ArticuloInsumo {
     id: number;
+    tipoClase: string;
     denominacion: string;
     descripcion: string;
     esInsumo: boolean;
@@ -23,6 +25,7 @@ export interface ArticuloInsumo {
 
 export interface Producto {
     id: number;
+    tipoClase: string;
     producto: string;
     altaBaja: boolean;
     imagen: string;
@@ -32,6 +35,7 @@ export interface Producto {
 
 export interface ArticuloManufacturado {
     id: number;
+    tipoClase: string;
     tiempoEstimadoCocina: number;
     denominacion: string;
     precioVenta: number;
@@ -43,6 +47,7 @@ export interface ArticuloManufacturado {
 
 export interface Categoria {
     id: number;
+    tipoClase: string;
     altaBaja: boolean;
     denominacion: string;
     parent: Categoria;
@@ -56,11 +61,13 @@ export interface Parent {
 }
 export interface DetalleArticuloManufacturado {
     id: number;
+    tipoClase: string;
     cantidad: number;
     articuloInsumo: ArticuloInsumo;
     articuloManufacturado: ArticuloManufacturado;
 }
 export const ColumnsUnidadMedida = [
+    
     { label: 'Denominacion', key: 'denominacion' },
     { label: 'Tipo', key: 'tipo' },
     {
