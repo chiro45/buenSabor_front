@@ -1,13 +1,14 @@
 import "./InputGeneric.css"
 import {FC} from "react";
 interface InputProps {
-  placeholder: string;
+  placeholder?: string;
   name?: string;
   height?: number;
   width?: string;
   label?: string;
-  type?: 'text' | 'password' | 'email' | 'number';
+  type?: 'text' | 'password' | 'email' | 'number' | 'checkbox' ;
   value?: string;
+  checked?: boolean;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -20,6 +21,7 @@ export const InputGeneric: FC<InputProps> = ({
   label,
   type = 'text',
   value,
+  checked,
   onChange,
   className,
 }) => {
@@ -29,6 +31,7 @@ export const InputGeneric: FC<InputProps> = ({
       <input
         name={name}
         type={type}
+        checked={checked}
         placeholder={placeholder}
         style={{ height, width }}
         value={value}
