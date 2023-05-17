@@ -6,27 +6,16 @@ import { ModalCategoria } from "../../ui/Modals/ModalTables/ModalCategoria/Modal
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
+import { Categoria, ColumnsCategoria } from "../../../interfaces/entidades";
+import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 
-interface Categoria {
-    id: number;
-    denominacion: string;
-    parent: Parent;
-
-}
-
-interface Parent {
-        id: number,
-        denominacion?: string,
-        parent?: {}
-}
-const urlMedidas = `${import.meta.env.VITE_URL_API}categorias`
+const urlMedidas = `${import.meta.env.VITE_URL_API}/categorias`
 
 export const ConfigCategory = () => {
 
-    const columnsArtInsumo = [
-        { label: 'Id', key: 'id' },
-        { label: 'Denominacion', key: 'denominacion' },
-        { label: "Categoria Padre", key: "parent", render: (parent: Parent) => parent !== null ? parent.denominacion : "Padre" },
+    // Define las columnas de la tabla como un array de objetos con label y key
+    const btnColumnsCategoria = [
+        ...ColumnsCategoria,
         { label: "Acciones", key: "acciones" }
     ];
     // Obtiene la función dispatch del store
@@ -46,11 +35,11 @@ export const ConfigCategory = () => {
             </div>
             <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
             <ModalCategoria />
-
-            <GenericTable<Categoria> 
-            columns={columnsArtInsumo}  
-            urlFetch={urlMedidas} 
-            nameTable={"modalcategoria"}
+            <ModalViewElements />
+            <GenericTable<Categoria>
+                columns={btnColumnsCategoria}
+                urlFetch={urlMedidas}
+                nameTable={"modalCategoria"}
             />
 
         </div>
