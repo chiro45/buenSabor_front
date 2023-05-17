@@ -6,19 +6,15 @@ import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida
 import { useDispatch } from "react-redux";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
+import { UnidadMedida , ColumnsUnidadMedida} from "../../../interfaces/entidades";
+
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
 
-// Define la interfaz de UnidadMedida con sus propiedades y tipos
-interface UnidadMedida {
-    id: number;
-    tipo: string;
-}
-
 export const ConfigUnidadMedida = () => {
     // Define las columnas de la tabla como un array de objetos con label y key
-    const columnsArtInsumo = [
-        { label: 'Tipo', key: 'tipo' },
+    const btnColumnsUnidadMedida = [
+        ...ColumnsUnidadMedida,
         { label: "Acciones", key: "acciones" }
     ];
 
@@ -44,7 +40,7 @@ export const ConfigUnidadMedida = () => {
             <ModalViewElements />
             {/* Muestra el componente GenericTable con sus props */}
             <GenericTable<UnidadMedida>
-                columns={columnsArtInsumo}
+                columns={btnColumnsUnidadMedida}
                 nameTable="modalMedidas"
                 urlFetch={urlMedidas}
             />

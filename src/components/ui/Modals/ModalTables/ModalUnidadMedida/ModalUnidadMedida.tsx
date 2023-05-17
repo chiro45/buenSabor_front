@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useInput } from '../../../../../hooks/useInput';
@@ -6,19 +6,30 @@ import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Red
 import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer";
 import { LayoutModal } from "../LayoutModal/LayoutModal";
 import axios from 'axios';
-
+import { UnidadMedida } from "../../../../../interfaces/entidades";
+import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput";
+import { InputGeneric } from "../../../InputGeneric/InputGeneric";
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/unidadmedidas`
+
 export const ModalUnidadMedida = () => {
 
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalMedidas)
-    const elemetActive = useSelector((state: any) => state.TableReducer.elementActive)
+    const elementActive:UnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
     const [inputState, onInputChange, setInputState]: any = useInput()
-
+    const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
+        altaBaja: false,
+    });
     useEffect(() => {
         if (openModal === true) {
-            setInputState({ nameUnidadMedida: elemetActive !== null ? elemetActive.tipo : "" })
+            setInputState({
+                denominacionUnidadMedida: elementActive !== null ? elementActive.denominacion : "",
+                tipoUnidadMedida: elementActive !== null ? elementActive.tipo : "",
+            })
+            setCheckboxStates({
+                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
+            })
         } else {
             dispatch(removeElementActiveTable())
         }
@@ -26,19 +37,23 @@ export const ModalUnidadMedida = () => {
 
     const handleSubmitModal = () => {
         //TODO: SACAR LAS FUNCIONES DE POST PUT
-        if (elemetActive === null) {
+        if (elementActive === null) {
             axios.post(urlFetch, {
-                tipo: inputState.nameUnidadMedida
-            })
+                denominacion: inputState.denominacionUnidadMedida,
+                tipo: inputState.tipoUnidadMedida,
+                altaBaja: checkboxStates.altaBaja
+            }).then(()=>console.log(checkboxStates.tipo))
                 .then(() => {
                     dispatch(getDataTable(urlFetch))
                     dispatch(handleModalsTable("modalMedidas"))
                 })
                 .catch((error) => console.error(error))
         } else {
-            axios.put(`${urlFetch}/${elemetActive.id}`, {
-                ...elemetActive,
-                tipo: inputState.nameUnidadMedida
+            axios.put(`${urlFetch}/${elementActive.id}`, {
+                ...elementActive,
+                denominacion: inputState.denominacionUnidadMedida,
+                tipo: inputState.tipoUnidadMedida,
+                altaBaja: checkboxStates.altaBaja
             })
                 .then(() => {
                     dispatch(getDataTable(urlFetch))
@@ -56,22 +71,38 @@ export const ModalUnidadMedida = () => {
                         <div>
                             <h1>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar Unidad De Medida"
                                         : "Crear Unidad De Medida"
                                 }
                             </h1>
-                            <input
+                            <InputGeneric
+                            label="Denominacion"
                                 type="text"
                                 placeholder="Ingrese unidad medida"
-                                name="nameUnidadMedida"
-                                value={inputState.nameUnidadMedida}
+                                name="denominacionUnidadMedida"
+                                value={inputState.denominacionUnidadMedida}
                                 onChange={onInputChange}
                             />
+                            <InputGeneric
+                            label="Abreviatura"
+                                type="text"
+                                placeholder="Ingrese abreviacion"
+                                name="tipoUnidadMedida"
+                                value={inputState.tipoUnidadMedida}
+                                onChange={onInputChange}
+                            />
+                            <InputGeneric
+                            label="Dar Alta?"
+                            onChange={onInputCheckboxChange}
+                            name="altaBaja"
+                            checked={checkboxStates.altaBaja}
+                            value={checkboxStates.altaBaja}
+                            type="checkbox" />
                             <button
                                 onClick={handleSubmitModal}>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar "
                                         : "Crear "
                                 }

@@ -11,9 +11,9 @@ export const useCheckBoxInput = (initialInput: object = {}) => {
         // Actualiza el estado de los checkboxes mediante la función de actualización del estado anterior
         setCheckboxStates((prevState) => ({
             ...prevState, // Copia el estado anterior de los checkboxes
-            [name]: checked, // Actualiza el estado del checkbox que cambió
+            [name]: checked// Actualiza el estado del checkbox que cambió
         }));
     }
     // Devuelve un array que contiene la función de manejo de eventos de los checkboxes, el estado actual de los checkboxes y la función de actualización del estado de los checkboxes
-    return [onInputCheckboxChange, checkboxStates, setCheckboxStates]
+    return [checkboxStates,onInputCheckboxChange , setCheckboxStates]
 }
