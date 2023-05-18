@@ -9,7 +9,8 @@ import axios from "axios"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
 import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
-import { Categoria } from "../../../../../interfaces/entidades"
+import { Categoria } from "../../../../../interfaces/entidades/Categoria"
+
 const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 
 export const ModalCategoria = () => {

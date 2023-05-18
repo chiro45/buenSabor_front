@@ -1,15 +1,12 @@
-import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
-import { useInput } from "../../../../../hooks/useInput"
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
 import { useEffect, useState } from "react"
-import { LayoutModal } from "../LayoutModal/LayoutModal"
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { useSelector,useDispatch } from "react-redux"
 import axios from 'axios';
-import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
-import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
-import { ArticuloInsumo } from "../../../../../interfaces/entidades"
+import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
+import { LayoutModal } from "../LayoutModal/LayoutModal"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
+import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
+import { ArticuloInsumo } from "../../../../../interfaces/entidades/ArticuloInsumo"
 
 // URL base para las solicitudes HTTP
 const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
@@ -139,125 +136,125 @@ export const ModalArticuloInsumo = () => {
         }
     }
 
-    return (
-        <div>{
-            openModal === false
-                ? <button onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>Modal Unidad Medida</button>
-                : <LayoutModal>
+return (
+    <div>{
+        openModal === false
+            ? <button onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>Modal Unidad Medida</button>
+            : <LayoutModal>
+                <div>
+
+                    <InputGeneric
+                        label="¿Es insumo?"
+                        onChange={onInputCheckboxChange}
+                        name="esInsumo"
+                        checked={checkboxStates.esInsumo}
+                        value={checkboxStates.esInsumo}
+                        type="checkbox" />
+                    <InputGeneric
+                        label="Denominacion"
+                        type="text"
+                        name="denominacion"
+                        value={inputState.denominacion}
+                        placeholder="Denominacion"
+                        onChange={onInputChange}
+                    />
+                    {!checkboxStates.esInsumo && (
+                        <>
+                            <InputGeneric
+                                label="Descripcion"
+                                type="text"
+                                name="descripcion"
+                                value={inputState.descripcion}
+                                placeholder="Descripcion"
+                                onChange={onInputChange}
+                            /><InputGeneric
+                                label="Imagen"
+                                type="text"
+                                name="imagen"
+                                value={inputState.imagen}
+                                placeholder="imagen"
+                                onChange={onInputChange}
+                            />
+                        </>
+                    )}
+                    <InputGeneric
+                        label="Precio de compra"
+                        type="number"
+                        name="precioCompra"
+                        value={inputState.precioCompra}
+                        placeholder="Precio de compra"
+                        onChange={onInputChange}
+                    />
+                    <InputGeneric
+                        label="Precio de venta"
+                        type="number"
+                        name="precioVenta"
+                        value={inputState.precioVenta}
+                        placeholder="Precio de venta"
+                        onChange={onInputChange}
+                    />
+
+                    <InputGeneric
+                        label="Stock Actual"
+                        type="number"
+                        name="stockActual"
+                        value={inputState.stockActual}
+                        placeholder="Stock Actual"
+                        onChange={onInputChange}
+                    />
+                    <InputGeneric
+                        label="Stock Minimo"
+                        type="number"
+                        name="stockMinimo"
+                        value={inputState.stockMinimo}
+                        placeholder="Stock Minimo"
+                        onChange={onInputChange}
+                    />
+
+
+                    <label htmlFor="categoria">Categoría:</label>
+                    <select onChange={onSelectorChange} name="categoria" >
+                        <option>selecciona</option>
+                        {
+                            dataCategories.map((el: any) => (
+                                <option
+                                    value={el.id}
+                                    selected={elementActive !== null && elementActive.categoria.id === el.id ? true : false}>
+                                    {el.denominacion}
+                                </option>
+                            ))
+                        }
+                    </select>
+                    <label htmlFor="categoria">Unidad de Medida:</label>
+                    <select onChange={onSelectorChange} name="unidadMedida" >
+                        <option>selecciona</option>
+                        {
+                            dataUnidadMediads.map((el: any) => (
+                                <option
+                                    value={el.id}
+                                    selected={elementActive !== null && elementActive.unidadMedida.id === el.id ? true : false}>
+                                    {el.tipo}
+                                </option>
+                            ))
+                        }
+                    </select>
                     <div>
-
-                        <InputGeneric
-                            label="¿Es insumo?"
-                            onChange={onInputCheckboxChange}
-                            name="esInsumo"
-                            checked={checkboxStates.esInsumo}
-                            value={checkboxStates.esInsumo}
-                            type="checkbox" />
-                        <InputGeneric
-                            label="Denominacion"
-                            type="text"
-                            name="denominacion"
-                            value={inputState.denominacion}
-                            placeholder="Denominacion"
-                            onChange={onInputChange}
-                        />
-                        {!checkboxStates.esInsumo && (
-                            <>
-                                <InputGeneric
-                                    label="Descripcion"
-                                    type="text"
-                                    name="descripcion"
-                                    value={inputState.descripcion}
-                                    placeholder="Descripcion"
-                                    onChange={onInputChange}
-                                /><InputGeneric
-                                    label="Imagen"
-                                    type="text"
-                                    name="imagen"
-                                    value={inputState.imagen}
-                                    placeholder="imagen"
-                                    onChange={onInputChange}
-                                />
-                            </>
-                        )}
-                        <InputGeneric
-                            label="Precio de compra"
-                            type="number"
-                            name="precioCompra"
-                            value={inputState.precioCompra}
-                            placeholder="Precio de compra"
-                            onChange={onInputChange}
-                        />
-                        <InputGeneric
-                            label="Precio de venta"
-                            type="number"
-                            name="precioVenta"
-                            value={inputState.precioVenta}
-                            placeholder="Precio de venta"
-                            onChange={onInputChange}
-                        />
-
-                        <InputGeneric
-                            label="Stock Actual"
-                            type="number"
-                            name="stockActual"
-                            value={inputState.stockActual}
-                            placeholder="Stock Actual"
-                            onChange={onInputChange}
-                        />
-                        <InputGeneric
-                            label="Stock Minimo"
-                            type="number"
-                            name="stockMinimo"
-                            value={inputState.stockMinimo}
-                            placeholder="Stock Minimo"
-                            onChange={onInputChange}
-                        />
-
-
-                        <label htmlFor="categoria">Categoría:</label>
-                        <select onChange={onSelectorChange} name="categoria" >
-                            <option>selecciona</option>
+                        <button
+                            onClick={handleSubmitModal}>
                             {
-                                dataCategories.map((el: any) => (
-                                    <option
-                                        value={el.id}
-                                        selected={elementActive !== null && elementActive.categoria.id === el.id ? true : false}>
-                                        {el.denominacion}
-                                    </option>
-                                ))
+                                elementActive !== null
+                                    ? "Editar "
+                                    : "Crear "
                             }
-                        </select>
-                        <label htmlFor="categoria">Unidad de Medida:</label>
-                        <select onChange={onSelectorChange} name="unidadMedida" >
-                            <option>selecciona</option>
-                            {
-                                dataUnidadMediads.map((el: any) => (
-                                    <option
-                                        value={el.id}
-                                        selected={elementActive !== null && elementActive.unidadMedida.id === el.id ? true : false}>
-                                        {el.tipo}
-                                    </option>
-                                ))
-                            }
-                        </select>
-                        <div>
-                            <button
-                                onClick={handleSubmitModal}>
-                                {
-                                    elementActive !== null
-                                        ? "Editar "
-                                        : "Crear "
-                                }
-                            </button>
-                            <button
-                                onClick={() => {
-                                    dispatch(handleModalsTable("modalArticuloInsumo"))
-                                }}>Cancelar</button>
-                        </div>
+                        </button>
+                        <button
+                            onClick={() => {
+                                dispatch(handleModalsTable("modalArticuloInsumo"))
+                            }}>Cancelar</button>
                     </div>
-                </LayoutModal>
-        }
-        </div>
-    )
+                </div>
+            </LayoutModal>
+    }
+    </div>
+)
 }

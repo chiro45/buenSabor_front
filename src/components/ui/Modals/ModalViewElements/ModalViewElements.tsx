@@ -1,20 +1,10 @@
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { removeElementActiveTable } from "../../../../Redux/Reducers/TableReducer/TableReducer"
 import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import { LayoutModal } from "../ModalTables/LayoutModal/LayoutModal"
-import {
-  UnidadMedida,
-  ArticuloInsumo,
-  ArticuloManufacturado,
-  Producto,
-  Categoria,
-  ColumnsInsumo,
-  ColumnsProducto,
-  ColumnsUnidadMedida,
-  ColumnsCategoria
-} from "../../../../interfaces/entidades"
-import { useEffect, useState } from "react"
+import { ColumnsCategoria, ColumnsInsumo, ColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
+import { UnidadMedida, Categoria, ArticuloManufacturado, Producto, ArticuloInsumo } from "../../../../interfaces/entidades"
 
 
 interface Props {

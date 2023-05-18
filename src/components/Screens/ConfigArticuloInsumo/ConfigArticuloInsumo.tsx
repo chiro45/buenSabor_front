@@ -1,14 +1,15 @@
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Header } from "../../ui/Header/Header"
+import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
 import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
 import { ModalArticuloInsumo } from "../../ui/Modals/ModalTables/ModalArticuloInsumo/ModalArticuloInsumo";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
-import { ArticuloInsumo, ColumnsInsumo } from "../../../interfaces/entidades";
+import { ColumnsInsumo } from "../../../interfaces/columnsEntidades";
+import { ArticuloInsumo } from "../../../interfaces/entidades";
 
-const urlMedidas = `${import.meta.env.VITE_URL_API}/articulosinsumos`
+const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`
 
 export const ConfigArticuloInsumo = () => {
 
@@ -22,7 +23,7 @@ export const ConfigArticuloInsumo = () => {
 
     // Utilizamos useEffect para actualizar los datos de la tabla en el estado global cuando cambia la propiedad "data"
     useEffect(() => {
-        dispatch(getDataTable(urlMedidas))
+        dispatch(getDataTable(urlFetch))
     }, [])
 
     return (
@@ -49,7 +50,7 @@ export const ConfigArticuloInsumo = () => {
             {/* Tabla genérica */}
             <GenericTable<ArticuloInsumo>
                 columns={btnColumnsInsumo}
-                urlFetch={urlMedidas}
+                urlFetch={urlFetch}
                 nameTable={"modalArticuloInsumo"}
             />
 
