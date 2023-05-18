@@ -10,10 +10,10 @@ import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
 import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 import { Categoria } from "../../../../../interfaces/entidades/Categoria"
+import "./ModalCategoria.css"
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 
-import "./ModalCategoria.css"
 export const ModalCategoria = () => {
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)

@@ -1,7 +1,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "./CardItem.css"
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons"
+import "./CardItem.css"
 
 export const CardItem = ({ item }: any) => {
 

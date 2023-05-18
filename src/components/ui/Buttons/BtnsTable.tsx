@@ -1,18 +1,14 @@
-import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "./BtsTable.css"
 import { FunctionComponent } from "react"
 import { useDispatch } from "react-redux"
+import axios from 'axios';
 import { addElementActiveTable, getDataTable } from '../../../Redux/Reducers/TableReducer/TableReducer';
 import { handleModalsTable } from "../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { IBtnsTable } from "../../../interfaces/IBtnsTable";
+import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Swal from "sweetalert2"
-import axios from 'axios';
+import "./BtsTable.css"
 
-interface IBtnsTable {
-    element: any,
-    nameTable?: string
-    urlFetch: string
-}
 export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, urlFetch }) => {
     const dispatch = useDispatch()
     const handleView = () => {

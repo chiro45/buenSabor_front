@@ -1,12 +1,5 @@
 import { TypesModalTable } from "../../Types/TypesModalTable";
-
-// Creamos una interfaz que define el estado del reducer
-interface ModalState {
-  modalMedidas: boolean;
-  modalView: boolean;
-  modalArticuloInsumo: boolean;
-  modalCategoria: boolean
-}
+import { ModalState, ModalAction } from "../../../interfaces/ModalState";
 
 // Definimos el estado inicial
 const initialState: ModalState = {
@@ -15,11 +8,6 @@ const initialState: ModalState = {
   modalArticuloInsumo: false,
   modalCategoria: false
 };
-
-// Creamos una interfaz que define la forma de la acción del reducer
-interface ModalAction {
-  type: string;
-}
 
 // Creamos el reducer de los modales
 export const ModalsReducer = (state = initialState, action: ModalAction) => {

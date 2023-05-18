@@ -1,6 +1,5 @@
-
-
 import "./LayoutModal.css"
+
 export const LayoutModal = ({ children }: any) => {
     return (
         <div className="containerLayoutModal">

@@ -1,11 +1,5 @@
-
 import { CardItem } from "../CardItem/CardItem"
 import "./ProductFavorities.css"
-
-
-
-
-
 
 
 export const ProductFavorities = ({ productFav }:any) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import axios from 'axios';
 import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
@@ -270,8 +270,8 @@ export const ModalArticuloInsumo = () => {
                         </div>
 
                     </div>
-            </LayoutModal>
-    }
-    </div>
-)
+                </LayoutModal>
+        }
+        </div>
+    )
 }
