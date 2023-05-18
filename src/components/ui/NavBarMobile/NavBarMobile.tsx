@@ -1,7 +1,7 @@
-
-import "./NavBarMobile.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faShop, faList, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import "./NavBarMobile.css"
+
 
 export const NavBarMobile = () => {
   return (

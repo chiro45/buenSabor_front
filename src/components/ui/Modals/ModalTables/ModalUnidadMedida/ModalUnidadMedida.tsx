@@ -1,15 +1,15 @@
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
 import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer";
 import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer";
 import { LayoutModal } from "../LayoutModal/LayoutModal";
 import { useInput, useCheckBoxInput } from '../../../../../hooks';
 import { UnidadMedida } from "../../../../../interfaces/entidades";
 import { InputGeneric } from "../../../InputGeneric/InputGeneric";
+import "./ModalUnidadMedida.css"
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/unidadmedidas`
-import "./ModalUnidadMedida.css"
 
 export const ModalUnidadMedida = () => {
 

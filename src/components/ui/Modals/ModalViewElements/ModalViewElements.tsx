@@ -4,13 +4,8 @@ import { removeElementActiveTable } from "../../../../Redux/Reducers/TableReduce
 import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import { LayoutModal } from "../ModalTables/LayoutModal/LayoutModal"
 import { ColumnsCategoria, ColumnsInsumo, ColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
-import { UnidadMedida, Categoria, ArticuloManufacturado, Producto, ArticuloInsumo } from "../../../../interfaces/entidades"
+import { Props } from "../../../../interfaces/PropsModalViewElemnts"
 
-
-interface Props {
-  object: UnidadMedida | ArticuloInsumo | Producto | ArticuloManufacturado | Categoria;
-  [key: string]: any;
-}
 
 export const ModalViewElements = () => {
 
