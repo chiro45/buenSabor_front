@@ -270,7 +270,6 @@ export const ModalArticuloInsumo = () => {
                         </div>
 
                     </div>
-                </div>
             </LayoutModal>
     }
     </div>
