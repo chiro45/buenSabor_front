@@ -6,7 +6,8 @@ import { ModalCategoria } from "../../ui/Modals/ModalTables/ModalCategoria/Modal
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { Categoria, ColumnsCategoria } from "../../../interfaces/entidades";
+import { ColumnsCategoria } from "../../../interfaces/columnsEntidades";
+import { Categoria } from "../../../interfaces/entidades/Categoria";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { Subheader } from "../../ui/Subheader/Subheader";
 

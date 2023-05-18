@@ -1,16 +1,12 @@
-import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
-import { useInput } from "../../../../../hooks/useInput"
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
 import { useEffect, useState } from "react"
-import { LayoutModal } from "../LayoutModal/LayoutModal"
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { useSelector,useDispatch } from "react-redux"
 import axios from 'axios';
-import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
-import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
-import { ArticuloInsumo } from "../../../../../interfaces/entidades"
+import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
+import { LayoutModal } from "../LayoutModal/LayoutModal"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
-
+import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
+import { ArticuloInsumo } from "../../../../../interfaces/entidades/ArticuloInsumo"
 import "./ModalArticuloInsumo.css"
 
 // URL base para las solicitudes HTTP
@@ -272,9 +268,11 @@ export const ModalArticuloInsumo = () => {
                                     dispatch(handleModalsTable("modalArticuloInsumo"))
                                 }}>Cancelar</button>
                         </div>
+
                     </div>
-                </LayoutModal>
-        }
-        </div>
-    )
+                </div>
+            </LayoutModal>
+    }
+    </div>
+)
 }

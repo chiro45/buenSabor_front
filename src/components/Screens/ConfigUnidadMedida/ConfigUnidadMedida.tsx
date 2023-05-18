@@ -1,13 +1,15 @@
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric";
-import { Header } from "../../ui/Header/Header";
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric";
 import { useEffect } from "react";
-import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida/ModalUnidadMedida";
 import { useDispatch } from "react-redux";
+import { Header } from "../../ui/Header/Header";
+import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric";
+import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric";
+import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida/ModalUnidadMedida";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { UnidadMedida, ColumnsUnidadMedida } from "../../../interfaces/entidades";
 import { Subheader } from "../../ui/Subheader/Subheader";
+import { ColumnsUnidadMedida } from "../../../interfaces/columnsEntidades";
+import { UnidadMedida } from "../../../interfaces/entidades";
+
 
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
