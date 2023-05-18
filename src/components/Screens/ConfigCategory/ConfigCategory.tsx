@@ -9,6 +9,7 @@ import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer"
 import { ColumnsCategoria } from "../../../interfaces/columnsEntidades";
 import { Categoria } from "../../../interfaces/entidades/Categoria";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
+import { Subheader } from "../../ui/Subheader/Subheader";
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/categorias`
 
@@ -31,9 +32,7 @@ export const ConfigCategory = () => {
     return (
         <div>
             <Header />
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader/>
             <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
             <ModalCategoria />
             <ModalViewElements />

@@ -9,12 +9,13 @@ import { UnidadMedida } from "../../../../../interfaces/entidades";
 import { InputGeneric } from "../../../InputGeneric/InputGeneric";
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/unidadmedidas`
+import "./ModalUnidadMedida.css"
 
 export const ModalUnidadMedida = () => {
 
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalMedidas)
-    const elementActive:UnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
+    const elementActive: UnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
     const [inputState, onInputChange, setInputState]: any = useInput()
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         altaBaja: false,
@@ -40,7 +41,7 @@ export const ModalUnidadMedida = () => {
                 denominacion: inputState.denominacionUnidadMedida,
                 tipo: inputState.tipoUnidadMedida,
                 altaBaja: checkboxStates.altaBaja
-            }).then(()=>console.log(checkboxStates.tipo))
+            }).then(() => console.log(checkboxStates.tipo))
                 .then(() => {
                     dispatch(getDataTable(urlFetch))
                     dispatch(handleModalsTable("modalMedidas"))
@@ -61,12 +62,15 @@ export const ModalUnidadMedida = () => {
         }
     }
     return (
-        <div>
+        <div className="containerModalUnidadMedida">
             {
                 openModal === false
-                    ? <button onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>ModalUnidadMedida</button>
+                    ? <button className="buttonModalUnidadMedida"
+                        onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>
+                        Agregar Unidad De Medida
+                    </button>
                     : <LayoutModal>
-                        <div>
+                        <div className="containerFormUnidadMedida">
                             <h1>
                                 {
                                     elementActive !== null
@@ -75,7 +79,8 @@ export const ModalUnidadMedida = () => {
                                 }
                             </h1>
                             <InputGeneric
-                            label="Denominacion"
+                                className="inputModalUnidadMedida"
+                                label="Denominacion"
                                 type="text"
                                 placeholder="Ingrese unidad medida"
                                 name="denominacionUnidadMedida"
@@ -83,7 +88,8 @@ export const ModalUnidadMedida = () => {
                                 onChange={onInputChange}
                             />
                             <InputGeneric
-                            label="Abreviatura"
+                                className="inputModalUnidadMedida"
+                                label="Abreviatura"
                                 type="text"
                                 placeholder="Ingrese abreviacion"
                                 name="tipoUnidadMedida"
@@ -91,21 +97,26 @@ export const ModalUnidadMedida = () => {
                                 onChange={onInputChange}
                             />
                             <InputGeneric
-                            label="Dar Alta?"
-                            onChange={onInputCheckboxChange}
-                            name="altaBaja"
-                            checked={checkboxStates.altaBaja}
-                            value={checkboxStates.altaBaja}
-                            type="checkbox" />
-                            <button
-                                onClick={handleSubmitModal}>
-                                {
-                                    elementActive !== null
-                                        ? "Editar "
-                                        : "Crear "
-                                }
-                            </button>
-                            <button onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>Cancelar</button>
+                                className="inputModalUnidadMedida"
+                                label="Dar Alta?"
+                                onChange={onInputCheckboxChange}
+                                name="altaBaja"
+                                checked={checkboxStates.altaBaja}
+                                value={checkboxStates.altaBaja}
+                                type="checkbox" />
+                            <div className="containerButtonsModalUnidadMedida">
+                                <button
+                                    onClick={handleSubmitModal}>
+                                    {
+                                        elementActive !== null
+                                            ? "Editar "
+                                            : "Crear "
+                                    }
+                                </button>
+                                <button
+                                    onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>
+                                    Cancelar</button>
+                            </div>
                         </div>
                     </LayoutModal>
 

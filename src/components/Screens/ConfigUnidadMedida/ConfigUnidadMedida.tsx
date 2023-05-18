@@ -6,8 +6,10 @@ import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric";
 import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida/ModalUnidadMedida";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
+import { Subheader } from "../../ui/Subheader/Subheader";
 import { ColumnsUnidadMedida } from "../../../interfaces/columnsEntidades";
 import { UnidadMedida } from "../../../interfaces/entidades";
+
 
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
@@ -30,9 +32,7 @@ export const ConfigUnidadMedida = () => {
     return (
         <div>
             <Header />
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader />
             {/* Muestra el componente SearchGeneric con sus props */}
             <SearchGeneric label={"Unidad Medida"} placeholder={"Ingrese su categoria"} />
             {/* Muestra el componente ModalUnidadMedida */}

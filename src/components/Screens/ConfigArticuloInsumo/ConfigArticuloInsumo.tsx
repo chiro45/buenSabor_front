@@ -6,6 +6,7 @@ import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
 import { ModalArticuloInsumo } from "../../ui/Modals/ModalTables/ModalArticuloInsumo/ModalArticuloInsumo";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
+import { Subheader } from "../../ui/Subheader/Subheader";
 import { ColumnsInsumo } from "../../../interfaces/columnsEntidades";
 import { ArticuloInsumo } from "../../../interfaces/entidades";
 
@@ -31,9 +32,7 @@ export const ConfigArticuloInsumo = () => {
             <Header />
 
             {/* Subheader */}
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader/>
 
             {/* Búsqueda genérica */}
             <SearchGeneric
