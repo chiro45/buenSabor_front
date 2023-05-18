@@ -1,0 +1,43 @@
+.containerModalUnidadMedida{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonModalUnidadMedida{
+    background-color: var(--terciario);
+    color: #fff;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    margin-bottom: 2vh;
+}
+.containerFormUnidadMedida{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height:40vh;
+    width: 100%;
+}
+.inputModalUnidadMedida{
+    margin-top: .4rem;
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.inputModalUnidadMedida input{
+    width: 80% !important;
+}
+.inputModalUnidadMedida label{
+    width: 25% !important;
+}
+
+.containerButtonsModalUnidadMedida{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2vw;
+    margin-top: 2vh;
+}

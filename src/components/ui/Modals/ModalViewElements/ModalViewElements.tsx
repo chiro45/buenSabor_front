@@ -34,39 +34,24 @@ export const ModalViewElements = () => {
     dispatch(removeElementActiveTable())
   }
 
-  // const getObjectProperties = () => {
-  //   return Object.entries(elementActive).map(([key, value]) => (
-  //     <li key={key}>
-  //       <strong>{key}: </strong>
-  //       {value}
-  //     </li>
-  //   ));
-  // };
-
-
-
-//PROVISORIO
   const [actualProp, setActualProp] = useState<any>([])
-  let lastSegment: any;
   useEffect(() => {
-    const currentURL = window.location.href;
-    const url = new URL(currentURL);
-    lastSegment = url.pathname.split("/").pop();
-
-    switch (lastSegment) {
-      case "unidadmedida":
-        setActualProp(ColumnsUnidadMedida);
-        break;
-      case "articuloInsumo":
-        setActualProp(ColumnsInsumo);
-        break;
-        case "category":
+    if (elementActive !== null) {
+      switch (elementActive.tipoClase) {
+        case "UnidadMedida":
+          setActualProp(ColumnsUnidadMedida);
+          break;
+        case "ArticuloInsumo":
+          setActualProp(ColumnsInsumo);
+          break;
+        case "Categoria":
           setActualProp(ColumnsCategoria);
           break;
-      default:
-        break;
+        default:
+          break;
+      }
     }
-  }, [])
+  }, [elementActive, setActualProp])
 
 
   const getObjectProperties = () => {

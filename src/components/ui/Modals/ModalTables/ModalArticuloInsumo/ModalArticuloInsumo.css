@@ -1,10 +1,10 @@
-.containerModalCategoria{
+.containerModalArticuloInsumo{
     width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100%;
 }
-.buttonModalCategoria{
+.buttonModalArticulo{
     background-color: var(--terciario);
     color: #fff;
     padding: .4rem;
@@ -12,38 +12,38 @@
     border: none;
     margin-bottom: 2vh;
 }
-.containerFormCategoria{
+.containerFormArticuloInsumo{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height:40vh;
+    height: 100%;
     width: 100%;
 }
-.inputCategoria{
+.inputArticuloInsumo{
     margin-top: .4rem;
     display: flex;
     width: 50%;
     align-items: center;
 }
-.inputCategoria input{
-    width: 80% !important;
+.inputArticuloInsumo input{
+    width: 60% !important;
 }
-.inputCategoria label{
-    width: 25% !important;
+.inputArticuloInsumo label{
+    width: 40% !important;
 }
-.containerSelectorCategoria{
+.containerSelectosArticuloInsumo{
     margin-top: .4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
     width: 50%;
 }
-.containerSelectorCategoria select{
+.containerSelectosArticuloInsumo select{
     width: 100%;
-    height: 4vh;
 }
-.containerButtonsModalCategoria{
+.containerButtonsModalArticuloInsumo{
     display: flex;
     justify-content: center;
     align-items: center;

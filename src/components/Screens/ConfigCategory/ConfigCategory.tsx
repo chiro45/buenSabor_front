@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
 import { Categoria, ColumnsCategoria } from "../../../interfaces/entidades";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
+import { Subheader } from "../../ui/Subheader/Subheader";
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/categorias`
 
@@ -30,9 +31,7 @@ export const ConfigCategory = () => {
     return (
         <div>
             <Header />
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader/>
             <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
             <ModalCategoria />
             <ModalViewElements />
