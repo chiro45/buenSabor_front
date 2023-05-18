@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { ArticuloInsumo, ColumnsInsumo } from "../../../interfaces/entidades";
+import { Subheader } from "../../ui/Subheader/Subheader";
 
 const urlMedidas = `${import.meta.env.VITE_URL_API}/articulosinsumos`
 
@@ -30,9 +31,7 @@ export const ConfigArticuloInsumo = () => {
             <Header />
 
             {/* Subheader */}
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader/>
 
             {/* Búsqueda genérica */}
             <SearchGeneric

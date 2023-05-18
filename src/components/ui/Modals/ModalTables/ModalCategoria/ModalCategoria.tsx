@@ -12,10 +12,11 @@ import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 import { Categoria } from "../../../../../interfaces/entidades"
 const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 
+import "./ModalCategoria.css"
 export const ModalCategoria = () => {
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
-    const elementActive:Categoria = useSelector((state: any) => state.TableReducer.elementActive)
+    const elementActive: Categoria = useSelector((state: any) => state.TableReducer.elementActive)
     const [dataCategories, setDataCategories] = useState([]);
     const [inputState, onInputChange, setInputState]: any = useInput()
     // Define una variable de estado para almacenar los valores de las listas desplegables seleccionados por el usuario
@@ -78,13 +79,19 @@ export const ModalCategoria = () => {
                 .catch((error) => console.error(error))
         }
     }
+
+
     return (
-        <div>
+        <div className="containerModalCategoria">
             {
                 openModal === false
-                    ? <button onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>AgregarCategoria</button>
+                    ? <button
+                        className="buttonModalCategoria"
+                        onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>
+                        Agregar Categoria
+                    </button>
                     : <LayoutModal>
-                        <div>
+                        <div className="containerFormCategoria">
                             <h1>
                                 {
                                     elementActive !== null
@@ -93,13 +100,15 @@ export const ModalCategoria = () => {
                                 }
                             </h1>
                             <InputGeneric
+                                className="inputCategoria"
                                 type="text"
+                                label="Denominacion"
                                 placeholder="Ingrese denominacion de la Categoria"
                                 name="denominacion"
                                 value={inputState.denominacion}
                                 onChange={onInputChange}
                             />
-                            <select onChange={onSelectorChange} name="categoria" >
+                            <select className="containerSelectorCategoria" onChange={onSelectorChange} name="categoria" >
                                 <option >Selecciona</option>
                                 {
                                     dataCategories.map((el: any) => (
@@ -121,21 +130,27 @@ export const ModalCategoria = () => {
                             </select>
 
                             <InputGeneric
+                                className="inputCategoria"
                                 label="Dar Alta?"
                                 onChange={onInputCheckboxChange}
                                 name="altaBaja"
                                 checked={checkboxStates.altaBaja}
                                 value={checkboxStates.altaBaja}
                                 type="checkbox" />
-                            <button
-                                onClick={handleSubmitModal}>
-                                {
-                                    elementActive !== null
-                                        ? "Editar "
-                                        : "Crear "
-                                }
-                            </button>
-                            <button onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>Cancelar</button>
+                            <div className="containerButtonsModalCategoria">
+                                <button
+                                    onClick={handleSubmitModal}>
+                                    {
+                                        elementActive !== null
+                                            ? "Editar "
+                                            : "Crear "
+                                    }
+                                </button>
+                                <button
+                                    onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}
+                                >Cancelar
+                                </button>
+                            </div>
                         </div>
                     </LayoutModal>
 

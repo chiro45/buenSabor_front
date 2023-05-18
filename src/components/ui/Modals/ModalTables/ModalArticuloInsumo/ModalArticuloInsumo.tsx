@@ -11,6 +11,8 @@ import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
 import { ArticuloInsumo } from "../../../../../interfaces/entidades"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 
+import "./ModalArticuloInsumo.css"
+
 // URL base para las solicitudes HTTP
 const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
     urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`,
@@ -140,13 +142,17 @@ export const ModalArticuloInsumo = () => {
     }
 
     return (
-        <div>{
+        <div className="containerModalArticuloInsumo">{
             openModal === false
-                ? <button onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>Modal Unidad Medida</button>
+                ? <button className="buttonModalArticulo"
+                    onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>
+                    Agregar Articulo / Insumo
+                </button>
                 : <LayoutModal>
-                    <div>
+                    <div className="containerFormArticuloInsumo">
 
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="¿Es insumo?"
                             onChange={onInputCheckboxChange}
                             name="esInsumo"
@@ -154,6 +160,7 @@ export const ModalArticuloInsumo = () => {
                             value={checkboxStates.esInsumo}
                             type="checkbox" />
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="Denominacion"
                             type="text"
                             name="denominacion"
@@ -164,6 +171,7 @@ export const ModalArticuloInsumo = () => {
                         {!checkboxStates.esInsumo && (
                             <>
                                 <InputGeneric
+                                    className="inputArticuloInsumo"
                                     label="Descripcion"
                                     type="text"
                                     name="descripcion"
@@ -171,6 +179,7 @@ export const ModalArticuloInsumo = () => {
                                     placeholder="Descripcion"
                                     onChange={onInputChange}
                                 /><InputGeneric
+                                    className="inputArticuloInsumo"
                                     label="Imagen"
                                     type="text"
                                     name="imagen"
@@ -181,6 +190,7 @@ export const ModalArticuloInsumo = () => {
                             </>
                         )}
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="Precio de compra"
                             type="number"
                             name="precioCompra"
@@ -189,6 +199,7 @@ export const ModalArticuloInsumo = () => {
                             onChange={onInputChange}
                         />
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="Precio de venta"
                             type="number"
                             name="precioVenta"
@@ -198,6 +209,7 @@ export const ModalArticuloInsumo = () => {
                         />
 
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="Stock Actual"
                             type="number"
                             name="stockActual"
@@ -206,6 +218,7 @@ export const ModalArticuloInsumo = () => {
                             onChange={onInputChange}
                         />
                         <InputGeneric
+                            className="inputArticuloInsumo"
                             label="Stock Minimo"
                             type="number"
                             name="stockMinimo"
@@ -215,33 +228,37 @@ export const ModalArticuloInsumo = () => {
                         />
 
 
-                        <label htmlFor="categoria">Categoría:</label>
-                        <select onChange={onSelectorChange} name="categoria" >
-                            <option>selecciona</option>
-                            {
-                                dataCategories.map((el: any) => (
-                                    <option
-                                        value={el.id}
-                                        selected={elementActive !== null && elementActive.categoria.id === el.id ? true : false}>
-                                        {el.denominacion}
-                                    </option>
-                                ))
-                            }
-                        </select>
-                        <label htmlFor="categoria">Unidad de Medida:</label>
-                        <select onChange={onSelectorChange} name="unidadMedida" >
-                            <option>selecciona</option>
-                            {
-                                dataUnidadMediads.map((el: any) => (
-                                    <option
-                                        value={el.id}
-                                        selected={elementActive !== null && elementActive.unidadMedida.id === el.id ? true : false}>
-                                        {el.tipo}
-                                    </option>
-                                ))
-                            }
-                        </select>
-                        <div>
+                        <div className="containerSelectosArticuloInsumo">
+                            <label htmlFor="categoria">Categoría:</label>
+                            <select onChange={onSelectorChange} name="categoria" >
+                                <option>selecciona</option>
+                                {
+                                    dataCategories.map((el: any) => (
+                                        <option
+                                            value={el.id}
+                                            selected={elementActive !== null && elementActive.categoria.id === el.id ? true : false}>
+                                            {el.denominacion}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="containerSelectosArticuloInsumo">
+                            <label htmlFor="categoria">Unidad de Medida:</label>
+                            <select onChange={onSelectorChange} name="unidadMedida" >
+                                <option>selecciona</option>
+                                {
+                                    dataUnidadMediads.map((el: any) => (
+                                        <option
+                                            value={el.id}
+                                            selected={elementActive !== null && elementActive.unidadMedida.id === el.id ? true : false}>
+                                            {el.tipo}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="containerButtonsModalArticuloInsumo">
                             <button
                                 onClick={handleSubmitModal}>
                                 {
