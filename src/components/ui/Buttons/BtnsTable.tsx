@@ -28,13 +28,22 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, u
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(`${urlFetch}/${element.id}`)
-                    .then((response) => { dispatch(getDataTable(urlFetch)) })
-                    .catch((error) => console.error(error))
-                Swal.fire(
-                    'Deleted!',
-                    'Eliminado',
-                    'success'
-                )
+                    .then((response) => { 
+                        dispatch(getDataTable(urlFetch))
+                        Swal.fire(
+                            'Deleted!',
+                            'Eliminado',
+                            'success'
+                        ) 
+                    })
+                    .catch((error) => {
+                        Swal.fire(
+                            'Error!',
+                            `${error.response.data}`,
+                            'error')
+                        console.error(error)
+                    })
+                
             }
         })
     }
