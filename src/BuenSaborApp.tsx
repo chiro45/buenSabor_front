@@ -11,7 +11,6 @@ export const BuenSaborApp = () => {
             {/* <Auth0ProviderWithHistory> */}
             <BrowserRouter >
                 <Provider store={store}>
-                    <button onClick={() => buscar_nombre_prod("queso")}>BUTOOON</button>
                     <AppRoutes />
                 </Provider>
             </BrowserRouter >
