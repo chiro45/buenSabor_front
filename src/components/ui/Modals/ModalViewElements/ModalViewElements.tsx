@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeElementActiveTable } from "../../../../Redux/Reducers/TableReducer/TableReducer"
 import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import { LayoutModal } from "../ModalTables/LayoutModal/LayoutModal"
-import { ColumnsCategoria, ColumnsInsumo, ColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
-import { Props } from "../../../../interfaces/PropsModalViewElemnts"
+import { IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
+import { IProps } from "../../../../interfaces/IPropsModalViewElemnts"
 
 
 export const ModalViewElements = () => {
@@ -12,7 +12,7 @@ export const ModalViewElements = () => {
 
   const openModal = useSelector((state: any) => state.ModalsReducer.modalView)
 
-  const elementActive: Props = useSelector((state: any) => state.TableReducer.elementActive)
+  const elementActive: IProps = useSelector((state: any) => state.TableReducer.elementActive)
   const dispatch = useDispatch()
   const handleCloseModal = () => {
     dispatch(handleModalsTable("modalView"))
@@ -24,13 +24,13 @@ export const ModalViewElements = () => {
     if (elementActive !== null) {
       switch (elementActive.tipoClase) {
         case "UnidadMedida":
-          setActualProp(ColumnsUnidadMedida);
+          setActualProp(IColumnsUnidadMedida);
           break;
         case "ArticuloInsumo":
-          setActualProp(ColumnsInsumo);
+          setActualProp(IColumnsInsumo);
           break;
         case "Categoria":
-          setActualProp(ColumnsCategoria);
+          setActualProp(IColumnsCategoria);
           break;
         default:
           break;

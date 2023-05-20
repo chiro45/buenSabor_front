@@ -6,8 +6,8 @@ import { ModalCategoria } from "../../ui/Modals/ModalTables/ModalCategoria/Modal
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { ColumnsCategoria } from "../../../interfaces/columnsEntidades";
-import { Categoria } from "../../../interfaces/entidades/Categoria";
+import { IColumnsCategoria } from "../../../interfaces/columnsEntidades";
+import { ICategoria } from "../../../interfaces/entidades/ICategoria";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { Subheader } from "../../ui/Subheader/Subheader";
 
@@ -17,7 +17,7 @@ export const ConfigCategory = () => {
 
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsCategoria = [
-        ...ColumnsCategoria,
+        ...IColumnsCategoria,
         { label: "Acciones", key: "acciones" }
     ];
     // Obtiene la función dispatch del store
@@ -36,7 +36,7 @@ export const ConfigCategory = () => {
             <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
             <ModalCategoria />
             <ModalViewElements />
-            <GenericTable<Categoria>
+            <GenericTable<ICategoria>
                 columns={btnColumnsCategoria}
                 urlFetch={urlMedidas}
                 nameTable={"modalCategoria"}

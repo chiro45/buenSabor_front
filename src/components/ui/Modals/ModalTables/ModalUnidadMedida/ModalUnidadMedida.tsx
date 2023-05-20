@@ -5,7 +5,7 @@ import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Red
 import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer";
 import { LayoutModal } from "../LayoutModal/LayoutModal";
 import { useInput, useCheckBoxInput } from '../../../../../hooks';
-import { UnidadMedida } from "../../../../../interfaces/entidades";
+import { IUnidadMedida } from "../../../../../interfaces/entidades";
 import { InputGeneric } from "../../../InputGeneric/InputGeneric";
 import "./ModalUnidadMedida.css"
 
@@ -15,7 +15,7 @@ export const ModalUnidadMedida = () => {
 
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalMedidas)
-    const elementActive: UnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
+    const elementActive: IUnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
     const [inputState, onInputChange, setInputState]: any = useInput()
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         altaBaja: false,

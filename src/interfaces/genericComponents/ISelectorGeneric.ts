@@ -1,4 +1,4 @@
-export interface SelectorProps {
+export interface ISelectorProps {
     options: string[];
     label: string;
     height?: number;

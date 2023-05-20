@@ -1,7 +1,7 @@
 import { CategoryIcon } from "./CategoryIcon"
 import { faHamburger, faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
 import "./CategoryList.css"
-import papas from "../../assets/papas.svg"
+import papas from "../../../assets/papas.svg"
 
 export const CategoryList = () => {
   return (

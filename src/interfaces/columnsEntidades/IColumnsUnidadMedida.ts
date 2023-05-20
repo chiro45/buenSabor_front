@@ -1,5 +1,5 @@
 
-export const ColumnsUnidadMedida = [
+export const IColumnsUnidadMedida = [
     { label: 'Denominacion', key: 'denominacion' },
     { label: 'Tipo', key: 'tipo' },
     {

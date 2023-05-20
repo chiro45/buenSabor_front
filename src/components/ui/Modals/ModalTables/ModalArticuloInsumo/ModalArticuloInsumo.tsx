@@ -6,7 +6,7 @@ import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Red
 import { LayoutModal } from "../LayoutModal/LayoutModal"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
-import { ArticuloInsumo } from "../../../../../interfaces/entidades/ArticuloInsumo"
+import { IArticuloInsumo } from "../../../../../interfaces/entidades"
 import "./ModalArticuloInsumo.css"
 
 // URL base para las solicitudes HTTP
@@ -20,7 +20,7 @@ export const ModalArticuloInsumo = () => {
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloInsumo);
 
     // Obtiene el elemento activo de la tabla actual de Redux
-    const elementActive: ArticuloInsumo = useSelector((state: any) => state.TableReducer.elementActive);
+    const elementActive: IArticuloInsumo = useSelector((state: any) => state.TableReducer.elementActive);
 
     // Define variables de estado para almacenar los datos de las listas desplegables
     const [dataUnidadMediads, setDataUnidadMedidas] = useState([]);
@@ -54,19 +54,16 @@ export const ModalArticuloInsumo = () => {
         if (openModal === true) {
             setInputState({
                 denominacion: elementActive !== null ? elementActive.denominacion : "",
-                descripcion: elementActive !== null ? elementActive.descripcion : "",
                 precioCompra: elementActive !== null ? elementActive.precioCompra : 0,
                 precioVenta: elementActive !== null ? elementActive.precioVenta : 0,
                 stockActual: elementActive !== null ? elementActive.stockActual : 0,
                 stockMinimo: elementActive !== null ? elementActive.stockMinimo : 0,
-                imagen: elementActive !== null ? elementActive.imagen : "",
             })
             setSelectorsValues({
                 categoria: elementActive !== null ? elementActive.categoria.id : "",
                 unidadMedida: elementActive !== null ? elementActive.unidadMedida.id : "",
             })
             setCheckboxStates({
-                esInsumo: elementActive !== null ? elementActive.esInsumo : false,
                 altaBaja: elementActive !== null ? elementActive.altaBaja : false,
             })
             getDataCategories()
@@ -84,13 +81,10 @@ export const ModalArticuloInsumo = () => {
             axios.post(urlFetch,
                 {
                     denominacion: inputState.denominacion,
-                    descripcion: inputState.descripcion,
-                    esInsumo: checkboxStates.esInsumo,
                     precioCompra: parseFloat(inputState.precioCompra),
                     precioVenta: parseFloat(inputState.precioVenta),
                     stockActual: parseFloat(inputState.stockActual),
                     stockMinimo: parseFloat(inputState.stockMinimo),
-                    imagen: inputState.imagen,
                     altaBaja: checkboxStates.altaBaja,
                     categoria: {
                         id: parseFloat(valuesSelector.categoria)
@@ -109,23 +103,16 @@ export const ModalArticuloInsumo = () => {
             axios.put(`${urlFetch}/${elementActive.id}`, {
                 ...elementActive,
                 denominacion: inputState.denominacion,
-                descripcion: inputState.descripcion,
-                esInsumo: checkboxStates.esInsumo,
                 precioCompra: parseFloat(inputState.precioCompra),
                 precioVenta: parseFloat(inputState.precioVenta),
                 stockActual: parseFloat(inputState.stockActual),
                 stockMinimo: parseFloat(inputState.stockMinimo),
-                imagen: inputState.imagen,
                 altaBaja: checkboxStates.altaBaja,
                 categoria: {
                     id: parseFloat(valuesSelector.categoria)
                 },
                 unidadMedida: {
                     id: parseFloat(valuesSelector.unidadMedida)
-                },
-                // cambio parseFloat(elementActive.id)
-                producto: {
-                    id: elementActive.producto.id
                 }
 
             })
@@ -149,14 +136,6 @@ export const ModalArticuloInsumo = () => {
 
                         <InputGeneric
                             className="inputArticuloInsumo"
-                            label="¿Es insumo?"
-                            onChange={onInputCheckboxChange}
-                            name="esInsumo"
-                            checked={checkboxStates.esInsumo}
-                            value={checkboxStates.esInsumo}
-                            type="checkbox" />
-                        <InputGeneric
-                            className="inputArticuloInsumo"
                             label="Denominacion"
                             type="text"
                             name="denominacion"
@@ -164,27 +143,6 @@ export const ModalArticuloInsumo = () => {
                             placeholder="Denominacion"
                             onChange={onInputChange}
                         />
-                        {!checkboxStates.esInsumo && (
-                            <>
-                                <InputGeneric
-                                    className="inputArticuloInsumo"
-                                    label="Descripcion"
-                                    type="text"
-                                    name="descripcion"
-                                    value={inputState.descripcion}
-                                    placeholder="Descripcion"
-                                    onChange={onInputChange}
-                                /><InputGeneric
-                                    className="inputArticuloInsumo"
-                                    label="Imagen"
-                                    type="text"
-                                    name="imagen"
-                                    value={inputState.imagen}
-                                    placeholder="imagen"
-                                    onChange={onInputChange}
-                                />
-                            </>
-                        )}
                         <InputGeneric
                             className="inputArticuloInsumo"
                             label="Precio de compra"

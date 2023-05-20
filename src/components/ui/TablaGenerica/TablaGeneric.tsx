@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import { BtnsTable } from "../Buttons/BtnsTable";
-import { TableProps } from "../../../interfaces/genericComponents/TableGeneric";
+import { ITableProps } from "../../../interfaces/genericComponents/ITableGeneric";
 import "./TablaGeneric.css"
 
 
 
 // Creamos el componente para la tabla genérica
-export const GenericTable = <T extends { id: any }>({ columns, nameTable, urlFetch }: TableProps<T>) => {
+export const GenericTable = <T extends { id: any }>({ columns, nameTable, urlFetch }: ITableProps<T>) => {
   // Obtenemos los datos de la tabla del estado global con useSelector
   const dataTable = useSelector((state: any) => state.TableReducer)
   return (
