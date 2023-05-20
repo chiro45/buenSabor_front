@@ -1,5 +1,5 @@
 
-export interface UnidadMedida {
+export interface IUnidadMedida {
     id: number;
     tipoClase: string;
     denominacion: string;

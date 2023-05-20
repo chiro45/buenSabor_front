@@ -1,4 +1,4 @@
-export interface InputProps {
+export interface IInputProps {
   placeholder?: string;
   name?: string;
   height?: number;

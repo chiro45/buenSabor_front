@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react"
-import { ISearchGeneric } from "../../../interfaces/genericComponents/SearchGeneric"
+import { ISearchGeneric } from "../../../interfaces/genericComponents/ISearchGeneric"
 import "./SearchGeneric.css"
 
 export const SearchGeneric: FunctionComponent<ISearchGeneric> = ({ label, placeholder }) => {

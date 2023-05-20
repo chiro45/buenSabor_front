@@ -1,8 +1,8 @@
 import {FC} from "react";
-import { InputProps } from "../../../interfaces/genericComponents/InputGeneric";
+import { IInputProps } from "../../../interfaces/genericComponents/IInputGeneric";
 import "./InputGeneric.css"
 
-export const InputGeneric: FC<InputProps> = ({
+export const InputGeneric: FC<IInputProps> = ({
   placeholder,
   name,
   height = 30,

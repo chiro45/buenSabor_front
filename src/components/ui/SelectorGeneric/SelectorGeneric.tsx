@@ -1,6 +1,6 @@
-import { SelectorProps } from  '../../../interfaces/genericComponents/SelectorGeneric'
+import { ISelectorProps } from  '../../../interfaces/genericComponents/ISelectorGeneric'
 
-export const SelectorGeneric: React.FC<SelectorProps> = ({
+export const SelectorGeneric: React.FC<ISelectorProps> = ({
     options,
     label,
     value,

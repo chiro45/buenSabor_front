@@ -9,7 +9,7 @@ import axios from "axios"
 import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
 import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
 import { InputGeneric } from "../../../InputGeneric/InputGeneric"
-import { Categoria } from "../../../../../interfaces/entidades/Categoria"
+import { ICategoria } from "../../../../../interfaces/entidades/ICategoria"
 import "./ModalCategoria.css"
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
@@ -17,7 +17,7 @@ const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
 export const ModalCategoria = () => {
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
-    const elementActive: Categoria = useSelector((state: any) => state.TableReducer.elementActive)
+    const elementActive: ICategoria = useSelector((state: any) => state.TableReducer.elementActive)
     const [dataCategories, setDataCategories] = useState([]);
     const [inputState, onInputChange, setInputState]: any = useInput()
     // Define una variable de estado para almacenar los valores de las listas desplegables seleccionados por el usuario

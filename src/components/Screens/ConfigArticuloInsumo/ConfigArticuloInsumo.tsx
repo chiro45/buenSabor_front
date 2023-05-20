@@ -7,8 +7,8 @@ import { ModalArticuloInsumo } from "../../ui/Modals/ModalTables/ModalArticuloIn
 import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
 import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
 import { Subheader } from "../../ui/Subheader/Subheader";
-import { ColumnsInsumo } from "../../../interfaces/columnsEntidades";
-import { ArticuloInsumo } from "../../../interfaces/entidades";
+import { IColumnsInsumo } from "../../../interfaces/columnsEntidades";
+import { IArticuloInsumo } from "../../../interfaces/entidades";
 
 const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`
 
@@ -17,7 +17,7 @@ export const ConfigArticuloInsumo = () => {
 
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsInsumo = [
-        ...ColumnsInsumo,
+        ...IColumnsInsumo,
         { label: "Acciones", key: "acciones" }
     ];
     const dispatch = useDispatch()
@@ -47,7 +47,7 @@ export const ConfigArticuloInsumo = () => {
             <ModalViewElements />
 
             {/* Tabla genérica */}
-            <GenericTable<ArticuloInsumo>
+            <GenericTable<IArticuloInsumo>
                 columns={btnColumnsInsumo}
                 urlFetch={urlFetch}
                 nameTable={"modalArticuloInsumo"}
