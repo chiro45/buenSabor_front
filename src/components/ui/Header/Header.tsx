@@ -6,9 +6,7 @@ export const Header = () => {
   return (
     <div className="header-container">
      <div className="header-container-subcaja">
-      <button className="header-button">
-        <FontAwesomeIcon icon={faBars} />
-      </button>
+      <div></div>
       <img src="/src/assets/logopng.webp" alt="Logo" className="header-logo" />
       <button className="header-button">
         <FontAwesomeIcon icon={faUser} />
