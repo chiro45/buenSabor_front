@@ -1,4 +1,4 @@
-import { ICategoria, IDetalleArticuloManufacturado } from "../entidades";
+import { ICategoria } from "../entidades";
 
 
 export const IColumnsArticuloManufacturado = [
@@ -6,7 +6,6 @@ export const IColumnsArticuloManufacturado = [
     { label: 'Descripcion', key: 'descripcion' },
     { label: 'Precio Venta', key: 'precioVenta' },
     { label: 'Tiempo Preparacion', key: 'tiempoEstimadoCocina' },
-    { label: 'Imagen', key: 'imagen' },
     { label: 'Receta', key: 'receta' },
     {
         label: 'Alta/Baja',
@@ -19,13 +18,5 @@ export const IColumnsArticuloManufacturado = [
         render: (altaBajaT: boolean) => (altaBajaT ? 'Producto Final' : 'Producto con Ingredientes'),
     },
     { label: 'Categoria', key: 'categoria', render: (categoria: ICategoria) => categoria.denominacion },
-    {
-        label: 'Ingredientes',
-        key: 'detalleArticuloManufacturados',
-        render: (ingredientes: IDetalleArticuloManufacturado[]) =>
-          ingredientes.map((ingrediente) => ({
-            label: ingrediente.articuloInsumo.denominacion,
-            key: ingrediente.articuloInsumo.id,
-          })),
-      },
+    
 ];
