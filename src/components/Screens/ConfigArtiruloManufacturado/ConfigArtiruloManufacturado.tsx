@@ -13,6 +13,10 @@ export const ConfigArtiruloManufacturado = () => {
     { label: "Acciones", key: "acciones" }
 ];
    
+
+    
+
+
     return (
         <div>
             <Header />
