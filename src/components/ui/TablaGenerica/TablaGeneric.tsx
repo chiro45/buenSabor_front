@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { BtnsTable } from "../Buttons/BtnsTable";
+import { BtnsTable } from "../Buttons/ButtonsTable/BtnsTable";
 import { ITableProps } from "../../../interfaces/genericComponents/ITableGeneric";
 import "./TablaGeneric.css"
 

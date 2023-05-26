@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeElementActiveTable } from "../../../../Redux/Reducers/TableReducer/TableReducer"
 import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
 import { LayoutModal } from "../ModalTables/LayoutModal/LayoutModal"
-import { IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
+import { IColumnsArticuloManufacturado, IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida } from "../../../../interfaces/columnsEntidades"
 import { IProps } from "../../../../interfaces/IPropsModalViewElemnts"
 
 
@@ -20,7 +20,9 @@ export const ModalViewElements = () => {
   }
 
   const [actualProp, setActualProp] = useState<any>([])
+  console.log(elementActive)
   useEffect(() => {
+    console.log(elementActive)
     if (elementActive !== null) {
       switch (elementActive.tipoClase) {
         case "UnidadMedida":
@@ -31,6 +33,9 @@ export const ModalViewElements = () => {
           break;
         case "Categoria":
           setActualProp(IColumnsCategoria);
+          break;
+        case "ArticuloManufacturado":
+          setActualProp(IColumnsArticuloManufacturado);
           break;
         default:
           break;

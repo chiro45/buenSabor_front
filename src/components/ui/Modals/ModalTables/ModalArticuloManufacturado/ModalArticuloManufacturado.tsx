@@ -9,7 +9,9 @@ import axios from "axios";
 import { InputGeneric } from "../../../InputGeneric/InputGeneric";
 import { startUploading } from "../../../../../functions/functions";
 import Swal from "sweetalert2";
+import { ButtonStandard } from "../../../Buttons/ButtonStandard/ButtonStandard";
 
+import "./ModalArticuloManufacturado.css"
 // URL base para las solicitudes HTTP
 const urlArticuloInsumo = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
     urlCategorias = `${import.meta.env.VITE_URL_API}/categorias`,
@@ -45,21 +47,33 @@ export const ModalArticuloManufacturado = () => {
             .catch((error) => console.error(error))
     };
 
+    const parseIngredientsToBd = () => {
+        const parseArr = elementActive.detalleArticuloManufacturados.map((el: any) => ({
+            id: el.id,
+            name: el.articuloInsumo.denominacion,
+            cantidad: el.articuloInsumo.cantidad,
+            medida: el.articuloInsumo.unidadMedida.tipo
+        }))
+
+
+        setIngredientes(parseArr)
+    }
     useEffect(() => {
         if (openModal === true) {
             setInputState({
                 denominacion: elementActive !== null ? elementActive.denominacion : "",
-                tiempoEnCocina: elementActive !== null ? elementActive.tiempoEnCocina : "",
+                tiempoEnCocina: elementActive !== null ? elementActive.tiempoEstimadoCocina : "",
                 descripcion: elementActive !== null ? elementActive.descripcion : "",
                 receta: elementActive !== null ? elementActive.receta : "",
                 cantidad: 0,
             })
+            parseIngredientsToBd()
             setSelectorsValues({
-                categoria: elementActive !== null ? elementActive.categoria.id : "",
-                nameIngrediente: elementActive !== null ? elementActive.unidadMedida.id : "",
+                categoria: elementActive.categoria.denominacion,
+                nameIngrediente: "",
             })
             setCheckboxStates({
-                productoFinal: elementActive !== null ? elementActive.productoFinal : false,
+                productoFinal: elementActive !== null ? elementActive.productoFinal : true,
                 altaBaja: elementActive !== null ? elementActive.altaBaja : false
             })
             getArticulosInsumos()
@@ -73,7 +87,6 @@ export const ModalArticuloManufacturado = () => {
         const { cantidad } = inputState
         const { nameIngrediente } = valuesSelector
         const resultIngrediente = optionsValues.filter((el: any) => el.denominacion === nameIngrediente)
-        console.log(resultIngrediente)
 
         setIngredientes([...ingredientes,
         {
@@ -117,28 +130,28 @@ export const ModalArticuloManufacturado = () => {
         }))
         const categoria: any = dataCategories.filter((el: any) => (el.denominacion === valuesSelector.categoria))
 
-        const objetToSehnd =
-        {
+        const objetToSend: any = {
             tiempoEstimadoCocina: inputState.tiempoEnCocina,
-            productoFinal: true,
+            productoFinal: checkboxStates.productoFinal,
             denominacion: inputState.receta,
             descripcion: inputState.receta,
             receta: inputState.receta,
             precioVenta: 22.5,
             imagen: imageProduct.image,
             altaBaja: checkboxStates.altaBaja,
-            detalleArticuloManufacturados: parseIngredientes,
             categoria: {
                 id: categoria[0].id
             }
-
         }
+        if (!checkboxStates.productoFinal) objetToSend.detalleArticuloManufacturados = parseIngredientes
 
         if (elementActive === null) {
-            axios.post(urlFetch, objetToSehnd)
-                .then(() => {
-                    handleModalState()
-                })
+            axios.post(urlFetch, objetToSend)
+                .then(() => { handleModalState() })
+                .catch((error) => console.error(error))
+        } else {
+            axios.put(`${urlFetch}/${elementActive.id}`, objetToSend)
+                .then(() => { handleModalState() })
                 .catch((error) => console.error(error))
         }
     }
@@ -148,29 +161,39 @@ export const ModalArticuloManufacturado = () => {
     const handleFileChange = async (e: any) => {
         const file = e.target.files[0];
         //si el file existe emtonces se produce el disparo de actualizacion
-        if (file) {
-            startUploading(file, setImageProduct)
-        } else {
-            Swal.fire("error", "No has seleccionado un archivo", "error")
-        }
+        if (file) { startUploading(file, setImageProduct) }
+        else { Swal.fire("error", "No has seleccionado un archivo", "error") }
 
     }
 
-    const handlePHOTO = () => {
-        document.getElementById("fileSelector")?.click()
-
-    }
+    const handlePHOTO = () => { document.getElementById("fileSelector")?.click() }
 
     return (
         <>
             {
                 openModal === false
-                    ? <button onClick={() => { handleModalState() }}>Press</button>
+                    ? <ButtonStandard
+                        text={"Agregar Articulo Manufacturado"}
+                        handleClick={() => { handleModalState() }}
+                        width={"30vw"}
+                        fontSize={"1.6vw"}
+                        height={"3vh"}
+                        backgroundColor={"#0080FF"}
+                        colorText={"#fff"}
+                    />
+
                     : <LayoutModal>
-                        <div>{/* Modal de artículo insumo */}
-                            <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div className="conatinerPrincipalModalManufacturado">{/* Modal de artículo insumo */}
+                            <h1>
+                                {
+                                    elementActive !== null
+                                        ? "Editar Articulo Manufacturado"
+                                        : "Crear Articulo Manufacturado"
+                                }
+                            </h1>
+                            <div className="conatinerPrincipalModalManufacturado">
                                 <InputGeneric
-                                    className="inputArticuloInsumo"
+                                    className="inputArticuloManufacturado"
                                     label="Denominacion"
                                     type="text"
                                     name="denominacion"
@@ -179,7 +202,15 @@ export const ModalArticuloManufacturado = () => {
                                     onChange={onInputChange}
                                 />
                                 <div>
-                                    <button onClick={handlePHOTO}>Añadir imagen</button>
+                                    <ButtonStandard
+                                        text={"Añadir imagen"}
+                                        handleClick={() => { handlePHOTO() }}
+                                        width={"15vw"}
+                                        fontSize={"2vw"}
+                                        height={"4vh"}
+                                        backgroundColor={"#77B631"}
+                                        colorText={"#fff"}
+                                    />
                                     <input id='fileSelector'
                                         type='file'
                                         name='file'
@@ -192,7 +223,7 @@ export const ModalArticuloManufacturado = () => {
                                     }
                                 </div>
                                 <InputGeneric
-                                    className="inputArticuloInsumo"
+                                    className="inputArticuloManufacturado"
                                     label="Tiempo estimado en cocina"
                                     type="number"
                                     name="tiempoEnCocina"
@@ -201,7 +232,7 @@ export const ModalArticuloManufacturado = () => {
                                     onChange={onInputChange}
                                 />
                                 <InputGeneric
-                                    className="inputArticuloInsumo"
+                                    className="inputArticuloManufacturado"
                                     label="Precio de venta"
                                     type="number"
                                     name="precioVenta"
@@ -209,25 +240,25 @@ export const ModalArticuloManufacturado = () => {
                                     placeholder="$400"
                                     onChange={onInputChange}
                                 />
-                                <div>
+                                <div className="inputArticuloManufacturado">
                                     <label>Descripcion</label>
                                     <textarea name="descripcion" value={inputState.descripcion} onChange={onInputChange} />
                                 </div>
-                                <div>
+                                <div className="inputArticuloManufacturado">
                                     <label>Receta</label>
                                     <textarea name="receta" value={inputState.receta} onChange={onInputChange} />
                                 </div>
 
-                                <div>
+                                <div className="inputArticuloManufacturado">
                                     <label>Categoria</label>
-                                    <select name="categoria" onChange={onSelectorChange}>
+                                    <select value={valuesSelector.categoria} name="categoria" onChange={onSelectorChange}>
                                         {dataCategories.map((el: any) => (
                                             <option key={el.denominacion}> {el.denominacion}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <InputGeneric
-                                    className="inputArticuloInsumo"
+                                    className="inputArticuloManufacturado"
                                     label="Alta/baja"
                                     type="checkbox"
                                     name="altaBaja"
@@ -236,10 +267,11 @@ export const ModalArticuloManufacturado = () => {
                                     onChange={onInputCheckboxChange}
                                 />
                                 <InputGeneric
-                                    className="inputArticuloInsumo"
+                                    className="inputArticuloManufacturado"
                                     label="Producto Final?"
                                     type="checkbox"
                                     name="productoFinal"
+                                    checked={checkboxStates.productoFinal ? true : false}
                                     value={checkboxStates.productoFinal}
                                     placeholder="$400"
                                     onChange={onInputCheckboxChange}
@@ -249,12 +281,16 @@ export const ModalArticuloManufacturado = () => {
                                 checkboxStates.productoFinal === false &&
 
                                 <div>
-                                    <input
+                                    <InputGeneric
+                                        className="inputArticuloManufacturado"
+                                        label="Cantidad"
                                         type="number"
                                         name="cantidad"
                                         value={inputState.cantidad}
+                                        placeholder="100"
                                         onChange={onInputChange}
-                                        placeholder="Cantidad" />
+                                    />
+
                                     <select name="nameIngrediente" onChange={onSelectorChange}>
                                         {
                                             optionsValues.map((el: any) => (
@@ -282,9 +318,25 @@ export const ModalArticuloManufacturado = () => {
                             }
                         </div>
 
-                        <div>
-                            <button onClick={handleSubmitArticuloManufacturado}>Confirmar</button>
-                            <button onClick={() => { handleModalState() }}>Cancelar</button>
+                        <div className="containerButtonActionsModalManufacturado">
+                            <ButtonStandard
+                                text={"Confirmar"}
+                                handleClick={() => { handleSubmitArticuloManufacturado() }}
+                                width={"10vw"}
+                                fontSize={"2vw"}
+                                height={"4vh"}
+                                backgroundColor={"#0080FF"}
+                                colorText={"#fff"}
+                            />
+                            <ButtonStandard
+                                text={"Cancelar"}
+                                handleClick={() => { handleModalState() }}
+                                width={"10vw"}
+                                fontSize={"2vw"}
+                                height={"4vh"}
+                                backgroundColor={"#f00"}
+                                colorText={"#fff"}
+                            />
                         </div>
                     </LayoutModal>
             }

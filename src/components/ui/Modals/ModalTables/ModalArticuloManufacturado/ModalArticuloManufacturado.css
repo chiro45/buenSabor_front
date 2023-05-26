@@ -1,0 +1,35 @@
+.conatinerInputsModalManufacturado{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.conatinerPrincipalModalManufacturado{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+}
+.inputArticuloManufacturado{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inputArticuloManufacturado input{
+    width: 13vw !important;
+}
+.inputArticuloManufacturado textarea{
+    width: 20vw ;
+    height: 10vh;
+    resize: none;
+}
+.containerButtonActionsModalManufacturado{
+    display: flex;
+    margin-top: 2vh;
+    justify-content: space-around;
+    align-items: center;
+    width: 100;
+}
+

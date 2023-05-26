@@ -8,7 +8,10 @@ import { InputGeneric } from "../../../InputGeneric/InputGeneric"
 import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
 import { IArticuloInsumo } from "../../../../../interfaces/entidades"
 import "./ModalArticuloInsumo.css"
+import { ButtonStandard } from "../../../Buttons/ButtonStandard/ButtonStandard";
 
+
+import { faEye } from "@fortawesome/free-solid-svg-icons"
 // URL base para las solicitudes HTTP
 const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
     urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`,
@@ -213,18 +216,31 @@ export const ModalArticuloInsumo = () => {
                             </select>
                         </div>
                         <div className="containerButtonsModalArticuloInsumo">
-                            <button
-                                onClick={handleSubmitModal}>
+                            <ButtonStandard
+                                text=
                                 {
                                     elementActive !== null
                                         ? "Editar "
                                         : "Crear "
                                 }
-                            </button>
-                            <button
-                                onClick={() => {
-                                    dispatch(handleModalsTable("modalArticuloInsumo"))
-                                }}>Cancelar</button>
+                                handleClick={handleSubmitModal}
+                                width={"10vw"}
+                                height={"4vh"}
+                                backgroundColor={"#0080FF"}
+                                colorText={"#fff"}
+                                fontSize={"2vw"}
+                            />
+
+                            <ButtonStandard
+                                text={"Cancelar"}
+                                handleClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}
+                                width={"10vw"}
+                                fontSize={"2vw"}
+                                height={"4vh"}
+                                backgroundColor={"#f00"}
+                                colorText={"#fff"}
+                            />
+
                         </div>
 
                     </div>
