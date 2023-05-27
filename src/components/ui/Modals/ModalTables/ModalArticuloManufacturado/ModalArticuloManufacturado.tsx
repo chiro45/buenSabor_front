@@ -133,7 +133,7 @@ export const ModalArticuloManufacturado = () => {
         const objetToSend: any = {
             tiempoEstimadoCocina: inputState.tiempoEnCocina,
             productoFinal: checkboxStates.productoFinal,
-            denominacion: inputState.receta,
+            denominacion: inputState.denominacion,
             descripcion: inputState.receta,
             receta: inputState.receta,
             precioVenta: 22.5,
@@ -147,7 +147,9 @@ export const ModalArticuloManufacturado = () => {
 
         if (elementActive === null) {
             axios.post(urlFetch, objetToSend)
-                .then(() => { handleModalState() })
+                .then(() => { 
+                    dispatch(getDataTable(urlFetch)) 
+                    handleModalState()})
                 .catch((error) => console.error(error))
         } else {
             axios.put(`${urlFetch}/${elementActive.id}`, objetToSend)

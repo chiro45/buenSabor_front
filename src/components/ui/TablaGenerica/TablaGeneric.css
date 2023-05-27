@@ -29,19 +29,21 @@
   justify-content: center;
   width: 100%;
   max-height: 60vh;
-  overflow-y: auto;
+  overflow-y: auto; gap: 1vh;
 }
 .tbl-st6>thead>tr{
   display: flex;
+   gap: 1vh;
 }
 .tbl-st6>tbody>tr{
   display: flex;
+   gap: 1vh;
   justify-content: center;
   align-items: center;
 }
 .tbl-st6>thead>tr>th{
- border-left: 1px solid #000;
   display: flex;
+  gap: 1vh;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
