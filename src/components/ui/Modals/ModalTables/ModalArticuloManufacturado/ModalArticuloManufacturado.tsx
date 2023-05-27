@@ -175,9 +175,9 @@ export const ModalArticuloManufacturado = () => {
                     ? <ButtonStandard
                         text={"Agregar Articulo Manufacturado"}
                         handleClick={() => { handleModalState() }}
-                        width={"30vw"}
-                        fontSize={"1.6vw"}
-                        height={"3vh"}
+                        width={"20vw"}
+                        fontSize={"1.2vw"}
+                        height={"4.3vh"}
                         backgroundColor={"#0080FF"}
                         colorText={"#fff"}
                     />
