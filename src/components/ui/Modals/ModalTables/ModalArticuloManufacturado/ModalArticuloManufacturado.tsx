@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCheckBoxInput, useInput, useSelectorInput } from "../../../../../hooks";
+import { useAccessToken, useCheckBoxInput, useInput, useSelectorInput } from "../../../../../hooks";
 import { LayoutModal } from "../LayoutModal/LayoutModal";
 import { useSelector } from "react-redux";
 import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer";
@@ -15,11 +15,12 @@ import "./ModalArticuloManufacturado.css"
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import noImage from "../../../../../assets/noImage.jpg"
 
-const urlArticuloInsumo = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
-    urlCategorias = `${import.meta.env.VITE_URL_API}/categorias`,
-    urlFetch = `${import.meta.env.VITE_URL_API}/articulos_manufacturado`;
-
+const urlArticuloInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
+    urlCategorias = `${import.meta.env.VITE_URL_CATEGORY}`,
+    urlArticuloManufacturado = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
 export const ModalArticuloManufacturado = () => {
+
+    const headers = useAccessToken();
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloManufacturado)
     // Obtiene el elemento activo de la tabla actual de Redux
     const elementActive = useSelector((state: any) => state.TableReducer.elementActive);
@@ -158,14 +159,14 @@ export const ModalArticuloManufacturado = () => {
         if (!checkboxStates.productoFinal) objetToSend.detalleArticuloManufacturados = parseIngredientes
 
         if (elementActive === null) {
-            axios.post(urlFetch, objetToSend)
+            axios.post(urlArticuloManufacturado, objetToSend)
                 .then(() => {
-                    dispatch(getDataTable(urlFetch))
+                    dispatch(getDataTable(urlArticuloManufacturado, headers))
                     handleModalState()
                 })
                 .catch((error) => console.error(error))
         } else {
-            axios.put(`${urlFetch}/${elementActive.id}`, objetToSend)
+            axios.put(`${urlArticuloManufacturado}/${elementActive.id}`, objetToSend)
                 .then(() => { handleModalState() })
                 .catch((error) => console.error(error))
         }
