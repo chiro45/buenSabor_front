@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
-import { createElement, fetchGet, updateElement } from "../../../../../helpers";
+import { createElement, fetchGet, getElementSetState, updateElement } from "../../../../../helpers";
 import { LayoutModal, InputGeneric } from "../../../../ui"
 import { ICategoria } from "../../../../../interfaces"
 import "./ModalCategoria.css"
@@ -21,28 +21,20 @@ export const ModalCategoria = () => {
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         altaBaja: false,
     });
+    const getDataCategories = () => getElementSetState(urlFetch, headers, setDataCategories);
 
     useEffect(() => {
         if (openModal === true) {
             const { denominacion, parent, altaBaja } = elementActive || {};
             setInputState({ denominacion: denominacion || "" });
             setSelectorsValues({ categoria: parent?.id || "" });
-            setCheckboxStates({ altaBaja: altaBaja || false });
+            setCheckboxStates({ altaBaja: altaBaja !== undefined ? altaBaja : false });
             getDataCategories()
         } else {
             dispatch(removeElementActiveTable())
         }
     }, [openModal])
 
-    const getDataCategories = async () => {
-        try {
-            const res = await fetchGet(urlFetch, headers);
-            setDataCategories(res);
-        } catch (error) {
-            console.error('Error al obtener los datos de las categorias:', error);
-            // Manejo del error, como mostrar un mensaje al usuario o realizar alguna otra acción apropiada
-        }
-    };
 
     const handleSubmitModal = () => {
         const data = {
@@ -59,7 +51,7 @@ export const ModalCategoria = () => {
                 })
                 .catch((error) => console.error(error));
         } else {
-            updateElement(urlFetch, elementActive.id, { ...elementActive, data }, headers)
+            updateElement(urlFetch, elementActive.id, data, headers)
                 .then(() => {
                     dispatch(getDataTable(urlFetch, headers));
                     dispatch(handleModalsTable("modalCategoria"));

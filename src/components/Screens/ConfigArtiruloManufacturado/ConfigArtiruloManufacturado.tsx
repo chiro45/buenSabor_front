@@ -1,18 +1,18 @@
-import { Header } from "../../ui/Header/Header"
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
-import { Subheader } from "../../ui/Subheader/Subheader"
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
-import { ModalArticuloManufacturado } from "../../ui/Modals/ModalTables/ModalArticuloManufacturado/ModalArticuloManufacturado"
-import { IColumnsArticuloManufacturado } from "../../../interfaces/columnsEntidades"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer"
-
-const urlARticulosManufacturados = `${import.meta.env.VITE_URL_API}/articulos_manufacturado`
-
+import { Header, SearchGeneric, Subheader, GenericTable, ModalArticuloManufacturado } from "../../ui"
+import { IColumnsArticuloManufacturado } from "../../../interfaces"
+import { getDataTable } from "../../../Redux"
+import { useAccessToken } from "../../../hooks"
 import "./ConfigArtiruloManufacturado.css"
 
+const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+
+
 export const ConfigArtiruloManufacturado = () => {
+    const headers = useAccessToken();
+    // Obtiene la función dispatch del store
+    const dispatch = useDispatch();
 
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsArticuloManufacturado = [
@@ -20,12 +20,9 @@ export const ConfigArtiruloManufacturado = () => {
         { label: "Acciones", key: "acciones" }
     ];
 
-    // Obtiene la función dispatch del store
-    const dispatch = useDispatch();
-
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
     useEffect(() => {
-        dispatch(getDataTable(urlARticulosManufacturados));
+        dispatch(getDataTable(url,headers));
     }, [dispatch]);
 
 
@@ -49,7 +46,7 @@ export const ConfigArtiruloManufacturado = () => {
             {/* Tabla genérica */}
             <GenericTable<any>
                 columns={btnColumnsArticuloManufacturado}
-                urlFetch={urlARticulosManufacturados}
+                urlFetch={url}
                 nameTable={"modalArticuloManufacturado"}
             />
 
