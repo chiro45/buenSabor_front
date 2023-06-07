@@ -1,15 +1,6 @@
-interface SelectorProps {
-    options: string[];
-    label: string;
-    height?: number;
-    width?: number;
-    value?: string;
-    className?: string;
-    name?: string;
-    handleSelector(val:object):void;
-}
+import { ISelectorProps } from  '../../../interfaces/genericComponents/ISelectorGeneric'
 
-export const SelectorGeneric: React.FC<SelectorProps> = ({
+export const SelectorGeneric: React.FC<ISelectorProps> = ({
     options,
     label,
     value,

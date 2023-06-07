@@ -1,5 +1,5 @@
 import { TypesTableGeneric } from '../../Types/TypesTableGeneric';
-import axios from 'axios';
+import { fetchGet } from '../../../helpers';
 
 // Definimos la interfaz para el estado de la tabla
 interface TableState {
@@ -53,12 +53,12 @@ export const TableReducer = (state: TableState = initialState, action: TableActi
 };
 
 // Función asincrónica que hace una solicitud GET a la URL especificada y actualiza el estado de la tabla
-export const getDataTable = (url: string): any => {
+export const getDataTable = (url: string, headers:Record<string, string>): any => {
   return async (dispatch: any): Promise<void> => {
     try {
-      const respuesta = await axios.get(url);
+      const respuesta = await fetchGet(url,headers);
       // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
-      dispatch(addDataTable(respuesta.data));
+      dispatch(addDataTable(respuesta));
     } catch (error) {
       console.error(error);
     }

@@ -1,0 +1,53 @@
+.containerModalArticuloInsumo{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.buttonModalArticulo{
+    background-color: var(--terciario);
+    color: #fff;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    margin-bottom: 2vh;
+}
+.containerFormArticuloInsumo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.inputArticuloInsumo{
+    margin-top: .4rem;
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.inputArticuloInsumo input{
+    width: 60% !important;
+}
+.inputArticuloInsumo label{
+    width: 40% !important;
+}
+.containerSelectosArticuloInsumo{
+    margin-top: .4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+}
+.containerSelectosArticuloInsumo select{
+    width: 100%;
+}
+.containerButtonsModalArticuloInsumo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2vw;
+    margin-top: 2vh;
+}

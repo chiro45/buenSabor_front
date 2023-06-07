@@ -1,105 +1,113 @@
-import { useDispatch } from "react-redux"
-import { LayoutModal } from "../LayoutModal/LayoutModal"
-import { useSelector } from "react-redux"
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
-import { useInput } from "../../../../../hooks/useInput"
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
-const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
+import { useSelector, useDispatch } from "react-redux"
+import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
+import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
+import { createElement, fetchGet, updateElement } from "../../../../../helpers";
+import { LayoutModal, InputGeneric } from "../../../../ui"
+import { ICategoria } from "../../../../../interfaces"
+import "./ModalCategoria.css"
+
+const urlFetch = `${import.meta.env.VITE_URL_CATEGORY}`
 
 export const ModalCategoria = () => {
+    const headers = useAccessToken();
     const dispatch = useDispatch()
-    const openModal = useSelector((state: any) => state.ModalsReducer.modalcategoria)
-    const elemetActive = useSelector((state: any) => state.TableReducer.elementActive)
+    const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
+    const elementActive: ICategoria = useSelector((state: any) => state.TableReducer.elementActive)
     const [dataCategories, setDataCategories] = useState([]);
     const [inputState, onInputChange, setInputState]: any = useInput()
     // Define una variable de estado para almacenar los valores de las listas desplegables seleccionados por el usuario
     const [valuesSelector, onSelectorChange, setSelectorsValues]: any = useSelectorInput();
-
+    const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
+        altaBaja: false,
+    });
 
     useEffect(() => {
         if (openModal === true) {
-            setInputState({ denominacion: elemetActive !== null ? elemetActive.denominacion : "" })
-            setSelectorsValues({
-                categoria: elemetActive !== null ?
-                    elemetActive.parent !== null
-                        ? elemetActive.parent.id
-                        : ""
-                    : ""
-            })
+            const { denominacion, parent, altaBaja } = elementActive || {};
+            setInputState({ denominacion: denominacion || "" });
+            setSelectorsValues({ categoria: parent?.id || "" });
+            setCheckboxStates({ altaBaja: altaBaja || false });
             getDataCategories()
         } else {
             dispatch(removeElementActiveTable())
         }
     }, [openModal])
 
-    const getDataCategories = () => {
-        axios.get(urlFetch)
-            .then((response) => { setDataCategories(response.data) })
-            .catch((error) => console.error(error))
+    const getDataCategories = async () => {
+        try {
+            const res = await fetchGet(urlFetch, headers);
+            setDataCategories(res);
+        } catch (error) {
+            console.error('Error al obtener los datos de las categorias:', error);
+            // Manejo del error, como mostrar un mensaje al usuario o realizar alguna otra acción apropiada
+        }
+    };
+
+    const handleSubmitModal = () => {
+        const data = {
+            parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
+            denominacion: inputState.denominacion,
+            altaBaja: checkboxStates.altaBaja,
+        };
+
+        if (elementActive === null) {
+            createElement(urlFetch, data, headers)
+                .then(() => {
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalCategoria"));
+                })
+                .catch((error) => console.error(error));
+        } else {
+            updateElement(urlFetch, elementActive.id, { ...elementActive, data }, headers)
+                .then(() => {
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalCategoria"));
+                })
+                .catch((error) => console.error(error));
+        }
     };
 
 
 
-    const handleSubmitModal = () => {
-
-        if (elemetActive === null) {
-            axios.post(urlFetch, {
-                parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion
-            })
-                .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalcategoria"))
-                })
-                .catch((error) => console.error(error))
-        } else {
-            axios.put(`${urlFetch}/${elemetActive.id}`, {
-                ...elemetActive,
-                parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion
-            })
-                .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalcategoria"))
-                })
-                .catch((error) => console.error(error))
-        }
-    }
     return (
-        <div>
+        <div className="containerModalCategoria">
             {
                 openModal === false
-                    ? <button onClick={() => { dispatch(handleModalsTable("modalcategoria")) }}>AgregarCategoria</button>
+                    ? <button
+                        className="buttonModalCategoria"
+                        onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>
+                        Agregar Categoria
+                    </button>
                     : <LayoutModal>
-                        <div>
+                        <div className="containerFormCategoria">
                             <h1>
                                 {
-                                    elemetActive !== null
+                                    elementActive !== null
                                         ? "Editar Categoria"
                                         : "Crear Categoria"
                                 }
                             </h1>
-                            <input
+                            <InputGeneric
+                                className="inputCategoria"
                                 type="text"
+                                label="Denominacion"
                                 placeholder="Ingrese denominacion de la Categoria"
                                 name="denominacion"
                                 value={inputState.denominacion}
                                 onChange={onInputChange}
                             />
-                            <select onChange={onSelectorChange} name="categoria" >
-                                <option>selecciona</option>
+                            <select className="containerSelectorCategoria" onChange={onSelectorChange} name="categoria" >
+                                <option >Selecciona</option>
                                 {
                                     dataCategories.map((el: any) => (
                                         <option
                                             key={el.id}
                                             value={el.id}
                                             selected={
-                                                elemetActive !== null
+                                                elementActive !== null
                                                     ?
-                                                    elemetActive.parent !== null && elemetActive.parent.id === el.id
+                                                    elementActive.parent !== null && elementActive.parent.id === el.id
                                                         ? true
                                                         : false
                                                     : false}
@@ -109,15 +117,29 @@ export const ModalCategoria = () => {
                                     ))
                                 }
                             </select>
-                            <button
-                                onClick={handleSubmitModal}>
-                                {
-                                    elemetActive !== null
-                                        ? "Editar "
-                                        : "Crear "
-                                }
-                            </button>
-                            <button onClick={() => { dispatch(handleModalsTable("modalcategoria")) }}>Cancelar</button>
+
+                            <InputGeneric
+                                className="inputCategoria"
+                                label="Dar Alta?"
+                                onChange={onInputCheckboxChange}
+                                name="altaBaja"
+                                checked={checkboxStates.altaBaja}
+                                value={checkboxStates.altaBaja}
+                                type="checkbox" />
+                            <div className="containerButtonsModalCategoria">
+                                <button
+                                    onClick={handleSubmitModal}>
+                                    {
+                                        elementActive !== null
+                                            ? "Editar "
+                                            : "Crear "
+                                    }
+                                </button>
+                                <button
+                                    onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}
+                                >Cancelar
+                                </button>
+                            </div>
                         </div>
                     </LayoutModal>
 

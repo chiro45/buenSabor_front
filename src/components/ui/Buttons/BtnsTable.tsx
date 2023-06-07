@@ -1,23 +1,19 @@
-import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "./BtsTable.css"
 import { FunctionComponent } from "react"
 import { useDispatch } from "react-redux"
+import axios from 'axios';
 import { addElementActiveTable, getDataTable } from '../../../Redux/Reducers/TableReducer/TableReducer';
 import { handleModalsTable } from "../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { IBtnsTable } from "../../../interfaces/IBtnsTable";
+import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Swal from "sweetalert2"
-import axios from 'axios';
+import "./BtsTable.css"
 
-interface IBtnsTable {
-    element: any,
-    nameTable?: string
-    urlFetch: string
-}
 export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, urlFetch }) => {
     const dispatch = useDispatch()
     const handleView = () => {
         dispatch(addElementActiveTable(element))
-        dispatch(handleModalsTable("modalview"))
+        dispatch(handleModalsTable("modalView"))
     }
     const handleDelete = () => {
         Swal.fire({
@@ -32,13 +28,22 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, u
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(`${urlFetch}/${element.id}`)
-                    .then((response) => { dispatch(getDataTable(urlFetch)) })
-                    .catch((error) => console.error(error))
-                Swal.fire(
-                    'Deleted!',
-                    'Eliminado',
-                    'success'
-                )
+                    .then((response) => { 
+                        dispatch(getDataTable(urlFetch))
+                        Swal.fire(
+                            'Deleted!',
+                            'Eliminado',
+                            'success'
+                        ) 
+                    })
+                    .catch((error) => {
+                        Swal.fire(
+                            'Error!',
+                            `${error.response.data}`,
+                            'error')
+                        console.error(error)
+                    })
+                
             }
         })
     }

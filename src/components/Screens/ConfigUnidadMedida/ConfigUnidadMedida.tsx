@@ -1,41 +1,33 @@
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric";
-import { Header } from "../../ui/Header/Header";
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric";
 import { useEffect } from "react";
-import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida/ModalUnidadMedida";
 import { useDispatch } from "react-redux";
-import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
-import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
+import { Header, GenericTable, SearchGeneric, ModalUnidadMedida, ModalViewElements, Subheader } from "../../ui";
+import { getDataTable } from "../../../Redux";
+import { IColumnsUnidadMedida, IUnidadMedida } from "../../../interfaces";
+import { useAccessToken } from "../../../hooks";
 
-const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
 
-// Define la interfaz de UnidadMedida con sus propiedades y tipos
-interface UnidadMedida {
-    id: number;
-    tipo: string;
-}
+const url = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`
 
 export const ConfigUnidadMedida = () => {
+    const headers = useAccessToken();
+    // Obtiene la función dispatch del store
+    const dispatch = useDispatch();
     // Define las columnas de la tabla como un array de objetos con label y key
-    const columnsArtInsumo = [
-        { label: 'Tipo', key: 'tipo' },
+    const btnColumnsUnidadMedida = [
+        ...IColumnsUnidadMedida,
         { label: "Acciones", key: "acciones" }
     ];
 
-    // Obtiene la función dispatch del store
-    const dispatch = useDispatch();
-
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
     useEffect(() => {
-        dispatch(getDataTable(urlMedidas));
+       
+        dispatch(getDataTable(url, headers));
     }, [dispatch]);
 
     return (
         <div>
             <Header />
-            <div style={{ height: "5vh", backgroundColor: "#fea" }}>
-                Subheader
-            </div>
+            <Subheader />
             {/* Muestra el componente SearchGeneric con sus props */}
             <SearchGeneric label={"Unidad Medida"} placeholder={"Ingrese su categoria"} />
             {/* Muestra el componente ModalUnidadMedida */}
@@ -43,10 +35,10 @@ export const ConfigUnidadMedida = () => {
             {/* Muestra el componente ModalViewElements */}
             <ModalViewElements />
             {/* Muestra el componente GenericTable con sus props */}
-            <GenericTable<UnidadMedida>
-                columns={columnsArtInsumo}
+            <GenericTable<IUnidadMedida>
+                columns={btnColumnsUnidadMedida}
                 nameTable="modalMedidas"
-                urlFetch={urlMedidas}
+                urlFetch={url}
             />
         </div>
     );

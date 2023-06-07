@@ -1,5 +1,6 @@
-import { CategoryList } from "../../CategoryList/CategoryList"
+
 import { Banner } from "../../ui/Banner/Banner"
+import { CategoryList } from "../../ui/CategoryList/CategoryList"
 import { Header } from "../../ui/Header/Header"
 import { NavBarMobile } from "../../ui/NavBarMobile/NavBarMobile"
 import { ProductFavorities } from "../../ui/ProductFavorities/ProductFavorities"

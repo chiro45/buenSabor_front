@@ -1,0 +1,53 @@
+.containerModalCategoria{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonModalCategoria{
+    background-color: var(--terciario);
+    color: #fff;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    margin-bottom: 2vh;
+}
+.containerFormCategoria{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height:40vh;
+    width: 100%;
+}
+.inputCategoria{
+    margin-top: .4rem;
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+.inputCategoria input{
+    width: 80% !important;
+}
+.inputCategoria label{
+    width: 25% !important;
+}
+.containerSelectorCategoria{
+    margin-top: .4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+.containerSelectorCategoria select{
+    width: 100%;
+    height: 4vh;
+}
+.containerButtonsModalCategoria{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2vw;
+    margin-top: 2vh;
+}

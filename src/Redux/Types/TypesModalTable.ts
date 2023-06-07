@@ -1,6 +1,6 @@
 export const TypesModalTable = {
     modalMedidas: "[TypesModalTable] Modal Medidas",
-    modalview: "[TypesModalTable] Modal ViewProduct",
+    modalView: "[TypesModalTable] Modal ViewProduct",
     modalArticuloInsumo: "[TypesModalTable] Modal Articulo Insumo",
-    modalcategoria: "[TypesModalTable] Modal Categoria"
+    modalCategoria: "[TypesModalTable] Modal Categoria"
 }

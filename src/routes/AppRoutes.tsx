@@ -6,8 +6,8 @@ import { routesConfig } from "./RoutesConfig"
 export const AppRoutes = () => {
   return (
     <Routes>
-      {routesConfig.map((route) => (
-        <Route path={route.path} element={<route.component />} />
+      {routesConfig.map((route, i) => (
+        <Route key={i} path={route.path} element={<route.component />} />
       ))}
     </Routes>
   )

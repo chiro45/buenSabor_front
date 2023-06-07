@@ -1,44 +1,32 @@
 import { TypesModalTable } from "../../Types/TypesModalTable";
-
-// Creamos una interfaz que define el estado del reducer
-interface ModalState {
-  modalMedidas: boolean;
-  modalview: boolean;
-  modalArticuloInsumo: boolean;
-  modalcategoria: boolean
-}
+import { IModalState, IModalAction } from "../../../interfaces/IModalState";
 
 // Definimos el estado inicial
-const initialState: ModalState = {
+const initialState: IModalState = {
   modalMedidas: false,
-  modalview: false,
+  modalView: false,
   modalArticuloInsumo: false,
-  modalcategoria: false
+  modalCategoria: false
 };
 
-// Creamos una interfaz que define la forma de la acción del reducer
-interface ModalAction {
-  type: string;
-}
-
 // Creamos el reducer de los modales
-export const ModalsReducer = (state = initialState, action: ModalAction) => {
+export const ModalsReducer = (state = initialState, action: IModalAction) => {
   // Desestructuramos el estado para facilitar el acceso a sus propiedades
-  const { modalMedidas, modalview, modalArticuloInsumo, modalcategoria } = state;
+  const { modalMedidas, modalView, modalArticuloInsumo, modalCategoria } = state;
 
   switch (action.type) {
     // Si la acción es modalMedidas, invertimos su valor en el estado
     case TypesModalTable.modalMedidas:
       return { ...state, modalMedidas: !modalMedidas };
-    // Si la acción es modalview, invertimos su valor en el estado
-    case TypesModalTable.modalview:
-      return { ...state, modalview: !modalview };
+    // Si la acción es modalView, invertimos su valor en el estado
+    case TypesModalTable.modalView:
+      return { ...state, modalView: !modalView };
     // Si la acción es modalArticuloInsumo, invertimos su valor en el estado
     case TypesModalTable.modalArticuloInsumo:
       return { ...state, modalArticuloInsumo: !modalArticuloInsumo };
       // Si la acción es modalCategory, invertimos su valor en el estado
-    case TypesModalTable.modalcategoria:
-      return { ...state, modalcategoria: !modalcategoria };
+    case TypesModalTable.modalCategoria:
+      return { ...state, modalCategoria: !modalCategoria };
     // Si la acción no corresponde a ninguna de las anteriores, retornamos el estado tal cual
     default:
       return state;
@@ -49,8 +37,8 @@ export const ModalsReducer = (state = initialState, action: ModalAction) => {
 const modalActions: { [key: string]: { type: string } }  = {
   modalMedidas: { type: TypesModalTable.modalMedidas },
   modalArticuloInsumo: { type: TypesModalTable.modalArticuloInsumo },
-  modalview: { type: TypesModalTable.modalview },
-  modalcategoria: { type: TypesModalTable.modalcategoria },
+  modalView: { type: TypesModalTable.modalView },
+  modalCategoria: { type: TypesModalTable.modalCategoria },
 };
 
 // Creamos una función que toma un tipo de acción y devuelve la acción correspondiente del objeto modalActions

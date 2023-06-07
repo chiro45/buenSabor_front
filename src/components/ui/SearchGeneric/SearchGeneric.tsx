@@ -1,11 +1,7 @@
-
 import { FunctionComponent } from "react"
+import { ISearchGeneric } from "../../../interfaces/genericComponents/ISearchGeneric"
 import "./SearchGeneric.css"
-interface ISearchGeneric {
-    label: string,
-    placeholder: string
 
-}
 export const SearchGeneric: FunctionComponent<ISearchGeneric> = ({ label, placeholder }) => {
     return (
             <div className="containerPrincipalSearchGeneric">
