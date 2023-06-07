@@ -96,27 +96,6 @@ export const ModalArticuloManufacturado = () => {
 
     const dispatch = useDispatch()
 
-    // const handleSubmitIngredietne = () => {
-    //     const { cantidad } = inputState
-    //     const { nameIngrediente } = valuesSelector
-    //     const resultIngrediente = optionsValues.filter((el: any) => el.denominacion === nameIngrediente)
-    //     setIngredientes([...ingredientes,
-    //     {
-    //         id: resultIngrediente[0].id,
-    //         name: nameIngrediente,
-    //         cantidad: cantidad,
-    //         medida: resultIngrediente[0].unidadMedida.tipo
-    //     }
-    //     ])
-    //     setInputState({
-    //         ...inputState,
-    //         cantidad: ""
-    //     })
-    //     setSelectorsValues({
-    //         ...valuesSelector,
-    //         name: ""
-    //     })
-    // }
     const handleSubmitIngrediente = () => {
         const { cantidad } = inputState;
         const { nameIngrediente } = valuesSelector;
