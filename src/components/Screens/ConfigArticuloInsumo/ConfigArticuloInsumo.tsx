@@ -1,30 +1,28 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Header } from "../../ui/Header/Header"
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
-import { ModalArticuloInsumo } from "../../ui/Modals/ModalTables/ModalArticuloInsumo/ModalArticuloInsumo";
-import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
-import { Subheader } from "../../ui/Subheader/Subheader";
-import { IColumnsInsumo } from "../../../interfaces/columnsEntidades";
-import { IArticuloInsumo } from "../../../interfaces/entidades";
+import { useAccessToken } from "../../../hooks";
+import { getDataTable } from "../../../Redux";
+import { IColumnsInsumo, IArticuloInsumo } from "../../../interfaces";
+import { Header, GenericTable, SearchGeneric, ModalArticuloInsumo, ModalViewElements, Subheader } from "../../ui";
 
-const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`
+const url = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`
+
+
 
 export const ConfigArticuloInsumo = () => {
 
+    const headers = useAccessToken();
+    const dispatch = useDispatch()
 
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsInsumo = [
         ...IColumnsInsumo,
         { label: "Acciones", key: "acciones" }
     ];
-    const dispatch = useDispatch()
 
     // Utilizamos useEffect para actualizar los datos de la tabla en el estado global cuando cambia la propiedad "data"
     useEffect(() => {
-        dispatch(getDataTable(urlFetch))
+        dispatch(getDataTable(url,headers))
     }, [])
 
     return (
@@ -49,7 +47,7 @@ export const ConfigArticuloInsumo = () => {
             {/* Tabla genérica */}
             <GenericTable<IArticuloInsumo>
                 columns={btnColumnsInsumo}
-                urlFetch={urlFetch}
+                urlFetch={url}
                 nameTable={"modalArticuloInsumo"}
             />
 

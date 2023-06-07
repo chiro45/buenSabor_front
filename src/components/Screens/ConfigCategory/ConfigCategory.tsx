@@ -1,31 +1,28 @@
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric"
-import { Header } from "../../ui/Header/Header"
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric"
-import "./ConfigCategory.css"
-import { ModalCategoria } from "../../ui/Modals/ModalTables/ModalCategoria/ModalCategoria";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { IColumnsCategoria } from "../../../interfaces/columnsEntidades";
-import { ICategoria } from "../../../interfaces/entidades/ICategoria";
-import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
-import { Subheader } from "../../ui/Subheader/Subheader";
+import { useDispatch } from "react-redux";
+import { useAccessToken } from "../../../hooks";
+import { getDataTable } from "../../../Redux";
+import { IColumnsCategoria, ICategoria } from "../../../interfaces";
+import { GenericTable, Header,SearchGeneric, ModalCategoria, Subheader, ModalViewElements } from "../../ui"
+import "./ConfigCategory.css"
+import { Footer } from "../../ui/Footer/Footer";
 
-const urlMedidas = `${import.meta.env.VITE_URL_API}/categorias`
+const url = `${import.meta.env.VITE_URL_CATEGORY}`
 
 export const ConfigCategory = () => {
 
+    const headers = useAccessToken();
+    // Obtiene la función dispatch del store
+    const dispatch = useDispatch();
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsCategoria = [
         ...IColumnsCategoria,
         { label: "Acciones", key: "acciones" }
     ];
-    // Obtiene la función dispatch del store
-    const dispatch = useDispatch();
 
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
     useEffect(() => {
-        dispatch(getDataTable(urlMedidas));
+        dispatch(getDataTable(url, headers));
     }, [dispatch]);
 
 
@@ -38,10 +35,11 @@ export const ConfigCategory = () => {
             <ModalViewElements />
             <GenericTable<ICategoria>
                 columns={btnColumnsCategoria}
-                urlFetch={urlMedidas}
+                urlFetch={url}
                 nameTable={"modalCategoria"}
             />
-
+            
+            <Footer/>
         </div>
     )
 }

@@ -1,32 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Header } from "../../ui/Header/Header";
-import { GenericTable } from "../../ui/TablaGenerica/TablaGeneric";
-import { SearchGeneric } from "../../ui/SearchGeneric/SearchGeneric";
-import { ModalUnidadMedida } from "../../ui/Modals/ModalTables/ModalUnidadMedida/ModalUnidadMedida";
-import { ModalViewElements } from "../../ui/Modals/ModalViewElements/ModalViewElements";
-import { getDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer";
-import { Subheader } from "../../ui/Subheader/Subheader";
-import { IColumnsUnidadMedida } from "../../../interfaces/columnsEntidades";
-import { IUnidadMedida } from "../../../interfaces/entidades";
+import { Header, GenericTable, SearchGeneric, ModalUnidadMedida, ModalViewElements, Subheader } from "../../ui";
+import { getDataTable } from "../../../Redux";
+import { IColumnsUnidadMedida, IUnidadMedida } from "../../../interfaces";
+import { useAccessToken } from "../../../hooks";
 
 
-
-const urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`
+const url = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`
 
 export const ConfigUnidadMedida = () => {
+    const headers = useAccessToken();
+    // Obtiene la función dispatch del store
+    const dispatch = useDispatch();
     // Define las columnas de la tabla como un array de objetos con label y key
     const btnColumnsUnidadMedida = [
         ...IColumnsUnidadMedida,
         { label: "Acciones", key: "acciones" }
     ];
 
-    // Obtiene la función dispatch del store
-    const dispatch = useDispatch();
-
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
     useEffect(() => {
-        dispatch(getDataTable(urlMedidas));
+       
+        dispatch(getDataTable(url, headers));
     }, [dispatch]);
 
     return (
@@ -43,7 +38,7 @@ export const ConfigUnidadMedida = () => {
             <GenericTable<IUnidadMedida>
                 columns={btnColumnsUnidadMedida}
                 nameTable="modalMedidas"
-                urlFetch={urlMedidas}
+                urlFetch={url}
             />
         </div>
     );

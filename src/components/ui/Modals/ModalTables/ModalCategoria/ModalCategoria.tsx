@@ -1,20 +1,16 @@
-import { useDispatch } from "react-redux"
-import { LayoutModal } from "../LayoutModal/LayoutModal"
-import { useSelector } from "react-redux"
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
-import { useInput } from "../../../../../hooks/useInput"
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useSelectorInput } from "../../../../../hooks/useSelectorInput"
-import { useCheckBoxInput } from "../../../../../hooks/useCheckBoxInput"
-import { InputGeneric } from "../../../InputGeneric/InputGeneric"
-import { ICategoria } from "../../../../../interfaces/entidades/ICategoria"
+import { useSelector, useDispatch } from "react-redux"
+import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
+import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
+import { createElement, fetchGet, updateElement } from "../../../../../helpers";
+import { LayoutModal, InputGeneric } from "../../../../ui"
+import { ICategoria } from "../../../../../interfaces"
 import "./ModalCategoria.css"
 
-const urlFetch = `${import.meta.env.VITE_URL_API}/categorias`
+const urlFetch = `${import.meta.env.VITE_URL_CATEGORY}`
 
 export const ModalCategoria = () => {
+    const headers = useAccessToken();
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
     const elementActive: ICategoria = useSelector((state: any) => state.TableReducer.elementActive)
@@ -28,58 +24,50 @@ export const ModalCategoria = () => {
 
     useEffect(() => {
         if (openModal === true) {
-            setInputState({ denominacion: elementActive !== null ? elementActive.denominacion : "" })
-            setSelectorsValues({
-                categoria: elementActive !== null ?
-                    elementActive.parent !== null
-                        ? elementActive.parent.id
-                        : ""
-                    : ""
-            })
-            setCheckboxStates({
-                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
-            })
+            const { denominacion, parent, altaBaja } = elementActive || {};
+            setInputState({ denominacion: denominacion || "" });
+            setSelectorsValues({ categoria: parent?.id || "" });
+            setCheckboxStates({ altaBaja: altaBaja || false });
             getDataCategories()
         } else {
             dispatch(removeElementActiveTable())
         }
     }, [openModal])
 
-    const getDataCategories = () => {
-        axios.get(urlFetch)
-            .then((response) => { setDataCategories(response.data) })
-            .catch((error) => console.error(error))
+    const getDataCategories = async () => {
+        try {
+            const res = await fetchGet(urlFetch, headers);
+            setDataCategories(res);
+        } catch (error) {
+            console.error('Error al obtener los datos de las categorias:', error);
+            // Manejo del error, como mostrar un mensaje al usuario o realizar alguna otra acción apropiada
+        }
     };
 
-
-
     const handleSubmitModal = () => {
+        const data = {
+            parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
+            denominacion: inputState.denominacion,
+            altaBaja: checkboxStates.altaBaja,
+        };
 
         if (elementActive === null) {
-            axios.post(urlFetch, {
-                parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion,
-                altaBaja: checkboxStates.altaBaja
-            })
+            createElement(urlFetch, data, headers)
                 .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalCategoria"))
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalCategoria"));
                 })
-                .catch((error) => console.error(error))
+                .catch((error) => console.error(error));
         } else {
-            axios.put(`${urlFetch}/${elementActive.id}`, {
-                ...elementActive,
-                parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
-                denominacion: inputState.denominacion,
-                altaBaja: checkboxStates.altaBaja
-            })
+            updateElement(urlFetch, elementActive.id, { ...elementActive, data }, headers)
                 .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalCategoria"))
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalCategoria"));
                 })
-                .catch((error) => console.error(error))
+                .catch((error) => console.error(error));
         }
-    }
+    };
+
 
 
     return (
