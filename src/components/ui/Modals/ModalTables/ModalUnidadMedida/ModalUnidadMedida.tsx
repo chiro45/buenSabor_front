@@ -1,66 +1,61 @@
 import { useEffect } from "react"
-import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer";
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer";
-import { LayoutModal } from "../LayoutModal/LayoutModal";
-import { useInput, useCheckBoxInput } from '../../../../../hooks';
-import { IUnidadMedida } from "../../../../../interfaces/entidades";
-import { InputGeneric } from "../../../InputGeneric/InputGeneric";
+import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux";
+import { LayoutModal, InputGeneric } from "../../../../ui"
+import { useInput, useCheckBoxInput, useAccessToken } from '../../../../../hooks';
+import { IUnidadMedida } from "../../../../../interfaces";
+import { createElement, updateElement } from "../../../../../helpers";
 import "./ModalUnidadMedida.css"
 
-const urlFetch = `${import.meta.env.VITE_URL_API}/unidadmedidas`
+const urlFetch = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`
 
 export const ModalUnidadMedida = () => {
 
     const dispatch = useDispatch()
+    const headers = useAccessToken();
     const openModal = useSelector((state: any) => state.ModalsReducer.modalMedidas)
     const elementActive: IUnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
     const [inputState, onInputChange, setInputState]: any = useInput()
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         altaBaja: false,
     });
+
     useEffect(() => {
-        if (openModal === true) {
+        if (openModal) {
+            const { denominacion, altaBaja, tipo } = elementActive || {};
             setInputState({
-                denominacionUnidadMedida: elementActive !== null ? elementActive.denominacion : "",
-                tipoUnidadMedida: elementActive !== null ? elementActive.tipo : "",
-            })
-            setCheckboxStates({
-                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
-            })
+                denominacionUnidadMedida: denominacion || "",
+                tipoUnidadMedida: tipo || "",
+            });
+            setCheckboxStates({ altaBaja: altaBaja || false });
         } else {
-            dispatch(removeElementActiveTable())
+            dispatch(removeElementActiveTable());
         }
-    }, [openModal])
+    }, [openModal]);
 
     const handleSubmitModal = () => {
-        //TODO: SACAR LAS FUNCIONES DE POST PUT
+        const data = {
+            denominacion: inputState.denominacionUnidadMedida,
+            tipo: inputState.tipoUnidadMedida,
+            altaBaja: checkboxStates.altaBaja,
+        };
+
         if (elementActive === null) {
-            axios.post(urlFetch, {
-                denominacion: inputState.denominacionUnidadMedida,
-                tipo: inputState.tipoUnidadMedida,
-                altaBaja: checkboxStates.altaBaja
-            }).then(() => console.log(checkboxStates.tipo))
+            createElement(urlFetch, data, headers)
                 .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalMedidas"))
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalMedidas"));
                 })
-                .catch((error) => console.error(error))
+                .catch((error) => console.error(error));
         } else {
-            axios.put(`${urlFetch}/${elementActive.id}`, {
-                ...elementActive,
-                denominacion: inputState.denominacionUnidadMedida,
-                tipo: inputState.tipoUnidadMedida,
-                altaBaja: checkboxStates.altaBaja
-            })
+            updateElement(urlFetch, elementActive.id, { ...elementActive, data }, headers)
                 .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalMedidas"))
+                    dispatch(getDataTable(urlFetch, headers));
+                    dispatch(handleModalsTable("modalMedidas"));
                 })
-                .catch((error) => console.error(error))
+                .catch((error) => console.error(error));
         }
-    }
+    };
     return (
         <div className="containerModalUnidadMedida">
             {

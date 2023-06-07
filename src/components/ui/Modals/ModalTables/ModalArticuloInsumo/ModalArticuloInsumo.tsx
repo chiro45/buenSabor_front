@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import axios from 'axios';
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer"
-import { LayoutModal } from "../LayoutModal/LayoutModal"
-import { InputGeneric } from "../../../InputGeneric/InputGeneric"
-import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
-import { IArticuloInsumo } from "../../../../../interfaces/entidades"
+import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
+import { LayoutModal, InputGeneric } from "../../../../ui"
+import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
+import { IArticuloInsumo } from "../../../../../interfaces"
+import { createElement, fetchGet, updateElement } from "../../../../../helpers";
 import "./ModalArticuloInsumo.css"
 
 // URL base para las solicitudes HTTP
-const urlFetch = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
-    urlMedidas = `${import.meta.env.VITE_URL_API}/unidadmedidas`,
-    urlCategorias = `${import.meta.env.VITE_URL_API}/categorias`
+const urlArtInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
+    urlMedidas = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`,
+    urlCategorias = `${import.meta.env.VITE_URL_CATEGORY}`
+
 export const ModalArticuloInsumo = () => {
     const dispatch = useDispatch();
-
+    const headers = useAccessToken();
     // Obtiene el estado de Redux que indica si el modal de ArticuloInsumo está abierto o no
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloInsumo);
 
@@ -35,95 +34,86 @@ export const ModalArticuloInsumo = () => {
         esInsumo: false,
         altaBaja: false
     });
-
-    // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
-    const getDataUnidadMedidas = () => {
-        axios.get(urlMedidas)
-            .then((response) => { setDataUnidadMedidas(response.data) })
-            .catch((error) => console.error(error))
-    };
-    const getDataCategories = () => {
-        axios.get(urlCategorias)
-            .then((response) => { setDataCategories(response.data) })
-            .catch((error) => console.error(error))
-    };
-
-
-
+  
     useEffect(() => {
         if (openModal === true) {
+            const { denominacion, precioCompra, precioVenta, stockActual, stockMinimo, categoria, unidadMedida, altaBaja } = elementActive || {};
+            
             setInputState({
-                denominacion: elementActive !== null ? elementActive.denominacion : "",
-                precioCompra: elementActive !== null ? elementActive.precioCompra : 0,
-                precioVenta: elementActive !== null ? elementActive.precioVenta : 0,
-                stockActual: elementActive !== null ? elementActive.stockActual : 0,
-                stockMinimo: elementActive !== null ? elementActive.stockMinimo : 0,
-            })
+                denominacion: denominacion || "",
+                precioCompra: precioCompra || 0,
+                precioVenta: precioVenta || 0,
+                stockActual: stockActual || 0,
+                stockMinimo: stockMinimo || 0,
+            });
+            
             setSelectorsValues({
-                categoria: elementActive !== null ? elementActive.categoria.id : "",
-                unidadMedida: elementActive !== null ? elementActive.unidadMedida.id : "",
-            })
+                categoria: categoria?.id || "",
+                unidadMedida: unidadMedida?.id || "",
+            });
+            
             setCheckboxStates({
-                altaBaja: elementActive !== null ? elementActive.altaBaja : false,
-            })
+                altaBaja: altaBaja || false,
+            });
             getDataCategories()
             getDataUnidadMedidas()
         } else {
             dispatch(removeElementActiveTable())
         }
     }, [openModal])
-
-
-
-    const handleSubmitModal = () => {
-        //TODO: SACAR LAS FUNCIONES DE POST PUT
-        if (elementActive === null) {
-            axios.post(urlFetch,
-                {
-                    denominacion: inputState.denominacion,
-                    precioCompra: parseFloat(inputState.precioCompra),
-                    precioVenta: parseFloat(inputState.precioVenta),
-                    stockActual: parseFloat(inputState.stockActual),
-                    stockMinimo: parseFloat(inputState.stockMinimo),
-                    altaBaja: checkboxStates.altaBaja,
-                    categoria: {
-                        id: parseFloat(valuesSelector.categoria)
-                    },
-                    unidadMedida: {
-                        id: parseFloat(valuesSelector.unidadMedida)
-                    }
-                }
-            )
-                .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalArticuloInsumo"))
-                })
-                .catch((error) => console.error(error))
-        } else {
-            axios.put(`${urlFetch}/${elementActive.id}`, {
-                ...elementActive,
-                denominacion: inputState.denominacion,
-                precioCompra: parseFloat(inputState.precioCompra),
-                precioVenta: parseFloat(inputState.precioVenta),
-                stockActual: parseFloat(inputState.stockActual),
-                stockMinimo: parseFloat(inputState.stockMinimo),
-                altaBaja: checkboxStates.altaBaja,
-                categoria: {
-                    id: parseFloat(valuesSelector.categoria)
-                },
-                unidadMedida: {
-                    id: parseFloat(valuesSelector.unidadMedida)
-                }
-
-            })
-                .then(() => {
-                    dispatch(getDataTable(urlFetch))
-                    dispatch(handleModalsTable("modalArticuloInsumo"))
-                })
-                .catch((error) => console.error(error))
+    // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
+    const getDataUnidadMedidas = async () => {
+        try {
+            const res = await fetchGet(urlMedidas, headers);
+            setDataUnidadMedidas(res);
+        } catch (error) {
+            console.error('Error al obtener los datos de las unidades de medidas:', error);
+            // Manejo del error, como mostrar un mensaje al usuario o realizar alguna otra acción apropiada
         }
-    }
 
+    };
+    const getDataCategories = async () => {
+        try {
+            const res = await fetchGet(urlCategorias, headers);
+            setDataCategories(res);
+        } catch (error) {
+            console.error('Error al obtener los datos de las categorias:', error);
+            // Manejo del error, como mostrar un mensaje al usuario o realizar alguna otra acción apropiada
+        }
+    };
+    const handleSubmitModal = () => {
+        const data = {
+          denominacion: inputState.denominacion,
+          precioCompra: parseFloat(inputState.precioCompra),
+          precioVenta: parseFloat(inputState.precioVenta),
+          stockActual: parseFloat(inputState.stockActual),
+          stockMinimo: parseFloat(inputState.stockMinimo),
+          altaBaja: checkboxStates.altaBaja,
+          categoria: {
+            id: parseFloat(valuesSelector.categoria),
+          },
+          unidadMedida: {
+            id: parseFloat(valuesSelector.unidadMedida),
+          },
+        };
+      
+        if (elementActive === null) {
+          createElement(urlArtInsumo, data, headers)
+            .then(() => {
+              dispatch(getDataTable(urlArtInsumo, headers));
+              dispatch(handleModalsTable("modalArticuloInsumo"));
+            })
+            .catch((error) => console.error(error));
+        } else {
+          updateElement(urlArtInsumo, elementActive.id, { ...elementActive, data }, headers)
+            .then(() => {
+              dispatch(getDataTable(urlArtInsumo, headers));
+              dispatch(handleModalsTable("modalArticuloInsumo"));
+            })
+            .catch((error) => console.error(error));
+        }
+      };
+      
     return (
         <div className="containerModalArticuloInsumo">{
             openModal === false
