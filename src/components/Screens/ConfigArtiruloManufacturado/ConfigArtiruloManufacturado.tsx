@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { Header, SearchGeneric, Subheader, GenericTable, ModalArticuloManufacturado } from "../../ui"
+import { Header, SearchGeneric, Subheader, GenericTable, ModalArticuloManufacturado, ModalViewElements } from "../../ui"
 import { IColumnsArticuloManufacturado } from "../../../interfaces"
 import { getDataTable } from "../../../Redux"
 import { useAccessToken } from "../../../hooks"
@@ -43,6 +43,7 @@ export const ConfigArtiruloManufacturado = () => {
                 />
             </div>
 
+            <ModalViewElements />
             {/* Tabla genérica */}
             <GenericTable<any>
                 columns={btnColumnsArticuloManufacturado}
