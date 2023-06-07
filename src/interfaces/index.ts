@@ -1,0 +1,6 @@
+export * from './IBtnsTable'
+export * from './IModalState'
+export * from './IPropsModalViewElemnts'
+export * from './columnsEntidades'
+export * from './entidades'
+export * from './genericComponents'

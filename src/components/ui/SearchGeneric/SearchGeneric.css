@@ -1,0 +1,35 @@
+.containerPrincipalSearchGeneric{
+    display: flex;
+}
+.containerItemsSearchGeneric{
+    display: flex;
+    gap: 2vh;
+    min-width: 20vw;
+    height: 5vh;
+    justify-content: space-around;
+    align-items: center;
+}
+.labelSearchGeneric{
+    font-size: 2vw;
+
+}
+.inputSearchGeneric{
+    border: 1px solid gray;
+    outline: none;
+    border-radius: .4rem;
+    padding: .3rem;
+}
+.buttonSearchGeneric{
+    border: none;
+    padding: .4rem;
+    border-radius: .4rem;
+    background-color: #feba31;
+    color: #fff;
+    width: 6vw;
+    transition: .3 ease background-color;
+}
+.buttonSearchGeneric:hover{
+    cursor: pointer;
+    background-color: #faae15;
+
+}

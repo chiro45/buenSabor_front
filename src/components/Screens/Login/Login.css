@@ -1,0 +1,153 @@
+.containerPrincipalLogin {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #3f4043;
+}
+
+.principalContainerLogin {
+    background-color: #fff;
+    border-radius: .4rem;
+    height: 90vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.containerImgLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerImgLogin img {
+    width: 30vh;
+}
+
+.containerTitleLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerInputsLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.input-Login {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.input-Login input {
+    border: 1px solid #ccc;
+    border-radius: .4rem;
+    padding: .2rem;
+    outline: none;
+    width: 80vw;
+}
+
+.containerbuttonsLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh;
+}
+
+.containerShowPass {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: .4rem;
+    gap: 1vw;
+    ;
+    width: 100%;
+}
+
+.buttonLoggin-ingresar__divPrincipal,
+.buttonLoggin-ingresarConGoogle__divPrincipal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonLoggin-ingresar__divPrincipal button {
+    border: none;
+    background-color: #f9af57;
+    padding: .4rem;
+    border-radius: .4rem;
+    color: #fff;
+    width: 55vw;
+    height: 5vh;
+    font-size: 4vw;
+    font-weight: 600;
+}
+
+
+.containerButton__login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.google-btn {
+    width: 55vw;
+    cursor: pointer;
+    height: 5vh;
+    background-color: #4285f4;
+    border-radius: .4rem;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.google-icon-wrapper {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14vw;
+    height: 5vh;
+    border-radius: 0 0 0 .4rem;
+}
+
+.google-icon {
+    width: 5vw;
+}
+
+.containerTextGoolgle {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-text {
+    color: #fff;
+    font-size: 4vw;
+    font-weight: 600;
+    margin-top: -.5vh;
+}
+
+.btn-text:hover {
+    box-shadow: 0 0 6px #4285f4;
+}
+
+.btn-text:active {
+    background: #1669F2;
+}

@@ -1,0 +1,39 @@
+.containerPrincipalNavBarMobile{
+    width: 100vw;
+    margin-top: 11vh;
+    display: flex;
+    justify-content: center;
+}
+
+.navBarMobile__containerPrincipal {
+    background-color: #3f4043;
+    border-radius: 1rem 1rem 0 0;
+    bottom: 0vh;
+    height: 10vh;
+    position: fixed ;
+    width: 96vw;
+}
+
+.navBarMobile__contaierItems {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+.navBarCarItemActive,
+.navBarCarItem {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.navBarCarItem {
+    color: #fff;
+}
+.navBarCarItemActive{
+    color: #f9af57;
+}

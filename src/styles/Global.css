@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --principal: #0f232f;
+    --secundario: #fcfffc;
+    --terciario: #ba3423;
+    --background: #ffffff;
+    --backgroundSecundario: #eae8d8;
+}
+
+
+/*========== SCROLL BAR ==========*/
+::-webkit-scrollbar {
+  width: 0.4rem; 
+  background-color:  var(--backgroundSecundario);
+  border-radius: 0.4rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--principal);
+  border-radius: 0.5rem;
+
+}
+::-webkit-scrollbar-thumb:hover {
+     background-color: var(--terciario);
+
+}

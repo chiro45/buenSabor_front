@@ -1,0 +1,17 @@
+.containerSubheader{
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--terciario);
+}
+
+.linksSubheader{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2vw;
+}
+.active{
+    text-decoration:underline;
+}

@@ -1,0 +1,5 @@
+export * from './IArticuloInsumo'
+export * from './IArticuloManufacturado'
+export * from './ICategoria'
+export * from './IDetalleArticuloManufacturado'
+export * from './IUnidadMedida'
