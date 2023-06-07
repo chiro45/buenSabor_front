@@ -1,0 +1,53 @@
+/* <!-- section Footer --> */
+.footerSection {
+    background-color: var(--principal);
+    color: #ffffff;
+    width: 100vw;
+}
+
+.containerImg__footer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+.containerImg__footer img {
+    margin-top: 2vh;
+    width: 10vw;
+}
+
+.container__information-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+}
+
+.mainContainer__footer,
+.container-contact__Footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.container-horarios__footer{
+    margin-top: 2vh;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+
+}
+
+.container-brand__footer {
+    align-items: center; 
+    background-color: #f7583a;
+    display: flex;
+    height: 6vh;
+    justify-content: center;
+    margin-top: 5vh;
+    width: 100vw;
+    text-align: center;
+  
+  }

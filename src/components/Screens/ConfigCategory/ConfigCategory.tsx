@@ -5,6 +5,7 @@ import { getDataTable } from "../../../Redux";
 import { IColumnsCategoria, ICategoria } from "../../../interfaces";
 import { GenericTable, Header,SearchGeneric, ModalCategoria, Subheader, ModalViewElements } from "../../ui"
 import "./ConfigCategory.css"
+import { Footer } from "../../ui/Footer/Footer";
 
 const url = `${import.meta.env.VITE_URL_CATEGORY}`
 
@@ -37,7 +38,8 @@ export const ConfigCategory = () => {
                 urlFetch={url}
                 nameTable={"modalCategoria"}
             />
-
+            
+            <Footer/>
         </div>
     )
 }
