@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useAccessToken, useCheckBoxInput, useInput, useSelectorInput } from "../../../../../hooks";
-import { LayoutModal } from "../LayoutModal/LayoutModal";
-import { useSelector } from "react-redux";
-import { getDataTable, removeElementActiveTable } from "../../../../../Redux/Reducers/TableReducer/TableReducer";
-import { handleModalsTable } from "../../../../../Redux/Reducers/ModalsReducer/ModalsReducer";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { InputGeneric } from "../../../InputGeneric/InputGeneric";
+import { getDataTable, removeElementActiveTable, handleModalsTable } from "../../../../../Redux";
+import { InputGeneric, ButtonStandard, LayoutModal } from "../../../../ui";
 import { startUploading } from "../../../../../functions/functions";
+import { createElement, getElementSetState, updateElement } from "../../../../../helpers";
 import Swal from "sweetalert2";
-import { ButtonStandard } from "../../../Buttons/ButtonStandard/ButtonStandard";
-
-import "./ModalArticuloManufacturado.css"
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import noImage from "../../../../../assets/noImage.jpg"
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import "./ModalArticuloManufacturado.css"
 
-const urlArticuloInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
+const
+    urlArticuloInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
     urlCategorias = `${import.meta.env.VITE_URL_CATEGORY}`,
     urlArticuloManufacturado = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+
 export const ModalArticuloManufacturado = () => {
 
     const headers = useAccessToken();
@@ -38,17 +35,10 @@ export const ModalArticuloManufacturado = () => {
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({});
 
     // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
-    const getArticulosInsumos = () => {
-        axios.get(urlArticuloInsumo)
-            .then((response) => { setOptionValues(response.data) })
-            .catch((error) => console.error(error))
-    };
 
-    const getDataCategories = () => {
-        axios.get(urlCategorias)
-            .then((response) => { setDataCategories(response.data) })
-            .catch((error) => console.error(error))
-    };
+    const getArticulosInsumos = () => getElementSetState(urlArticuloInsumo, headers, setOptionValues);
+    const getDataCategories = () => getElementSetState(urlCategorias, headers, setDataCategories);
+
 
     const parseIngredientsToBd = () => {
         const parseArr = elementActive.detalleArticuloManufacturados.map((el: any) => ({
@@ -57,65 +47,86 @@ export const ModalArticuloManufacturado = () => {
             cantidad: el.articuloInsumo.cantidad,
             medida: el.articuloInsumo.unidadMedida.tipo
         }))
-
-
         setIngredientes(parseArr)
     }
 
-    console.log(elementActive)
     useEffect(() => {
         if (openModal === true) {
+            const {
+                denominacion,
+                tiempoEstimadoCocina,
+                descripcion,
+                receta,
+                precioVenta,
+                categoria,
+                imagen,
+                productoFinal,
+                altaBaja
+            } = elementActive || {};
             setInputState({
-                denominacion: elementActive !== null ? elementActive.denominacion : "",
-                tiempoEnCocina: elementActive !== null ? elementActive.tiempoEstimadoCocina : 0,
-                descripcion: elementActive !== null ? elementActive.descripcion : "",
-                receta: elementActive !== null ? elementActive.receta : "",
+                denominacion: denominacion || "",
+                tiempoEnCocina: tiempoEstimadoCocina || 0,
+                descripcion: descripcion || "",
+                receta: receta || "",
                 cantidad: 0,
-                precioVenta: elementActive !== null ? elementActive.precioVenta : 0
-            })
+                precioVenta: precioVenta || 0
+            });
+
             setImageProduct({
-                image: elementActive !== null ? elementActive.imagen : ""
-            })
+                image: imagen || ""
+            });
+
             if (elementActive !== null) {
-                parseIngredientsToBd()
+                parseIngredientsToBd();
             }
+
             setSelectorsValues({
-                categoria: elementActive !== null ? elementActive.categoria.denominacion : "",
-                nameIngrediente: "",
-            })
+                categoria: categoria?.denominacion || "",
+                nameIngrediente: ""
+            });
+
             setCheckboxStates({
-                productoFinal: elementActive !== null ? elementActive.productoFinal : true,
-                altaBaja: elementActive !== null ? elementActive.altaBaja : false
-            })
-            getArticulosInsumos()
-            getDataCategories()
+                productoFinal: productoFinal !== undefined ? productoFinal : true,
+                altaBaja: altaBaja !== undefined ? altaBaja : false
+            });
+            getArticulosInsumos();
+            getDataCategories();
         }
-    }, [openModal])
+    }, [openModal]);
 
     const dispatch = useDispatch()
 
-    const handleSubmitIngredietne = () => {
-        const { cantidad } = inputState
-        const { nameIngrediente } = valuesSelector
-        const resultIngrediente = optionsValues.filter((el: any) => el.denominacion === nameIngrediente)
+    const handleSubmitIngrediente = () => {
+        const { cantidad } = inputState;
+        const { nameIngrediente } = valuesSelector;
+        const resultIngrediente = optionsValues.find((el: any) => el.denominacion === nameIngrediente);
+        console.log(resultIngrediente)
+        if (resultIngrediente) {
+            const { id, unidadMedida } = resultIngrediente;
+            const { tipo } = unidadMedida;
 
-        setIngredientes([...ingredientes,
-        {
-            id: resultIngrediente[0].id,
-            name: nameIngrediente,
-            cantidad: cantidad,
-            medida: resultIngrediente[0].unidadMedida.tipo
+            setIngredientes([
+                ...ingredientes,
+                {
+                    id,
+                    name: nameIngrediente,
+                    cantidad,
+                    medida: tipo
+                }
+            ]);
+
+            setInputState({
+                ...inputState,
+                cantidad: ""
+            });
+
+            setSelectorsValues({
+                ...valuesSelector,
+                nameIngrediente: ""
+            });
         }
-        ])
-        setInputState({
-            ...inputState,
-            cantidad: ""
-        })
-        setSelectorsValues({
-            ...valuesSelector,
-            name: ""
-        })
-    }
+    };
+
 
     const handleDeleteElement = (name: string) => {
         const result = ingredientes.filter((el: any) => el.name !== name)
@@ -135,7 +146,8 @@ export const ModalArticuloManufacturado = () => {
         setIngredientes([])
     }
     const [imageProduct, setImageProduct] = useState({ image: "" })
-    console.log(imageProduct)
+
+
     const handleSubmitArticuloManufacturado = () => {
         const parseIngredientes = ingredientes.map((el: any) => ({
             cantidad: el.cantidad,
@@ -154,20 +166,24 @@ export const ModalArticuloManufacturado = () => {
             altaBaja: checkboxStates.altaBaja,
             categoria: {
                 id: categoria[0].id
-            }
+            },
+            detalleArticuloManufacturados: ingredientes
         }
         if (!checkboxStates.productoFinal) objetToSend.detalleArticuloManufacturados = parseIngredientes
 
         if (elementActive === null) {
-            axios.post(urlArticuloManufacturado, objetToSend)
+            createElement(urlArticuloManufacturado, objetToSend, headers)
                 .then(() => {
                     dispatch(getDataTable(urlArticuloManufacturado, headers))
                     handleModalState()
                 })
                 .catch((error) => console.error(error))
         } else {
-            axios.put(`${urlArticuloManufacturado}/${elementActive.id}`, objetToSend)
-                .then(() => { handleModalState() })
+            updateElement(urlArticuloManufacturado, elementActive.id, objetToSend, headers)
+                .then(() => {
+                    dispatch(getDataTable(urlArticuloManufacturado, headers))
+                    handleModalState()
+                })
                 .catch((error) => console.error(error))
         }
     }
@@ -289,6 +305,7 @@ export const ModalArticuloManufacturado = () => {
                                 <div className="inputArticuloManufacturado">
                                     <label>Categoria</label>
                                     <select value={valuesSelector.categoria} name="categoria" onChange={onSelectorChange}>
+                                        <option >Selecciona</option>
                                         {dataCategories.map((el: any) => (
                                             <option key={el.denominacion}> {el.denominacion}</option>
                                         ))}
@@ -300,6 +317,7 @@ export const ModalArticuloManufacturado = () => {
                                     type="checkbox"
                                     name="altaBaja"
                                     value={checkboxStates.altaBaja}
+                                    checked={checkboxStates.altaBaja}
                                     placeholder="$400"
                                     onChange={onInputCheckboxChange}
                                 />
@@ -308,7 +326,7 @@ export const ModalArticuloManufacturado = () => {
                                     label="Producto Final?"
                                     type="checkbox"
                                     name="productoFinal"
-                                    checked={checkboxStates.productoFinal ? true : false}
+                                    checked={checkboxStates.productoFinal}
                                     value={checkboxStates.productoFinal}
                                     placeholder="$400"
                                     onChange={onInputCheckboxChange}
@@ -330,6 +348,7 @@ export const ModalArticuloManufacturado = () => {
                                         />
 
                                         <select name="nameIngrediente" onChange={onSelectorChange}>
+                                            <option >Selecciona</option>
                                             {
                                                 optionsValues.map((el: any) => (
                                                     <option>{el.denominacion}</option>
@@ -338,7 +357,7 @@ export const ModalArticuloManufacturado = () => {
                                         </select>
                                         <ButtonStandard
                                             text={"Add"}
-                                            handleClick={() => { handleSubmitIngredietne() }}
+                                            handleClick={() => { handleSubmitIngrediente() }}
                                             width={"6vw"}
                                             fontSize={"1vw"}
                                             height={"4vh"}
