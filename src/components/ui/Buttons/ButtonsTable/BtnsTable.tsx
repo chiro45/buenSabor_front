@@ -1,15 +1,19 @@
 import { FunctionComponent } from "react"
 import { useDispatch } from "react-redux"
 import axios from 'axios';
-import { addElementActiveTable, getDataTable } from '../../../Redux/Reducers/TableReducer/TableReducer';
-import { handleModalsTable } from "../../../Redux/Reducers/ModalsReducer/ModalsReducer"
-import { IBtnsTable } from "../../../interfaces/IBtnsTable";
+import { addElementActiveTable, getDataTable } from '../../../../Redux/Reducers/TableReducer/TableReducer';
+import { handleModalsTable } from "../../../../Redux/Reducers/ModalsReducer/ModalsReducer"
+import { IBtnsTable } from "../../../../interfaces/IBtnsTable";
 import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Swal from "sweetalert2"
 import "./BtsTable.css"
+import { useAccessToken } from "../../../../hooks";
 
 export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, urlFetch }) => {
+
+    const headers = useAccessToken();
+
     const dispatch = useDispatch()
     const handleView = () => {
         dispatch(addElementActiveTable(element))
@@ -28,13 +32,13 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, u
         }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(`${urlFetch}/${element.id}`)
-                    .then((response) => { 
-                        dispatch(getDataTable(urlFetch))
+                    .then((response) => {
+                        dispatch(getDataTable(urlFetch, headers))
                         Swal.fire(
                             'Deleted!',
                             'Eliminado',
                             'success'
-                        ) 
+                        )
                     })
                     .catch((error) => {
                         Swal.fire(
@@ -43,7 +47,7 @@ export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, u
                             'error')
                         console.error(error)
                     })
-                
+
             }
         })
     }

@@ -10,6 +10,7 @@ export const Subheader = () => {
     { route: "/config/articuloInsumo", text: "Articulos / Insumos", icon: "" },
     { route: "/config/category", text: "Categoria", icon: "" },
     { route: "/config/unidadMedida", text: "Unidad Medida", icon: "" },
+    { route: "/config/articuloManufacturado", text: "Articulos Manufacturado", icon: "" },
   ]
   const dispatch = useDispatch()
   const location = useLocation()

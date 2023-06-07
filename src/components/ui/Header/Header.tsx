@@ -1,7 +1,7 @@
 
 import "./Header.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
+import {  faUser } from '@fortawesome/free-solid-svg-icons';
 export const Header = () => {
   return (
     <div className="header-container">

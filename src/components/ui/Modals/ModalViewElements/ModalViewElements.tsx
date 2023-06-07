@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { handleModalsTable, removeElementActiveTable } from "../../../../Redux"
-import { IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida,IProps } from "../../../../interfaces"
+import { IColumnsArticuloManufacturado, IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida,IProps } from "../../../../interfaces"
 import { LayoutModal } from "../../../ui"
 
 
@@ -31,6 +31,9 @@ export const ModalViewElements = () => {
           break;
         case "Categoria":
           setActualProp(IColumnsCategoria);
+          break;
+        case "ArticuloManufacturado":
+          setActualProp(IColumnsArticuloManufacturado);
           break;
         default:
           break;

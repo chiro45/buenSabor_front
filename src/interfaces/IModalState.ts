@@ -4,6 +4,7 @@ export interface IModalState {
   modalView: boolean;
   modalArticuloInsumo: boolean;
   modalCategoria: boolean;
+  modalArticuloManufacturado:boolean;
 }
 // Creamos una interfaz que define la forma de la acción del reducer
 export interface IModalAction {

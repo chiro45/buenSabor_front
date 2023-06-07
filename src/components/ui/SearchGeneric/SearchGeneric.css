@@ -1,16 +1,17 @@
 .containerPrincipalSearchGeneric{
     display: flex;
-    width: 100%;
 }
 .containerItemsSearchGeneric{
     display: flex;
+    gap: 2vh;
     min-width: 20vw;
     height: 5vh;
     justify-content: space-around;
     align-items: center;
 }
 .labelSearchGeneric{
-    font-size: 1vw;
+    font-size: 2vw;
+
 }
 .inputSearchGeneric{
     border: 1px solid gray;

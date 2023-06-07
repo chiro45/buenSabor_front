@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { BtnsTable } from "../Buttons/BtnsTable";
+import { BtnsTable } from "../Buttons/ButtonsTable/BtnsTable";
 import { ITableProps } from "../../../interfaces/genericComponents/ITableGeneric";
 import "./TablaGeneric.css"
 
@@ -12,7 +12,7 @@ export const GenericTable = <T extends { id: any }>({ columns, nameTable, urlFet
   return (
     // Renderizamos la tabla
     <div className="containerTablegeneric">
-      <table className="GenericTableContainer">
+      <table className="tabla tbl-st6">
         <thead className="theadTableGeneric">
           <tr>
             {/* Iteramos sobre las columnas para renderizar los encabezados */}
@@ -29,7 +29,7 @@ export const GenericTable = <T extends { id: any }>({ columns, nameTable, urlFet
             // Validamos que haya datos en la tabla
             dataTable.data !== undefined &&
             dataTable.data.map((item: any) => (
-              <tr key={item.id}>
+              <tr className="trTable" key={item.id}>
                 {/* Iteramos sobre las columnas para renderizar las celdas */}
                 {columns.map((column) => (
                   <td key={column.key}>

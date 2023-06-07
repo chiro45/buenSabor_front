@@ -1,0 +1,13 @@
+.buttonStandard{
+    display: flex;
+    border: none;
+    justify-content: center;
+    gap: .3vw;
+    align-items: center;
+    border-radius: .4rem;
+    transition: .2s ease-in filter;
+}
+.buttonStandard:hover{
+    cursor: pointer;
+    filter: brightness(90%);
+}

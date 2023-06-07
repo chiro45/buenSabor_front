@@ -1,0 +1,81 @@
+.conatinerInputsModalManufacturado{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.conatinerPrincipalModalManufacturado{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    
+}
+.inputArticuloManufacturado{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inputArticuloManufacturado input{
+    width: 13vw !important;
+}
+.inputArticuloManufacturado textarea{
+    width: 20vw ;
+    height: 10vh;
+    resize: none;
+}
+.containerButtonActionsModalManufacturado{
+    display: flex;
+    margin-top: 2vh;
+    justify-content: space-around;
+    align-items: center;
+    width: 100;
+}
+
+.containerImgProducto{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+.containerImgProducto img{
+    width: 10vh;
+    height: 10vh;
+    border-radius: .4rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+}
+.containerAddIngredient{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1vh;
+}
+.containerIngredientes{
+    display: flex;
+    border: 1px solid #000;
+    border-radius: .4rem;
+    gap: 3vh;
+    align-items: center;
+    flex-direction: column;
+    max-height: 20vh;
+    overflow-y: auto;
+    
+}
+.containerIngredientesItem{
+    text-align: center;
+    border: 2px solid #000;    
+}
+
+.headIngredientes{
+    position: sticky;
+}
+.par{
+    background-color: #Cdd;
+
+}
+.containerIngredientesItem td{
+    text-align: center;
+    
+}
