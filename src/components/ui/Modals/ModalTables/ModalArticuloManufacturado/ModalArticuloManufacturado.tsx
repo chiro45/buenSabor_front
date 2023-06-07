@@ -12,7 +12,9 @@ import Swal from "sweetalert2";
 import { ButtonStandard } from "../../../Buttons/ButtonStandard/ButtonStandard";
 
 import "./ModalArticuloManufacturado.css"
-// URL base para las solicitudes HTTP
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import noImage from "../../../../../assets/noImage.jpg"
+
 const urlArticuloInsumo = `${import.meta.env.VITE_URL_API}/articulosinsumos`,
     urlCategorias = `${import.meta.env.VITE_URL_API}/categorias`,
     urlFetch = `${import.meta.env.VITE_URL_API}/articulos_manufacturado`;
@@ -58,18 +60,26 @@ export const ModalArticuloManufacturado = () => {
 
         setIngredientes(parseArr)
     }
+
+    console.log(elementActive)
     useEffect(() => {
         if (openModal === true) {
             setInputState({
                 denominacion: elementActive !== null ? elementActive.denominacion : "",
-                tiempoEnCocina: elementActive !== null ? elementActive.tiempoEstimadoCocina : "",
+                tiempoEnCocina: elementActive !== null ? elementActive.tiempoEstimadoCocina : 0,
                 descripcion: elementActive !== null ? elementActive.descripcion : "",
                 receta: elementActive !== null ? elementActive.receta : "",
                 cantidad: 0,
+                precioVenta: elementActive !== null ? elementActive.precioVenta : 0
             })
-            parseIngredientsToBd()
+            setImageProduct({
+                image: elementActive !== null ? elementActive.imagen : ""
+            })
+            if (elementActive !== null) {
+                parseIngredientsToBd()
+            }
             setSelectorsValues({
-                categoria: elementActive.categoria.denominacion,
+                categoria: elementActive !== null ? elementActive.categoria.denominacion : "",
                 nameIngrediente: "",
             })
             setCheckboxStates({
@@ -121,8 +131,10 @@ export const ModalArticuloManufacturado = () => {
     const handleModalState = () => {
         dispatch(handleModalsTable("modalArticuloManufacturado"))
         dispatch(removeElementActiveTable())
+        setIngredientes([])
     }
     const [imageProduct, setImageProduct] = useState({ image: "" })
+    console.log(imageProduct)
     const handleSubmitArticuloManufacturado = () => {
         const parseIngredientes = ingredientes.map((el: any) => ({
             cantidad: el.cantidad,
@@ -136,7 +148,7 @@ export const ModalArticuloManufacturado = () => {
             denominacion: inputState.denominacion,
             descripcion: inputState.receta,
             receta: inputState.receta,
-            precioVenta: 22.5,
+            precioVenta: inputState.precioVenta,
             imagen: imageProduct.image,
             altaBaja: checkboxStates.altaBaja,
             categoria: {
@@ -147,9 +159,10 @@ export const ModalArticuloManufacturado = () => {
 
         if (elementActive === null) {
             axios.post(urlFetch, objetToSend)
-                .then(() => { 
-                    dispatch(getDataTable(urlFetch)) 
-                    handleModalState()})
+                .then(() => {
+                    dispatch(getDataTable(urlFetch))
+                    handleModalState()
+                })
                 .catch((error) => console.error(error))
         } else {
             axios.put(`${urlFetch}/${elementActive.id}`, objetToSend)
@@ -169,6 +182,17 @@ export const ModalArticuloManufacturado = () => {
     }
 
     const handlePHOTO = () => { document.getElementById("fileSelector")?.click() }
+
+    const deletePhoto = (idPhoto: string) => {
+        console.log(idPhoto)
+    }
+
+    const columns = [
+        { label: 'Producto', key: 'name' },
+        { label: "Cantidad", key: "cantidad" },
+        { label: 'Unidad Medida', key: 'medida' },
+        { label: 'Eliminar', key: 'Eliminar' },
+    ]
 
     return (
         <>
@@ -203,14 +227,23 @@ export const ModalArticuloManufacturado = () => {
                                     placeholder="Denominacion"
                                     onChange={onInputChange}
                                 />
-                                <div>
+                                <div className="containerImgProducto">
                                     <ButtonStandard
                                         text={"Añadir imagen"}
                                         handleClick={() => { handlePHOTO() }}
-                                        width={"15vw"}
-                                        fontSize={"2vw"}
+                                        width={"8vw"}
+                                        fontSize={"1vw"}
                                         height={"4vh"}
                                         backgroundColor={"#77B631"}
+                                        colorText={"#fff"}
+                                    />
+                                    <ButtonStandard
+                                        text={"Eliminar imagen"}
+                                        handleClick={() => { handlePHOTO() }}
+                                        width={"8vw"}
+                                        fontSize={"1vw"}
+                                        height={"4vh"}
+                                        backgroundColor={"#f00"}
                                         colorText={"#fff"}
                                     />
                                     <input id='fileSelector'
@@ -220,8 +253,9 @@ export const ModalArticuloManufacturado = () => {
                                         onChange={handleFileChange}
                                     />
                                     {
-                                        imageProduct.image !== "" &&
-                                        <img src={`${imageProduct.image}`} width={100} />
+                                        imageProduct.image !== ""
+                                            ? <img src={`${imageProduct.image}`} />
+                                            : <img src={`${noImage}`} />
                                     }
                                 </div>
                                 <InputGeneric
@@ -282,40 +316,87 @@ export const ModalArticuloManufacturado = () => {
                             {
                                 checkboxStates.productoFinal === false &&
 
-                                <div>
-                                    <InputGeneric
-                                        className="inputArticuloManufacturado"
-                                        label="Cantidad"
-                                        type="number"
-                                        name="cantidad"
-                                        value={inputState.cantidad}
-                                        placeholder="100"
-                                        onChange={onInputChange}
-                                    />
+                                <div style={{ width: "40vw" }}>
+                                    <div className="containerAddIngredient">
+                                        <InputGeneric
+                                            className=""
+                                            label="Cantidad"
+                                            type="number"
+                                            name="cantidad"
+                                            value={inputState.cantidad}
+                                            placeholder="100"
+                                            onChange={onInputChange}
+                                        />
 
-                                    <select name="nameIngrediente" onChange={onSelectorChange}>
-                                        {
-                                            optionsValues.map((el: any) => (
-                                                <option>{el.denominacion}</option>
-                                            ))
-                                        }
-                                    </select>
-                                    <button onClick={handleSubmitIngredietne}>Add</button>
-
-                                    <div>
-                                        {
-                                            ingredientes.map((el: any, i: number) => (
-                                                <div key={i} style={{ display: "flex", justifyContent: "space-between", width: "40vw" }}>
-                                                    <p>{el.name}</p>
-                                                    <p>{el.cantidad}</p>
-                                                    <p>{el.medida}</p>
-                                                    <button onClick={() => { handleDeleteElement(el.name) }}>Eliminar ingrediente</button>
-                                                </div>
-
-                                            ))
-                                        }
+                                        <select name="nameIngrediente" onChange={onSelectorChange}>
+                                            {
+                                                optionsValues.map((el: any) => (
+                                                    <option>{el.denominacion}</option>
+                                                ))
+                                            }
+                                        </select>
+                                        <ButtonStandard
+                                            text={"Add"}
+                                            handleClick={() => { handleSubmitIngredietne() }}
+                                            width={"6vw"}
+                                            fontSize={"1vw"}
+                                            height={"4vh"}
+                                            backgroundColor={"#0080FF"}
+                                            colorText={"#fff"}
+                                        />
                                     </div>
 
+                                    {
+                                        ingredientes.length > 0 &&
+                                        <div className="containerIngredientes">
+                                            <h1>Ingredientes</h1>
+                                            <table className="tabla tbl-st6">
+                                                <thead className="theadTableGeneric headIngredientes">
+                                                    <tr>
+                                                        {/* Iteramos sobre las columnas para renderizar los encabezados */}
+                                                        {columns.map((column) => (
+                                                            <th key={column.key}>
+                                                                {column.label}
+                                                            </th>
+                                                        ))}
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="tbodyTableGeneric bodyIngredientes">
+                                                    {/*Iteramos sobre los datos para renderizar las filas */}
+                                                    {
+                                                        // Validamos que haya datos en la tabla
+                                                        ingredientes.length > 0 &&
+                                                        ingredientes.map((el: any) => (
+                                                            <tr className="" key={el.id}>
+                                                                {/* Iteramos sobre las columnas para renderizar las celdas */}
+                                                                {columns.map((column) => (
+                                                                    <td key={column.key}>
+                                                                        {/* Validamos si se especificó una función para personalizar la renderización del contenido de la celda */}
+                                                                        <div className="">
+                                                                            {
+                                                                                column.key === "Eliminar" // Si el label de la columna es "Acciones" se renderizan los botones de acción
+                                                                                    ? <ButtonStandard
+                                                                                        handleClick={() => { handleDeleteElement(el.name) }}
+                                                                                        width={"2vw"}
+                                                                                        fontSize={"1.3vw"}
+                                                                                        icon={faTrash}
+                                                                                        height={"4vh"}
+                                                                                        backgroundColor={"#f00"}
+                                                                                        colorText={"#fff"}
+                                                                                    />
+                                                                                    : el[column.key]
+                                                                                // Si no hay una función personalizada, se renderiza el contenido de la celda tal cual
+                                                                            }
+                                                                        </div>
+                                                                    </td>
+                                                                ))}
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
                                 </div>
                             }
                         </div>

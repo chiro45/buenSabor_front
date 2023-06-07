@@ -18,5 +18,7 @@
     min-height: 50vh;
     padding: 2rem;
     width: 50vw;
+    max-height: 80vh;
+    overflow-y: auto;
 
 }
