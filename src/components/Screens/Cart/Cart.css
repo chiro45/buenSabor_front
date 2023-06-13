@@ -1,0 +1,197 @@
+/* * {
+  outline: red dashed 1px;
+} */
+
+.cart_principal-container {
+  align-items: center;
+  background-color: #F9F6F4;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/*Componente 1*/
+.cart_header {
+  align-items: center;
+  background-color: var(--background);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  width: 100%;
+}
+
+.cart_header-container {
+  align-items: center;
+
+  display: flex;
+  height: 7vh;
+  width: 95%;
+}
+
+.cart_header-info {
+  flex: 1;
+  text-align: center;
+}
+
+.cart_header-link {
+  color: black;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.cart_header-info {
+  text-align: center;
+}
+
+.cart_header-info h1 {
+  font-size: 1rem;
+}
+
+.cart_header-info h5 {
+  font-size: .7rem;
+}
+
+/* Componente Cart resume */
+.cart_resume-container {
+
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+  width: 95%;
+}
+
+.cart_resume-info h3 {
+  font-size: 1rem;
+}
+
+.cart_resume-info p {
+  color: var(--letraGris);
+  font-size: .7rem;
+
+}
+
+.cart_resume-link {
+  border: 1px solid var(--terciario);
+  border-radius: 4px;
+  color: var(--terciario);
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 600;
+  padding: .5rem 1rem;
+  text-decoration: none;
+}
+
+.cart_resume-link:hover {
+  background-color: var(--terciario);
+  color: var(--letraBlanca);
+}
+
+/*Componente Body*/
+.cart_body-container {
+  /* background-color: #F9F6F4; */
+
+  height: 68vh;
+  margin-bottom: 2vh;
+  overflow-y: auto;
+  width: 95%;
+}
+
+.cart_body-container_h1 {
+  font-size: 1rem;
+  text-align: start;
+  width: 95%;
+}
+
+
+/* Componete Card */
+.cart_card {
+  background-color: var(--background);
+  border-radius: .3rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5vh;
+  width: 100%;
+}
+
+.cart_card-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1vh;
+  padding-top: 1vh;
+  width: 95%;
+}
+
+.cart_card-img {
+  border: 1px solid var(--letraGris);
+  border-radius: .5rem;
+  height: 10vw;
+  width: 10vw;
+}
+
+.cart_card-info {
+  width: 50vw;
+}
+
+.cart_card-info h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.cart_card-info p {
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.cart_card-btnPrice {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  width: 25vw;
+}
+
+.cart_card-btnPrice h2 {
+  font-size: 1rem;
+}
+
+.cart_card-btnContainer {
+  border: .1rem solid black;
+  border-radius: .3rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.cart_card-btnContainer button {
+  background-color: var(--background);
+  border: none;
+}
+
+/* Componente Boton Pagar */
+.cart_btn-container {
+  align-items: center;
+  background-color: var(--background);
+  bottom: 0;
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  height: 10vh;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+}
+
+.cart_btn-pagar {
+  background-color: var(--terciario);
+  border-radius: .5rem;
+  color: var(--letraBlanca);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 6vh;
+  width: 90%;
+}
