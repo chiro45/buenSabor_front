@@ -27,7 +27,7 @@ export const ModalUnidadMedida = () => {
                 denominacionUnidadMedida: denominacion || "",
                 tipoUnidadMedida: tipo || "",
             });
-            setCheckboxStates({ altaBaja: altaBaja || false });
+            setCheckboxStates({altaBaja: altaBaja !== undefined ? altaBaja : false, });
         } else {
             dispatch(removeElementActiveTable());
         }

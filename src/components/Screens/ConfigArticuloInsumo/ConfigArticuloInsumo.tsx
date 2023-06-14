@@ -23,7 +23,7 @@ export const ConfigArticuloInsumo = () => {
     // Utilizamos useEffect para actualizar los datos de la tabla en el estado global cuando cambia la propiedad "data"
     useEffect(() => {
         dispatch(getDataTable(url,headers))
-    }, [])
+    }, [dispatch])
 
     return (
         <div>

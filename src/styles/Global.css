@@ -9,14 +9,16 @@
     --terciario: #ba3423;
     --background: #ffffff;
     --backgroundSecundario: #eae8d8;
+    --letraBlanca: white;
+    --letraGris: gray;
 }
 
 
 /*========== SCROLL BAR ==========*/
-::-webkit-scrollbar {
-  width: 0.4rem; 
+::-webkit-scrollbar { 
   background-color:  var(--backgroundSecundario);
   border-radius: 0.4rem;
+  width: 0.4rem;
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--principal);

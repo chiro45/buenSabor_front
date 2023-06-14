@@ -23,7 +23,6 @@ export const ModalViewElements = () => {
     if (elementActive !== null) {
       switch (elementActive.tipoClase) {
         case "UnidadMedida":
-          console.log("hola",elementActive)
           setActualProp(IColumnsUnidadMedida);
           break;
         case "ArticuloInsumo":

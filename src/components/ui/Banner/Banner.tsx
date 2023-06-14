@@ -1,9 +1,11 @@
+import { Navigate, useNavigate } from "react-router-dom";
 import "./Banner.css"
 export const Banner = ({bannerItem}:any) => {
 
     const {id, name, url}=bannerItem;
+    const navigate = useNavigate();
     const handleaddToCart = () => {
-        console.log(id)
+        navigate('/cart')
     }
     const handleViewProduct = () => {
         console.log(bannerItem)
