@@ -5,6 +5,7 @@ import { ConfigUnidadMedida } from "../components/Screens/ConfigUnidadMedida/Con
 import { ConfigArtiruloManufacturado } from "../components/Screens/ConfigArtiruloManufacturado/ConfigArtiruloManufacturado";
 import { PruebaAuth0 } from "../components/Screens/PruebaAuth0/PruebaAuth0";
 import { StorePage } from "../components/Screens/Store/StorePage";
+import { Cart } from "../components/Screens/Cart";
 
 export const routesConfig = [
   {
@@ -26,6 +27,10 @@ export const routesConfig = [
   {
     path: '/config/articuloManufacturado',
     component: ConfigArtiruloManufacturado,
+  },
+  {
+    path: '/cart',
+    component: Cart,
   },
   {
     path: '/login',
