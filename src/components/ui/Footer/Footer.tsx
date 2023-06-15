@@ -1,8 +1,8 @@
 import "./Footer.css"
 
 export const Footer = () => {
-  return (
-    <section className="footerSection">
+    return (
+        <section className="footerSection">
             <div className="containerImg__footer">
                 <img src="/src/assets/logopng.webp"></img>
             </div>
@@ -23,5 +23,5 @@ export const Footer = () => {
                 </div>
             </div>
         </section>
-  )
+    )
 }

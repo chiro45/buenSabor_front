@@ -1,0 +1,51 @@
+.containerHeaderPage__storePage{
+    height: 8vh;
+    width: 100vw;
+    background-color: var(--principal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.containerImgLogo__storePage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+}
+.containerImgLogo__storePage img{
+    width: 4vh;
+}
+.containerInputStore__storePage{
+    width: 55vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .4rem;
+}
+.InputStore__storePage{
+    width: 100%;
+    border-radius: .4rem;
+    border: none;
+    height: 3vh;
+    outline: none;
+    padding: .4rem;
+}
+
+.containerActionsStore__storePage{
+    width: 20vw;
+    display: flex;
+    justify-content: space-around;
+}
+.buttonActionStoreButton__storePage{
+    padding: .3rem;
+    width: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: .4rem;
+    background-color: transparent;
+    color: #fff;
+    gap: 3vh;
+    font-size: 3vh;
+}

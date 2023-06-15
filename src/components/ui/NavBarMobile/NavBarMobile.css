@@ -1,17 +1,15 @@
 .containerPrincipalNavBarMobile{
     width: 100vw;
-    margin-top: 11vh;
     display: flex;
     justify-content: center;
+    position: fixed;
+    bottom: 0vh;
 }
 
 .navBarMobile__containerPrincipal {
     background-color: #3f4043;
-    border-radius: 1rem 1rem 0 0;
-    bottom: 0vh;
     height: 10vh;
-    position: fixed ;
-    width: 96vw;
+    width: 100vw;
 }
 
 .navBarMobile__contaierItems {
