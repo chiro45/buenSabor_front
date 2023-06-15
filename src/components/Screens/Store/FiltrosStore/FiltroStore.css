@@ -1,0 +1,25 @@
+.containerPrincipal__FiltroStore{
+    height: 6vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+.containerActions__FiltroStore{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+
+}
+.containerActions__FiltroStore button{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--terciario);
+}
