@@ -5,6 +5,7 @@ import { IColumnsArticuloManufacturado } from "../../../interfaces"
 import { getDataTable } from "../../../Redux"
 import { useAccessToken } from "../../../hooks"
 import "./ConfigArtiruloManufacturado.css"
+import { Footer } from "../../ui/Footer/Footer"
 
 const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
 
@@ -22,7 +23,7 @@ export const ConfigArtiruloManufacturado = () => {
 
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
     useEffect(() => {
-        dispatch(getDataTable(url,headers));
+        dispatch(getDataTable(url, headers));
     }, [dispatch]);
 
 
@@ -34,23 +35,26 @@ export const ConfigArtiruloManufacturado = () => {
             {/* Subheader */}
             <Subheader />
 
-            <div className="containerButtonAndSearchArticulo" >
-                <ModalArticuloManufacturado />
-                {/* Búsqueda genérica */}
-                <SearchGeneric
-                    label={""}
-                    placeholder={"Ingrese su articulo"}
+            <div className="Body-Modals">
+                <div className="containerButtonAndSearchArticulo" >
+                    <ModalArticuloManufacturado />
+                    {/* Búsqueda genérica */}
+                    <SearchGeneric
+                        label={""}
+                        placeholder={"Ingrese su articulo"}
+                    />
+                </div>
+
+                <ModalViewElements />
+                {/* Tabla genérica */}
+                <GenericTable<any>
+                    columns={btnColumnsArticuloManufacturado}
+                    urlFetch={url}
+                    nameTable={"modalArticuloManufacturado"}
                 />
             </div>
 
-            <ModalViewElements />
-            {/* Tabla genérica */}
-            <GenericTable<any>
-                columns={btnColumnsArticuloManufacturado}
-                urlFetch={url}
-                nameTable={"modalArticuloManufacturado"}
-            />
-
+            <Footer />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { TypesModalTable } from "../../Types/TypesModalTable";
-import { IModalState, IModalAction } from "../../../interfaces/IModalState";
+import { IModalState, IModalAction } from "./IModalState";
 
 // Definimos el estado inicial
 const initialState: IModalState = {

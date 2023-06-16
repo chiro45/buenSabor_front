@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { handleModalsTable, removeElementActiveTable } from "../../../../Redux"
-import { IColumnsArticuloManufacturado, IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida,IProps } from "../../../../interfaces"
+import { IColumnsArticuloManufacturado, IColumnsCategoria, IColumnsInsumo, IColumnsUnidadMedida} from "../../../../interfaces"
 import { LayoutModal } from "../../../ui"
+import { IProps } from "./IPropsModalViewElemnts"
 
 
 export const ModalViewElements = () => {
