@@ -13,5 +13,5 @@ export const IColumnsInsumo = [
         render: (altaBajaT: boolean) => (altaBajaT ? 'Alta' : 'Baja'),
     },
     { label: 'Categoria', key: 'categoria', render: (categoria: ICategoria) => categoria.denominacion },
-    { label: 'Unidad de Medida', key: 'unidadMedida', render: (unidadMedida: IUnidadMedida) => unidadMedida.tipo },
+    { label: 'Unidad Medida', key: 'unidadMedida', render: (unidadMedida: IUnidadMedida) => unidadMedida.tipo },
 ];

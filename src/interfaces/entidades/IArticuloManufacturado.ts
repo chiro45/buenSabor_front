@@ -12,6 +12,8 @@ export interface IArticuloManufacturado {
     receta: string;
     altaBaja: boolean;
     productoFinal: boolean;
+    stockActual: number | undefined;
+    stockMinimo: number | undefined;
     categoria: ICategoria;
     detalleArticuloManufacturados:IDetalleArticuloManufacturado[]
 }
