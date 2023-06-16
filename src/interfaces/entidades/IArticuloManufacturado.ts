@@ -6,6 +6,7 @@ export interface IArticuloManufacturado {
     denominacion: string;
     tipoClase: string;
     tiempoEstimadoCocina: number;
+    precioCompra: number | undefined;
     precioVenta: number;
     imagen: string;
     descripcion: string;

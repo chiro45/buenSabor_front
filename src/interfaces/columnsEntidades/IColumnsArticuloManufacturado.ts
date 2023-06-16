@@ -4,6 +4,7 @@ import { ICategoria } from "../entidades";
 export const IColumnsArticuloManufacturado = [
     { label: 'Denominación', key: 'denominacion' },
     { label: 'Descripcion', key: 'descripcion',render: (denominacion: string) => (denominacion.slice(0,15)) },
+    { label: 'Precio Compra', key: 'precioCompra' },
     { label: 'Precio Venta', key: 'precioVenta' },
     { label: 'Tiempo Preparacion', key: 'tiempoEstimadoCocina' },
     { label: 'Receta', key: "receta",render: (denominacion: string) => (denominacion.slice(0,15)) },
