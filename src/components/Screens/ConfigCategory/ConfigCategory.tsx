@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAccessToken } from "../../../hooks";
 import { getDataTable } from "../../../Redux";
 import { IColumnsCategoria, ICategoria } from "../../../interfaces";
-import { GenericTable, Header,SearchGeneric, ModalCategoria, Subheader, ModalViewElements } from "../../ui"
+import { GenericTable, Header, SearchGeneric, ModalCategoria, Subheader, ModalViewElements } from "../../ui"
 import "./ConfigCategory.css"
 import { Footer } from "../../ui/Footer/Footer";
 
@@ -29,17 +29,27 @@ export const ConfigCategory = () => {
     return (
         <div>
             <Header />
-            <Subheader/>
-            <SearchGeneric label={"categoria"} placeholder={"Ingrese su categoria"} />
-            <ModalCategoria />
-            <ModalViewElements />
-            <GenericTable<ICategoria>
-                columns={btnColumnsCategoria}
-                urlFetch={url}
-                nameTable={"modalCategoria"}
-            />
-            
-            <Footer/>
+            <Subheader />
+            <div className="Body-Modals">
+                <div className="containerButtonAndSearchArticulo" >
+
+                    <ModalCategoria />
+                    {/* Búsqueda genérica */}
+                    <SearchGeneric
+                        label={""}
+                        placeholder={"Ingrese su categoria"}
+                    />
+                </div>
+                <ModalViewElements />
+                <GenericTable<ICategoria>
+                    columns={btnColumnsCategoria}
+                    urlFetch={url}
+                    nameTable={"modalCategoria"}
+                />
+            </div>
+
+
+            <Footer />
         </div>
     )
 }

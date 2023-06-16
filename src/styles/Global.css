@@ -1,31 +1,42 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
-    --principal: #0f232f;
-    --secundario: #fcfffc;
-    --terciario: #ba3423;
-    --background: #ffffff;
-    --backgroundSecundario: #eae8d8;
-    --letraBlanca: white;
-    --letraGris: gray;
+  --principal: #0f232f;
+  --secundario: #fcfffc;
+  --terciario: #ba3423;
+  --background: #ffffff;
+  --backgroundSecundario: #eae8d8;
+  --letraBlanca: white;
+  --letraGris: gray;
 }
 
 
 /*========== SCROLL BAR ==========*/
-::-webkit-scrollbar { 
-  background-color:  var(--backgroundSecundario);
+::-webkit-scrollbar {
+  background-color: var(--backgroundSecundario);
   border-radius: 0.4rem;
   width: 0.4rem;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: var(--principal);
   border-radius: 0.5rem;
 
 }
-::-webkit-scrollbar-thumb:hover {
-     background-color: var(--terciario);
 
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--terciario);
+
+}
+
+.Body-Modals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  margin-bottom: 4vh;
+  margin-top: 2vh;
+  min-height: 50vh;
 }

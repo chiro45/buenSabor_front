@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
-import { LayoutModal, InputGeneric,ButtonStandard } from "../../../../ui"
+import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
 import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
 import { IArticuloInsumo } from "../../../../../interfaces"
-import { createElement,  getElementSetState, updateElement } from "../../../../../helpers";
+import { createElement, getElementSetState, updateElement } from "../../../../../helpers";
 import "./ModalArticuloInsumo.css"
 
-
-
-import { faEye } from "@fortawesome/free-solid-svg-icons"
 // URL base para las solicitudes HTTP
 const urlArtInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
     urlMedidas = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`,
@@ -23,14 +20,14 @@ export const ModalArticuloInsumo = () => {
 
     // Obtiene el elemento activo de la tabla actual de Redux
     const elementActive: IArticuloInsumo = useSelector((state: any) => state.TableReducer.elementActive);
-    
+
     // Define variables de estado para almacenar los datos de las listas desplegables
     const [dataUnidadMediads, setDataUnidadMedidas] = useState([]);
     const [dataCategories, setDataCategories] = useState([]);
-    
+
     // Define una variable de estado para almacenar los valores de las listas desplegables seleccionados por el usuario
     const [valuesSelector, onSelectorChange, setSelectorsValues]: any = useSelectorInput();
-    
+
     // Define variables de estado para manejar los cambios en los campos de texto y los checkboxes del formulario
     const [inputState, onInputChange, setInputState]: any = useInput();
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
@@ -39,9 +36,9 @@ export const ModalArticuloInsumo = () => {
     });
     // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
     const getDataUnidadMedidas = () => getElementSetState(urlMedidas, headers, setDataUnidadMedidas);
-    
+
     const getDataCategories = () => getElementSetState(urlCategorias, headers, setDataCategories);
-    
+
     useEffect(() => {
         if (openModal === true) {
             const {
@@ -77,7 +74,7 @@ export const ModalArticuloInsumo = () => {
             dispatch(removeElementActiveTable())
         }
     }, [openModal])
-    
+
     const handleSubmitModal = () => {
         const data = {
             denominacion: inputState.denominacion,
@@ -102,7 +99,7 @@ export const ModalArticuloInsumo = () => {
                 })
                 .catch((error) => console.error(error));
         } else {
-            updateElement(urlArtInsumo, elementActive.id,  data , headers)
+            updateElement(urlArtInsumo, elementActive.id, data, headers)
                 .then(() => {
                     dispatch(getDataTable(urlArtInsumo, headers));
                     dispatch(handleModalsTable("modalArticuloInsumo"));
@@ -114,10 +111,16 @@ export const ModalArticuloInsumo = () => {
     return (
         <div className="containerModalArticuloInsumo">{
             openModal === false
-                ? <button className="buttonModalArticulo"
-                    onClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}>
-                    Agregar Articulo / Insumo
-                </button>
+                ?
+                <ButtonStandard
+                    text={"Agregar Articulo / Insumo"}
+                    handleClick={() => { dispatch(handleModalsTable("modalArticuloInsumo")) }}
+                    width={"20vw"}
+                    fontSize={"1.2vw"}
+                    height={"4.3vh"}
+                    backgroundColor={"#0080FF"}
+                    colorText={"#fff"}
+                />
                 : <LayoutModal>
                     <div className="containerFormArticuloInsumo">
 
@@ -199,6 +202,14 @@ export const ModalArticuloInsumo = () => {
                                 }
                             </select>
                         </div>
+                        <InputGeneric
+                            className="inputCategoria"
+                            label="Dar Alta?"
+                            onChange={onInputCheckboxChange}
+                            name="altaBaja"
+                            checked={checkboxStates.altaBaja}
+                            value={checkboxStates.altaBaja}
+                            type="checkbox" />
                         <div className="containerButtonsModalArticuloInsumo">
                             <ButtonStandard
                                 text=
