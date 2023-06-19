@@ -20,26 +20,27 @@
   margin-bottom: 4vh;
   margin-top: 2vh;
   min-height: 50vh;
-
-@media only screen and (min-width: 576px) {
-
-
-/*========== SCROLL BAR ==========*/
-::-webkit-scrollbar {
-  background-color: var(--backgroundSecundario);
-  border-radius: 0.4rem;
-  width: 0.4rem;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--principal);
-  border-radius: 0.5rem;
+  @media only screen and (min-width: 576px) {
 
-}
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--terciario);
+    /*========== SCROLL BAR ==========*/
+    ::-webkit-scrollbar {
+      background-color: var(--backgroundSecundario);
+      border-radius: 0.4rem;
+      width: 0.4rem;
+    }
 
-}
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--principal);
+      border-radius: 0.5rem;
 
-}
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: var(--terciario);
+
+    }
+
+  }
