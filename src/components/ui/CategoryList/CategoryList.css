@@ -1,8 +1,16 @@
+.containerCategoriList {
+  background-color: var(--backgroundSecundario);
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  flex-direction: column;
+  width: 100vw;
+  height:15vh;
+}
+
 .category_list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 15vh;
-    background-color: var(--backgroundSecundario);
-  }
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
