@@ -42,6 +42,10 @@ export const routesConfig = [
     component: StorePage,
   },
   {
+    path: '/order',
+    component: (<h1>proximamente</h1>),
+  },
+  {
     path: '/ViewProduct',
     component: ViewProduct,
   }

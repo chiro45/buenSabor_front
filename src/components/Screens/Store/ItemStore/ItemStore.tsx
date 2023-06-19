@@ -1,19 +1,23 @@
 import { faCheck, faMinus, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const ItemStore = () => {
-    const [cont, setCont] = useState(0)
+    const [cont, setCont] = useState(1)
     const [showMoreLess, setShoMoreLess] = useState(false)
 
     const handleSubmitCart = () => {
         setShoMoreLess(false)
-        //envio del item al cart
+        setCont(1)
+
     }
 
+    const navigate = useNavigate()
+
     return (
-        <div className="productContainer">
-            <div className="containerImg">
+        <div className="productContainer" >
+            <div className="containerImg" onClick={() => { navigate('/ViewProduct') }}>
                 <img className="imgProduct" src="https://www.infobae.com/new-resizer/sh0cQBavobeT-OvaLzu-VP5mi5A=/992x558/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/FJKXKQKMMJBV7KQ7XQ3YNFO7LU.jpg" />
             </div>
             <div className="containerProductDescription">
@@ -31,7 +35,7 @@ export const ItemStore = () => {
                             </button>
                             <button
                                 className="buttonActionCart minus"
-                                onClick={() => { setCont(cont - 1) }}>
+                                onClick={() => { if (cont > 1) setCont(cont - 1) }}>
                                 <FontAwesomeIcon icon={faMinus} />
                             </button>
                             <button
@@ -41,7 +45,10 @@ export const ItemStore = () => {
                             </button>
                             <button
                                 className="buttonActionCart cancel"
-                                onClick={() => setShoMoreLess(false)}>
+                                onClick={() => {
+                                    setShoMoreLess(false)
+                                    setCont(1)
+                                }}>
                                 <FontAwesomeIcon icon={faXmark} />
                             </button>
                         </div>

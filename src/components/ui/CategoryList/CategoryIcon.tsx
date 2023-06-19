@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import './CategoryIcon.css';
+import { useNavigate } from 'react-router-dom';
 
 interface CategoryIconProps {
   categoryName: string;
@@ -13,7 +14,7 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({ categoryName, icon, 
   const iconStyle = {
     backgroundColor: color,
   };
-
+  const navigate = useNavigate();
   const renderIcon = () => {
     if (typeof icon === 'string') {
       return <img src={icon} alt="" className="svg-icon" />;
@@ -23,11 +24,11 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({ categoryName, icon, 
   };
 
   return (
-    <div className='category-icon'>
+    <div className='category-icon' onClick={()=>{navigate('/store')}}>
       <div className="circunferencia" style={iconStyle}>
         {renderIcon()}
       </div>
-      <span>{categoryName}</span>
+      <span className='nameCategory'>{categoryName}</span>
     </div>
   );
 };

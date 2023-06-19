@@ -184,6 +184,7 @@
   justify-content: center;
   position: fixed;
   width: 100%;
+
 }
 
 .cart_btn-pagar {
@@ -193,5 +194,7 @@
   font-size: 1rem;
   font-weight: 600;
   height: 6vh;
+  border: none;
+
   width: 90%;
 }

@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom"
 import { CardItem } from "../CardItem/CardItem"
 import "./ProductFavorities.css"
 
 
-export const ProductFavorities = ({ productFav }:any) => {
+export const ProductFavorities = ({ productFav }: any) => {
     const { nameCategory, urlViewAll, arrItems } = productFav
+
+
     return (
         <div className="containerPrincipal__productFavorities">
             <div className="productFavorities__containerItems">
@@ -18,8 +21,8 @@ export const ProductFavorities = ({ productFav }:any) => {
                 <div className="productFavorities__cardItemsContainer">
                     {
                         arrItems !== undefined &&
-                        arrItems.map((el:any, i:number) => (
-                            <CardItem key={i} item={el}/>
+                        arrItems.map((el: any, i: number) => (
+                            <CardItem key={i} item={el} />
                         ))
                     }
                 </div>

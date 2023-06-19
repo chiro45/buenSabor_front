@@ -1,54 +1,51 @@
-  /* :root{
-      --principal: #0f232f;
-      --secundario: #fcfffc;
-      --terciario: #ba3423;
-      --backgroundHeader:#2A3C47;
-      --background: #ffffff;
-      --backgroundSecundario: #eae8d8;
-  } */
-.header-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100vw;
-    height: 10vh;
-    background-color:var(--principal);
-    border-bottom: 1px solid #ccc;
-  }
-.header-container-img-button{
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    width: 50vw;
- }
-  .header-container-subcaja{
-    width: 90vw;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-  }
-  .header-button {
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-right:2vw;
-    height: 3vw;
-    width: 3vw;
-    border: none;
-    border-radius: 4px;
-    background-color: #eee;
-    color: black;
-    cursor: pointer;
-  }
-  
-.header-logo{
-    width: 4vw;
-     height: 4vw; 
-     object-fit: contain;
+.containerHeaderPage__storePage{
+  height: 8vh;
+  width: 100vw;
+  background-color: var(--principal);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.imagen_menu{
-    display: inline-block;
-  background-color: transparent;
+.containerImgLogo__storePage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+}
+.containerImgLogo__storePage img{
+  width: 4vh;
+}
+.containerInputStore__storePage{
+  width: 55vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .4rem;
+}
+.InputStore__storePage{
+  width: 100%;
+  border-radius: .4rem;
   border: none;
-  padding: 0;
+  height: 3vh;
+  outline: none;
+  padding: .4rem;
+}
+
+.containerActionsStore__storePage{
+  width: 20vw;
+  display: flex;
+  justify-content: space-around;
+}
+.buttonActionStoreButton__storePage{
+  padding: .3rem;
+  width: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: .4rem;
+  background-color: transparent;
+  color: #fff;
+  gap: 3vh;
+  font-size: 3vh;
 }
