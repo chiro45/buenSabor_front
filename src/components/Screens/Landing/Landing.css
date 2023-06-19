@@ -1,15 +1,25 @@
-.containerPrincipal__Landing{
+.containerPrincipal__Landing {
     background-color: #000;
     width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 10vh;
 }
-.containerItems__landing{
+
+.containerItems__landing {
     margin-top: 2vh;
+    margin-bottom: 2vh;
     background-color: #222222;
     width: 95vw;
     overflow-x: hidden;
     border-radius: .4rem;
+}
+
+@media only screen and (min-width: 576px) {
+    .containerPrincipal__Landing {
+        margin-bottom: 0vh;
+
+    }
 }

@@ -16,7 +16,7 @@ export const ProductStore = () => {
                 <div className="containerTitle">
                     <b>Busqueda: {titleStore}</b>
                 </div>
-                <div style={{ width: '98%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     {
                         products.map(el => (
                             <ItemStore />

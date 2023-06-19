@@ -5,10 +5,21 @@ import papas from "../../../assets/papas.svg"
 
 export const CategoryList = () => {
   return (
-    <div className="category_list">
-      <CategoryIcon  categoryName="Burgers"  icon={faHamburger} />
-      <CategoryIcon categoryName="Papas" icon={papas} color={"#FFCC33"}/>  
-      <CategoryIcon categoryName="Pizza" icon={faPizzaSlice} color={"#FF7701"}/>
+    <div className="containerCategoriList">
+      <div className="category_list">
+        <CategoryIcon
+          categoryName="Papas"
+          icon={papas}
+          color={"var(--principal)"} />
+        <CategoryIcon
+          categoryName="Hamburguesas"
+          icon={faHamburger}
+          color={"var(--principal)"} />
+        <CategoryIcon
+          categoryName="Pizzas"
+          icon={faPizzaSlice}
+          color={"var(--principal)"} />
+      </div>
     </div>
   )
 }

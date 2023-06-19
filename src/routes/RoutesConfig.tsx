@@ -6,6 +6,7 @@ import { ConfigArtiruloManufacturado } from "../components/Screens/ConfigArtirul
 import { PruebaAuth0 } from "../components/Screens/PruebaAuth0/PruebaAuth0";
 import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
+import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
 
 export const routesConfig = [
   {
@@ -39,5 +40,13 @@ export const routesConfig = [
   {
     path: '/store',
     component: StorePage,
+  },
+  {
+    path: '/order',
+    component: (<h1>proximamente</h1>),
+  },
+  {
+    path: '/ViewProduct',
+    component: ViewProduct,
   }
 ];

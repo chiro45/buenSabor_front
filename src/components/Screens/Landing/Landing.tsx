@@ -1,6 +1,6 @@
-
 import { Banner } from "../../ui/Banner/Banner"
 import { CategoryList } from "../../ui/CategoryList/CategoryList"
+import { Footer } from "../../ui/Footer/Footer"
 import { Header } from "../../ui/Header/Header"
 import { NavBarMobile } from "../../ui/NavBarMobile/NavBarMobile"
 import { ProductFavorities } from "../../ui/ProductFavorities/ProductFavorities"
@@ -97,6 +97,7 @@ export const Landing = () => {
                 <ProductFavorities productFav={initial2} />
                 <ProductFavorities productFav={initial3} />
             </div>
+            <Footer/>
             <NavBarMobile />
         </div>
     )
