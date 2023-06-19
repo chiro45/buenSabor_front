@@ -7,6 +7,7 @@ import { PruebaAuth0 } from "../components/Screens/PruebaAuth0/PruebaAuth0";
 import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
 import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
+import { Link } from "react-router-dom";
 
 export const routesConfig = [
   {
@@ -43,8 +44,8 @@ export const routesConfig = [
   },
   {
     path: '/order',
-    component: (<h1>proximamente</h1>),
-  },
+    component: () => <Link to={'/'}>¡Próximamente!</Link>,
+  },  
   {
     path: '/ViewProduct',
     component: ViewProduct,
