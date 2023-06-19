@@ -1,4 +1,4 @@
-import { IUnidadMedida, ICategoria, IArticuloManufacturado,  IArticuloInsumo } from "./entidades";
+import { IUnidadMedida, ICategoria, IArticuloManufacturado,  IArticuloInsumo } from "../../../../interfaces/entidades";
 
 export interface IProps {
   object: IUnidadMedida | IArticuloInsumo | IArticuloManufacturado | ICategoria;

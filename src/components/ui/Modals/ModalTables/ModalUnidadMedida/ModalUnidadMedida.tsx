@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux";
-import { LayoutModal, InputGeneric } from "../../../../ui"
+import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
 import { useInput, useCheckBoxInput, useAccessToken } from '../../../../../hooks';
 import { IUnidadMedida } from "../../../../../interfaces";
 import { createElement, updateElement } from "../../../../../helpers";
@@ -27,7 +27,7 @@ export const ModalUnidadMedida = () => {
                 denominacionUnidadMedida: denominacion || "",
                 tipoUnidadMedida: tipo || "",
             });
-            setCheckboxStates({altaBaja: altaBaja !== undefined ? altaBaja : false, });
+            setCheckboxStates({ altaBaja: altaBaja !== undefined ? altaBaja : false, });
         } else {
             dispatch(removeElementActiveTable());
         }
@@ -48,7 +48,7 @@ export const ModalUnidadMedida = () => {
                 })
                 .catch((error) => console.error(error));
         } else {
-            updateElement(urlFetch, elementActive.id, { ...elementActive, data }, headers)
+            updateElement(urlFetch, elementActive.id, data, headers)
                 .then(() => {
                     dispatch(getDataTable(urlFetch, headers));
                     dispatch(handleModalsTable("modalMedidas"));
@@ -60,10 +60,17 @@ export const ModalUnidadMedida = () => {
         <div className="containerModalUnidadMedida">
             {
                 openModal === false
-                    ? <button className="buttonModalUnidadMedida"
-                        onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>
-                        Agregar Unidad De Medida
-                    </button>
+                    ?
+                    <ButtonStandard
+                        text={"Agregar Articulo / Insumo"}
+                        handleClick={() => { dispatch(handleModalsTable("modalMedidas")) }}
+                        width={"20vw"}
+                        fontSize={"1.2vw"}
+                        height={"4.3vh"}
+                        backgroundColor={"#0080FF"}
+                        colorText={"#fff"}
+                    />
+
                     : <LayoutModal>
                         <div className="containerFormUnidadMedida">
                             <h1>
@@ -100,17 +107,30 @@ export const ModalUnidadMedida = () => {
                                 value={checkboxStates.altaBaja}
                                 type="checkbox" />
                             <div className="containerButtonsModalUnidadMedida">
-                                <button
-                                    onClick={handleSubmitModal}>
+                                <ButtonStandard
+                                    text=
                                     {
                                         elementActive !== null
                                             ? "Editar "
                                             : "Crear "
                                     }
-                                </button>
-                                <button
-                                    onClick={() => { dispatch(handleModalsTable("modalMedidas")) }}>
-                                    Cancelar</button>
+                                    handleClick={handleSubmitModal}
+                                    width={"10vw"}
+                                    height={"4vh"}
+                                    backgroundColor={"#0080FF"}
+                                    colorText={"#fff"}
+                                    fontSize={"2vw"}
+                                />
+                                <ButtonStandard
+                                    text={"Cancelar"}
+                                    handleClick={() => { dispatch(handleModalsTable("modalMedidas")) }}
+                                    width={"10vw"}
+                                    fontSize={"2vw"}
+                                    height={"4vh"}
+                                    backgroundColor={"#f00"}
+                                    colorText={"#fff"}
+                                />
+
                             </div>
                         </div>
                     </LayoutModal>

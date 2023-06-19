@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
-import { createElement, fetchGet, getElementSetState, updateElement } from "../../../../../helpers";
-import { LayoutModal, InputGeneric } from "../../../../ui"
+import { createElement, getElementSetState, updateElement } from "../../../../../helpers";
+import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
 import { ICategoria } from "../../../../../interfaces"
 import "./ModalCategoria.css"
 
@@ -53,6 +53,7 @@ export const ModalCategoria = () => {
         } else {
             updateElement(urlFetch, elementActive.id, data, headers)
                 .then(() => {
+                    console.log(data);
                     dispatch(getDataTable(urlFetch, headers));
                     dispatch(handleModalsTable("modalCategoria"));
                 })
@@ -66,11 +67,17 @@ export const ModalCategoria = () => {
         <div className="containerModalCategoria">
             {
                 openModal === false
-                    ? <button
-                        className="buttonModalCategoria"
-                        onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}>
-                        Agregar Categoria
-                    </button>
+                    ?
+                    <ButtonStandard
+                        text={"Agregar Articulo / Insumo"}
+                        handleClick={() => { dispatch(handleModalsTable("modalCategoria")) }}
+                        width={"20vw"}
+                        fontSize={"1.2vw"}
+                        height={"4.3vh"}
+                        backgroundColor={"#0080FF"}
+                        colorText={"#fff"}
+                    />
+
                     : <LayoutModal>
                         <div className="containerFormCategoria">
                             <h1>
@@ -119,18 +126,30 @@ export const ModalCategoria = () => {
                                 value={checkboxStates.altaBaja}
                                 type="checkbox" />
                             <div className="containerButtonsModalCategoria">
-                                <button
-                                    onClick={handleSubmitModal}>
+                                <ButtonStandard
+                                    text=
                                     {
                                         elementActive !== null
                                             ? "Editar "
                                             : "Crear "
                                     }
-                                </button>
-                                <button
-                                    onClick={() => { dispatch(handleModalsTable("modalCategoria")) }}
-                                >Cancelar
-                                </button>
+                                    handleClick={handleSubmitModal}
+                                    width={"10vw"}
+                                    height={"4vh"}
+                                    backgroundColor={"#0080FF"}
+                                    colorText={"#fff"}
+                                    fontSize={"2vw"}
+                                />
+                                <ButtonStandard
+                                    text={"Cancelar"}
+                                    handleClick={() => { dispatch(handleModalsTable("modalCategoria")) }}
+                                    width={"10vw"}
+                                    fontSize={"2vw"}
+                                    height={"4vh"}
+                                    backgroundColor={"#f00"}
+                                    colorText={"#fff"}
+                                />
+
                             </div>
                         </div>
                     </LayoutModal>

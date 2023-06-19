@@ -42,10 +42,11 @@ export const ModalArticuloManufacturado = () => {
 
     const parseIngredientsToBd = () => {
         const parseArr = elementActive.detalleArticuloManufacturados.map((el: any) => ({
-            id: el.id,
+            id: el.articuloInsumo.id,
             name: el.articuloInsumo.denominacion,
-            cantidad: el.articuloInsumo.cantidad,
-            medida: el.articuloInsumo.unidadMedida.tipo
+            cantidad: el.cantidad,
+            medida: el.articuloInsumo.unidadMedida.tipo,
+            altaBaja: el.articuloInsumo.altaBaja,
         }))
         setIngredientes(parseArr)
     }
@@ -57,10 +58,13 @@ export const ModalArticuloManufacturado = () => {
                 tiempoEstimadoCocina,
                 descripcion,
                 receta,
+                precioCompra,
                 precioVenta,
                 categoria,
                 imagen,
                 productoFinal,
+                stockActual,
+                stockMinimo,
                 altaBaja
             } = elementActive || {};
             setInputState({
@@ -69,7 +73,10 @@ export const ModalArticuloManufacturado = () => {
                 descripcion: descripcion || "",
                 receta: receta || "",
                 cantidad: 0,
-                precioVenta: precioVenta || 0
+                precioCompra: precioCompra || 0,
+                precioVenta: precioVenta || 0,
+                stockActual: stockActual || 0,
+                stockMinimo: stockMinimo || 0,
             });
 
             setImageProduct({
@@ -100,11 +107,9 @@ export const ModalArticuloManufacturado = () => {
         const { cantidad } = inputState;
         const { nameIngrediente } = valuesSelector;
         const resultIngrediente = optionsValues.find((el: any) => el.denominacion === nameIngrediente);
-        console.log(resultIngrediente)
         if (resultIngrediente) {
-            const { id, unidadMedida } = resultIngrediente;
+            const { id, unidadMedida,  } = resultIngrediente;
             const { tipo } = unidadMedida;
-
             setIngredientes([
                 ...ingredientes,
                 {
@@ -161,9 +166,12 @@ export const ModalArticuloManufacturado = () => {
             denominacion: inputState.denominacion,
             descripcion: inputState.receta,
             receta: inputState.receta,
+            precioCompra: inputState.precioCompra,
             precioVenta: inputState.precioVenta,
             imagen: imageProduct.image,
             altaBaja: checkboxStates.altaBaja,
+            stockActual: inputState.stockActual,
+            stockMinimo: inputState.stockMinimo,
             categoria: {
                 id: categoria[0].id
             },
@@ -180,6 +188,7 @@ export const ModalArticuloManufacturado = () => {
                 .catch((error) => console.error(error))
         } else {
             updateElement(urlArticuloManufacturado, elementActive.id, objetToSend, headers)
+
                 .then(() => {
                     dispatch(getDataTable(urlArticuloManufacturado, headers))
                     handleModalState()
@@ -208,6 +217,11 @@ export const ModalArticuloManufacturado = () => {
         { label: 'Producto', key: 'name' },
         { label: "Cantidad", key: "cantidad" },
         { label: 'Unidad Medida', key: 'medida' },
+        {
+            label: 'Alta/Baja',
+            key: 'altaBaja',
+            render: (altaBajaT: boolean) => (altaBajaT ? 'Alta' : 'Baja'),
+        },
         { label: 'Eliminar', key: 'Eliminar' },
     ]
 
@@ -277,16 +291,38 @@ export const ModalArticuloManufacturado = () => {
                                 </div>
                                 <InputGeneric
                                     className="inputArticuloManufacturado"
-                                    label="Tiempo estimado en cocina"
+                                    label="Tiempo preparacion"
                                     type="number"
                                     name="tiempoEnCocina"
                                     value={inputState.tiempoEnCocina}
                                     placeholder="15 min"
                                     onChange={onInputChange}
                                 />
+                                {checkboxStates.productoFinal &&
+
+                                    <InputGeneric
+                                        className="inputArticuloManufacturado"
+                                        label="Precio Compra"
+                                        type="number"
+                                        name="precioCompra"
+                                        value={inputState.precioCompra}
+                                        placeholder="$200"
+                                        onChange={onInputChange}
+                                    />}
+                                {checkboxStates.productoFinal === false &&
+
+                                    <InputGeneric
+                                        className="inputArticuloManufacturado"
+                                        label="Precio Compra"
+                                        type="number"
+                                        name="precioCompra"
+                                        value={inputState.precioCompra}
+                                        placeholder="$200"
+                                        onChange={onInputChange}
+                                    />}
                                 <InputGeneric
                                     className="inputArticuloManufacturado"
-                                    label="Precio de venta"
+                                    label="Precio Venta"
                                     type="number"
                                     name="precioVenta"
                                     value={inputState.precioVenta}
@@ -321,6 +357,28 @@ export const ModalArticuloManufacturado = () => {
                                     placeholder="$400"
                                     onChange={onInputCheckboxChange}
                                 />
+                                {checkboxStates.productoFinal &&
+
+                                    <InputGeneric
+                                        className="inputArticuloManufacturado"
+                                        label="Stock Actual"
+                                        type="number"
+                                        name="stockActual"
+                                        value={inputState.stockActual}
+                                        placeholder="20"
+                                        onChange={onInputChange}
+                                    />}
+                                {checkboxStates.productoFinal &&
+                                    <InputGeneric
+                                        className="inputArticuloManufacturado"
+                                        label="Stock Minimo"
+                                        type="number"
+                                        name="stockMinimo"
+                                        value={inputState.stockMinimo}
+                                        placeholder="5"
+                                        onChange={onInputChange}
+                                    />
+                                }
                                 <InputGeneric
                                     className="inputArticuloManufacturado"
                                     label="Producto Final?"
@@ -332,6 +390,7 @@ export const ModalArticuloManufacturado = () => {
                                     onChange={onInputCheckboxChange}
                                 />
                             </div>
+
                             {
                                 checkboxStates.productoFinal === false &&
 
@@ -377,6 +436,7 @@ export const ModalArticuloManufacturado = () => {
                                                         {columns.map((column) => (
                                                             <th key={column.key}>
                                                                 {column.label}
+
                                                             </th>
                                                         ))}
                                                     </tr>
@@ -388,23 +448,26 @@ export const ModalArticuloManufacturado = () => {
                                                         ingredientes.length > 0 &&
                                                         ingredientes.map((el: any) => (
                                                             <tr className="" key={el.id}>
+
                                                                 {/* Iteramos sobre las columnas para renderizar las celdas */}
                                                                 {columns.map((column) => (
-                                                                    <td key={column.key}>
+                                                                    <td key={column.key} >
                                                                         {/* Validamos si se especificó una función para personalizar la renderización del contenido de la celda */}
                                                                         <div className="">
                                                                             {
-                                                                                column.key === "Eliminar" // Si el label de la columna es "Acciones" se renderizan los botones de acción
-                                                                                    ? <ButtonStandard
-                                                                                        handleClick={() => { handleDeleteElement(el.name) }}
-                                                                                        width={"2vw"}
-                                                                                        fontSize={"1.3vw"}
-                                                                                        icon={faTrash}
-                                                                                        height={"4vh"}
-                                                                                        backgroundColor={"#f00"}
-                                                                                        colorText={"#fff"}
-                                                                                    />
-                                                                                    : el[column.key]
+                                                                                column.render
+                                                                                    ? column.render(el[column.key])
+                                                                                    : column.key === "Eliminar" // Si el label de la columna es "Acciones" se renderizan los botones de acción
+                                                                                        ? <ButtonStandard
+                                                                                            handleClick={() => { handleDeleteElement(el.name) }}
+                                                                                            width={"2vw"}
+                                                                                            fontSize={"1.3vw"}
+                                                                                            icon={faTrash}
+                                                                                            height={"4vh"}
+                                                                                            backgroundColor={"#f00"}
+                                                                                            colorText={"#fff"}
+                                                                                        />
+                                                                                        : el[column.key]
                                                                                 // Si no hay una función personalizada, se renderiza el contenido de la celda tal cual
                                                                             }
                                                                         </div>
@@ -423,7 +486,11 @@ export const ModalArticuloManufacturado = () => {
 
                         <div className="containerButtonActionsModalManufacturado">
                             <ButtonStandard
-                                text={"Confirmar"}
+                                text={
+                                    elementActive !== null
+                                        ? "Editar "
+                                        : "Crear "
+                                }
                                 handleClick={() => { handleSubmitArticuloManufacturado() }}
                                 width={"10vw"}
                                 fontSize={"2vw"}
