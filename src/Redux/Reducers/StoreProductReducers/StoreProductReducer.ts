@@ -21,7 +21,8 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
         case TypesStoreProductReducer.removeProductsStore:
             return {
                 productStore: [],
-                productActive: null
+                productActive: null,
+                busqueda: ""
             }
         case TypesStoreProductReducer.addProducActive:
             return {
@@ -32,6 +33,16 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
             return {
                 ...state,
                 productActive: null
+            }
+        case TypesStoreProductReducer.addSearch :
+            return {
+                ...state,
+                busqueda: action.payload
+            }
+        case TypesStoreProductReducer.removeSearch :
+            return {
+                ...state,
+                busqueda: ""
             }
         default:
             return state;
@@ -79,6 +90,14 @@ const addProductActive = (data: IArticuloManufacturado) => ({
 
 export const removeProductActive = () => ({
     type: TypesStoreProductReducer.removeProductActive
+})
+export const addSearchActive = (search: string) => ({
+    type: TypesStoreProductReducer.addSearch,
+    payload: search
+})
+
+export const removeSearchActive = () => ({
+    type: TypesStoreProductReducer.removeSearch
 })
 
 

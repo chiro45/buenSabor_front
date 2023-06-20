@@ -10,17 +10,22 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 import { useAccessToken } from "../../../hooks"
+import { useSelector } from "react-redux"
 
 export const StorePage = () => {
     
     const dispatch = useDispatch()
     
     const headers = useAccessToken();
+
+    const search = useSelector((state:any) => state.StoreProductReducer.busqueda)
     
     useEffect(()=>{
-        const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
-        dispatch(startAddProductStore(url, headers))
-    },[])
+        if(search === ''){
+            const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+            dispatch(startAddProductStore(url, headers))
+        }
+    },[search])
 
 
     return (
