@@ -4,14 +4,24 @@ import { useCounter } from '../../../hooks';
 import { IArticuloManufacturado } from '../../../interfaces';
 import { CartCard, CartHeader, CartResume } from '../../ui';
 import './Cart.css'
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
 
 
+
+interface IcartLocalStorage {
+    itemStore: IArticuloManufacturado
+    cantidad: number
+}
 export const Cart = () => {
     const [counters, counterActions] = useCounter();
 
     const handleDeleted = (productId: number) => {
         console.log("Te voy a borrar", productId)
     };
+
+
+    const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
+
     useEffect(() => {
         // Actualizar el estado counters cuando se carga un nuevo producto
         dataHardcodeada.forEach((producto: IArticuloManufacturado) => {
@@ -19,6 +29,7 @@ export const Cart = () => {
             // Incrementar el contador para cada producto y establecerlo en 1
         });
     }, []);
+
 
     return (
         <div className="cart_principal-container">

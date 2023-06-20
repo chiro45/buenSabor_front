@@ -1,28 +1,84 @@
 import { faCheck, faMinus, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { IArticuloManufacturado } from '../../../../interfaces';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { useDispatch } from 'react-redux';
+import { startAddProductActive } from '../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer';
+import { useAccessToken } from '../../../../hooks';
 
-export const ItemStore = () => {
-    const [cont, setCont] = useState(1)
+
+interface IItemStore {
+    itemStore: IArticuloManufacturado
+
+}
+
+interface IcartLocalStorage {
+    itemStore: IArticuloManufacturado
+    cantidad: number
+}
+
+export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
+
+    const { denominacion, id, imagen, precioVenta } = itemStore
+    const [cont, setCont] = useState(0)
     const [showMoreLess, setShoMoreLess] = useState(false)
 
-    const handleSubmitCart = () => {
-        setShoMoreLess(false)
-        setCont(1)
-
-    }
 
     const navigate = useNavigate()
+    const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
 
+    useEffect(() => {
+        if (showMoreLess === true) {
+            const existingItemIndex = items.filter((el) => el.itemStore.denominacion === itemStore.denominacion);
+            if (existingItemIndex.length > 0) {
+                setCont(existingItemIndex[0].cantidad)
+            }
+        }
+    }, [showMoreLess])
+
+
+    const handleAddCart = () => {
+        setCont(0);
+        setShoMoreLess(false)
+        const existingItemIndex = items.findIndex(
+            (el) => el.itemStore.denominacion === itemStore.denominacion
+        );
+        const updatedItems = [...items];
+
+        if (existingItemIndex !== -1) {
+            updatedItems[existingItemIndex].cantidad = cont;
+
+            if (cont === 0) {
+                updatedItems.splice(existingItemIndex, 1);
+            }
+        } else {
+            updatedItems.push({
+                itemStore,
+                cantidad: cont
+            });
+        }
+
+        setItem(updatedItems);
+    };
+
+    const headers = useAccessToken();
+
+    const dispatch = useDispatch()
+    const handleViewProduct = () => {
+        const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+        dispatch(startAddProductActive(url, id, headers))
+        navigate('/ViewProduct')
+    }
     return (
         <div className="productContainer" >
-            <div className="containerImg" onClick={() => { navigate('/ViewProduct') }}>
-                <img className="imgProduct" src="https://www.infobae.com/new-resizer/sh0cQBavobeT-OvaLzu-VP5mi5A=/992x558/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/FJKXKQKMMJBV7KQ7XQ3YNFO7LU.jpg" />
+            <div className="containerImg" onClick={() => { handleViewProduct() }}>
+                <img className="imgProduct" src={imagen} />
             </div>
             <div className="containerProductDescription">
-                <p>Hamburguesa doble cheddar, con guacamole</p>
-                <p><b>$2300</b></p>
+                <p>{denominacion}</p>
+                <p><b>${precioVenta}</b></p>
                 {
                     showMoreLess
                         ?
@@ -35,12 +91,12 @@ export const ItemStore = () => {
                             </button>
                             <button
                                 className="buttonActionCart minus"
-                                onClick={() => { if (cont > 1) setCont(cont - 1) }}>
+                                onClick={() => { if (cont > 0) setCont(cont - 1) }}>
                                 <FontAwesomeIcon icon={faMinus} />
                             </button>
                             <button
                                 className="buttonActionCart confirm"
-                                onClick={() => { handleSubmitCart }}>
+                                onClick={() => { handleAddCart() }}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </button>
                             <button

@@ -6,8 +6,22 @@ import { FiltrosStore } from "./FiltrosStore/FiltrosStore"
 import { ProductStore } from "./ProductStore/ProductStore"
 import { Footer } from "../../ui/Footer/Footer"
 import { PaginationButtons } from "./PaginationButtons/PaginationButtons"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
+import { useAccessToken } from "../../../hooks"
 
 export const StorePage = () => {
+    
+    const dispatch = useDispatch()
+    
+    const headers = useAccessToken();
+    
+    useEffect(()=>{
+        const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+        dispatch(startAddProductStore(url, headers))
+    },[])
+
 
     return (
         <div className="containerPrincipal__storePage">
