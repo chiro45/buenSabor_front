@@ -25,8 +25,6 @@ export const StorePage = () => {
         if(search === ''){
             const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
             dispatch(startAddProductStore(url, headers))
-            alertSuccess('Mensaje succes','titulo success')
-            //alertConfirm("Titulo","Mensaje","Confirmar",()=>{console.log("hola rey")},"Cancelado")
         }
     },[search])
 
