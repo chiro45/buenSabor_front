@@ -1,25 +1,63 @@
+import { useEffect, useState } from 'react';
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
+import { IArticuloManufacturado } from '../../../interfaces';
 import { ButtonsCartCard } from '../Buttons';
 
-
+interface IcartLocalStorage {
+  itemStore: IArticuloManufacturado
+  cantidad: number
+}
 export const CartCard = ({
   producto,
-  increment,
-  decrement,
-  counter,
-  handleDeleted,
-  productId
+  cantidad,
+  setItem,
+  items
+
 }: any) => {
+  const [contador, setContador] = useState(1)
+
+  useEffect(() => {
+    setContador(cantidad)
+  }, [])
+
+  useEffect(() => {
+    handleUpdateElementsInLocalStorage()
+  }, [contador])
+
+
+  const handleUpdateElementsInLocalStorage = () => {
+    const existingItemIndex = items.findIndex((el: any) => el.itemStore.denominacion === producto.denominacion);
+
+    const updatedItems = [...items];
+
+    if (existingItemIndex !== -1) {
+      updatedItems[existingItemIndex].cantidad = contador;
+
+      if (contador === 0) {
+        updatedItems.splice(existingItemIndex, 1);
+      }
+    } else {
+      updatedItems.push({
+        itemStore: producto,
+        cantidad: contador
+      });
+    }
+
+    setItem(updatedItems);
+  }
+
   const handleIncrement = () => {
-    increment(productId);
+    setContador(contador + 1)
   };
 
   const handleDecrement = () => {
-    decrement(productId);
+    setContador(contador - 1)
   };
-  
+
   const handleDelete = () => {
-    handleDeleted(productId);
+    setContador(contador - 1)
   };
+
 
   return (
     <div className="cart_card">
@@ -34,7 +72,7 @@ export const CartCard = ({
           <ButtonsCartCard
             increment={handleIncrement}
             decrement={handleDecrement}
-            counter={counter[productId] || 1}
+            counter={contador}
             deleted={handleDelete}
           />
         </div>

@@ -9,7 +9,6 @@ export const CardItem = ({ item }: any) => {
     const navigate = useNavigate()
     const handleViewProduct = () => {
         navigate('/viewProduct')
-        console.log(item)
     }
 
     const handleaddToCart = () => {
