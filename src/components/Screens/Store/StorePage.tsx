@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux"
 import { startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 import { useAccessToken } from "../../../hooks"
 import { useSelector } from "react-redux"
+import { alertConfirm, alertSuccess } from "../../../functions/alerts"
 
 export const StorePage = () => {
     
@@ -24,6 +25,8 @@ export const StorePage = () => {
         if(search === ''){
             const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
             dispatch(startAddProductStore(url, headers))
+            alertSuccess('Mensaje succes','titulo success')
+            //alertConfirm("Titulo","Mensaje","Confirmar",()=>{console.log("hola rey")},"Cancelado")
         }
     },[search])
 
