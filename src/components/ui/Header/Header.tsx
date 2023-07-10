@@ -37,7 +37,7 @@ export const Header = () => {
   }, [search])
   return (
     <div className="containerHeaderPage__storePage">
-      <div className="containerImgLogo__storePage">
+      <div className="containerImgLogo__storePage" onClick={()=>{navigate('/')}}>
         <img src="/src/assets/logopng.webp" />
       </div>
       <div className="containerInputStore__storePage">

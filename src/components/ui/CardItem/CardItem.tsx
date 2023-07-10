@@ -17,12 +17,13 @@ export const CardItem = ({ item }: any) => {
 
     return (
         <div  className="containerPrincipal__cardItem">
-            <div className="containerImg__cardItem">
-                <div className="container__butoonAddCart__cardItem">
+            <div className="container__butoonAddCart__cardItem">
                     <button onClick={handleaddToCart} className="butoonAddCart__cardItem">
-                        <FontAwesomeIcon icon={faCartPlus} />
+                        <FontAwesomeIcon fontSize={'1.7vh'} icon={faCartPlus} />
                     </button>
                 </div>
+            <div className="containerImg__cardItem">
+                
                 <img onClick={handleViewProduct} src={`${item.url}`} />
             </div>
             <div className="containerTitle__cardItem">
