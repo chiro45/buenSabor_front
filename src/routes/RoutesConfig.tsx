@@ -10,6 +10,7 @@ import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
 import { Link } from "react-router-dom";
 import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
 import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
+import { RegisterSecond } from "../components/Screens/Register/RegisterSecond/RegisterSecond";
 
 export const routesConfig = [
   {
@@ -37,7 +38,11 @@ export const routesConfig = [
     component: Cart,
   },
   {
-    path: '/login',
+    path: '/address',
+    component: RegisterSecond,
+  },
+  {
+    path: '/profile',
     component: PruebaAuth0,
   },
   {
