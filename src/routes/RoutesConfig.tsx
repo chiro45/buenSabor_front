@@ -8,6 +8,8 @@ import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
 import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
 import { Link } from "react-router-dom";
+import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
+import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
 
 export const routesConfig = [
   {
@@ -49,5 +51,13 @@ export const routesConfig = [
   {
     path: '/ViewProduct',
     component: ViewProduct,
+  },
+  {
+    path: '/viewPedido',
+    component: PedidosPrueba,
+  },
+  {
+    path: '/viewPedidoPrivate',
+    component: PedidosPruebaPrivate,
   }
 ];
