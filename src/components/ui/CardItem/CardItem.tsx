@@ -12,7 +12,7 @@ export const CardItem = ({ item }: any) => {
     }
 
     const handleaddToCart = () => {
-        console.log(item.id)
+        
     }
 
     return (

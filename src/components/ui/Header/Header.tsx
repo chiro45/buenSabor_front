@@ -3,7 +3,7 @@ import "./Header.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
-import { addSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
+import { addSearchActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
 import { useNavigate } from "react-router-dom";
 import { useAccessToken, useInput } from "../../../hooks";
 import { useSelector } from "react-redux";
@@ -38,11 +38,13 @@ export const Header = () => {
       }
     }
   };
-
  
   return (
     <div className="containerHeaderPage__storePage">
-      <div className="containerImgLogo__storePage" onClick={()=>{navigate('/')}}>
+      <div className="containerImgLogo__storePage" onClick={()=>{
+        navigate('/')
+        dispatch(removeSearchActive())
+        }}>
         <img src="/src/assets/logopng.webp" />
       </div>
       <div className="containerInputStore__storePage">
