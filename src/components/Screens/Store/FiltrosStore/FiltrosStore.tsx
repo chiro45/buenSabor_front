@@ -71,12 +71,12 @@ export const FiltrosStore = () => {
     
     return (
         <div className="containerPrincipal__FiltroStore">
-            <div className="containerActions__FiltroStore">
-                <button onClick={() => {
+            <div className="containerActions__FiltroStore" onClick={() => {
                     setOpenOrder(!openOrder)
                     setOpenFilter(false)
 
-                }} className="">
+                }}>
+                <button  className="">
                     <FontAwesomeIcon style={{ rotate: "90deg", marginLeft: "-.3rem" }} icon={faArrowRightArrowLeft} /><p>Ordenar</p>
                 </button>
                 {
@@ -92,11 +92,13 @@ export const FiltrosStore = () => {
                 }
 
             </div>
-            <div style={{ borderLeft: "1px solid #ccc" }} className="containerActions__FiltroStore">
-                <button onClick={() => {
-                    setOpenFilter(!openFilter)
-                    setOpenOrder(false)
-                }}>
+            <div style={{ borderLeft: "1px solid #ccc" }} 
+            className="containerActions__FiltroStore"
+            onClick={() => {
+                setOpenFilter(!openFilter)
+                setOpenOrder(false)
+            }}>
+                <button >
                     <FontAwesomeIcon icon={faBars} /><p>Filtrar</p>
                 </button>
 
