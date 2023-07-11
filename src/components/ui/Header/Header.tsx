@@ -3,7 +3,7 @@ import "./Header.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
-import { addSearchActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
+import { addSearchActive, removeCategoryActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
 import { useNavigate } from "react-router-dom";
 import { useAccessToken, useInput } from "../../../hooks";
 import { useSelector } from "react-redux";
@@ -27,6 +27,7 @@ export const Header = () => {
     if(search !== ""){
       const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/buscar_nombre/${search}`
       dispatch(startAddProductStore(url, headers))
+      
       navigate('/store')
     }
   }, [search])

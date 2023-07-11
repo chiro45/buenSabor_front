@@ -1,6 +1,5 @@
 
 import { Header, NavBarMobile } from "../../ui"
-
 import './StorePage.css'
 import { FiltrosStore } from "./FiltrosStore/FiltrosStore"
 import { ProductStore } from "./ProductStore/ProductStore"
@@ -13,28 +12,37 @@ import { useAccessToken } from "../../../hooks"
 import { useSelector } from "react-redux"
 
 export const StorePage = () => {
-    
+
     const dispatch = useDispatch()
-    
+
     const headers = useAccessToken();
 
-    const search = useSelector((state:any) => state.StoreProductReducer.busqueda)
-    
-    useEffect(()=>{
-        if(search === ''){
+    const search = useSelector((state: any) => state.StoreProductReducer)
+
+    useEffect(() => {
+        if (search.busqueda === '' && search.categoriaActiva === '') {
             const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
             dispatch(startAddProductStore(url, headers))
         }
-    },[search])
+       
+    }, [])
 
 
     return (
         <div className="containerPrincipal__storePage">
-            <Header/>
+            <Header />
             <FiltrosStore />
-            <div style={{ height: "1vh", width: '100%', backgroundColor: "var(--terciario)" }}></div>
+            <div style={{
+                height: "1vh",
+                width: '100%',
+                backgroundColor: "var(--terciario)"
+            }}></div>
             <ProductStore />
-            <div style={{ height: "1vh", width: '100%', backgroundColor: "var(--terciario)" }}></div>
+            <div style={{
+                height: "1vh",
+                width: '100%',
+                backgroundColor: "var(--terciario)"
+            }}></div>
             <PaginationButtons page={1} totalPages={9} />
             <Footer />
             <NavBarMobile />
