@@ -55,13 +55,14 @@ export const startAddProductStore = (url: string, headers: Record<string, string
             const respuesta = await fetchGet(url, headers);
             // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
             dispatch(addProducsStore(respuesta));
+            console.log(respuesta)
         } catch (error) {
             console.error(error);
         }
     };
 }
 
-const addProducsStore = (data: IArticuloManufacturado[]) => ({
+export const addProducsStore = (data: IArticuloManufacturado[]) => ({
     type: TypesStoreProductReducer.addProductsStore,
     payload: data
 })

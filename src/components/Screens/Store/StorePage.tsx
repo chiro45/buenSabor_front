@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux"
 import { startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 import { useAccessToken } from "../../../hooks"
 import { useSelector } from "react-redux"
-import { alertConfirm, alertSuccess } from "../../../functions/alerts"
 
 export const StorePage = () => {
     

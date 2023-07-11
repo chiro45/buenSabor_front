@@ -9,9 +9,13 @@ import { useSelector } from "react-redux"
 export const ProductStore = () => {
 
     const [titleStore, setTitleStore] = useState('Hamburguesas')
+    const producstReducer = useSelector((state: any) => state.StoreProductReducer)
+    
+    useEffect(()=>{
+        setTitleStore(producstReducer.busqueda)
+    },[producstReducer.busqueda])
 
     const [products, setProducts] = useState([])
-    const producstReducer = useSelector((state: any) => state.StoreProductReducer)
     useEffect(() => {
         setProducts(producstReducer.productStore)
     }, [producstReducer.productStore])

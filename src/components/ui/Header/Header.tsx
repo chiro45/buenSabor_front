@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAccessToken, useInput } from "../../../hooks";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { alertError } from "../../../functions/alerts";
 export const Header = () => {
 
   const [inputState, onInputChange, setInputState]: any = useInput({
@@ -15,26 +16,30 @@ export const Header = () => {
   })
 
 
-
   const dispatch = useDispatch()
   const headers = useAccessToken();
   const navigate = useNavigate()
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
-      dispatch(addSearchActive(inputState.search))
-      const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/buscar_nombre/${search}`
-      dispatch(startAddProductStore(url, headers))
-      console.log(url)
-      navigate('/store')
-    }
-  };
   const search = useSelector((state: any) => state.StoreProductReducer.busqueda)
-
   useEffect(() => {
     setInputState({
       search
     })
+    if(search !== ""){
+      const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/buscar_nombre/${search}`
+      dispatch(startAddProductStore(url, headers))
+      navigate('/store')
+    }
   }, [search])
+  
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) {
+      if(inputState.search !==""){
+        dispatch(addSearchActive(inputState.search))
+      }
+    }
+  };
+
+ 
   return (
     <div className="containerHeaderPage__storePage">
       <div className="containerImgLogo__storePage" onClick={()=>{navigate('/')}}>
