@@ -3,8 +3,7 @@ import { IArticuloManufacturado } from '../../../interfaces';
 import { CartCard, CartHeader, CartResume, } from '../../ui';
 import './Cart.css'
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
-import { useEffect } from 'react';
-import { ItemStore } from '../Store/ItemStore/ItemStore';
+import { CustomWallet } from '../../ui/CustomWallet/CustomWallet';
 
 
 
@@ -41,7 +40,7 @@ export const Cart = () => {
                 </>
             </div>
             <div className="cart_btn-container">
-                <button className="cart_btn-pagar">Ir a pagar</button>
+                <CustomWallet/>
             </div>
         </div>
     );

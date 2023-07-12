@@ -180,7 +180,7 @@
   bottom: 0;
   box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.2);
   display: flex;
-  height: 10vh;
+  height: 14vh;
   justify-content: center;
   position: fixed;
   width: 100%;
@@ -193,7 +193,7 @@
   color: var(--letraBlanca);
   font-size: 1rem;
   font-weight: 600;
-  height: 6vh;
+  height: 3rem;
   border: none;
 
   width: 90%;
