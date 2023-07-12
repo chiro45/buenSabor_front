@@ -1,7 +1,5 @@
 
 import "./Header.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
 import { addSearchActive, removeCategoryActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +7,8 @@ import { useAccessToken, useInput } from "../../../hooks";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { alertError } from "../../../functions/alerts";
+import DropdownLogin from "../DropdownLogin/DropdownLogin";
+
 export const Header = () => {
 
   const [inputState, onInputChange, setInputState]: any = useInput({
@@ -58,9 +58,7 @@ export const Header = () => {
           placeholder="Busca un producto" />
       </div>
       <div className="containerActionsStore__storePage">
-        <button className="buttonActionStoreButton__storePage">
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+        <DropdownLogin/>
       </div>
     </div>
   );
