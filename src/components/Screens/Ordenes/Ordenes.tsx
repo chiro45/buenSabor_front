@@ -5,7 +5,7 @@ import { faArrowLeft, faBagShopping } from "@fortawesome/free-solid-svg-icons"
 
 export const Ordenes = () => {
 
-    const arr = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+    const arr = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
     return (
         <>
             <div className="containerOrderPrincipal">
