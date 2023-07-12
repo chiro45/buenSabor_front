@@ -5,10 +5,12 @@
     align-items: center;
     min-height: 20vh;
     gap: 1vh;
-    min-width: 32vw;
+    min-width: 33vw;
     background-color: #282828;
     border-radius: .4rem;
     z-index: 0;
+    position: relative;
+
 }
 
 .containerImg__cardItem {
@@ -16,16 +18,15 @@
     z-index: 400;
     flex-direction: column;
     min-height: 10vh;
-    min-width: 100%;
     justify-content: center;
     align-items: center; 
 }
 
 .container__butoonAddCart__cardItem {
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    top: 5%;
+    left: 78%;
     z-index: 400;
-    width: 80%;
 }
 
 .butoonAddCart__cardItem {
@@ -37,10 +38,9 @@
     color: #c79455;
     border: none;
 }
-
 .containerImg__cardItem img {
-    max-height: 8vh;
-    min-height: 7vh;
+    max-height: 7vh;
+    min-height: 5vh;
     object-fit: contain;
 }
 

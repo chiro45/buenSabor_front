@@ -82,6 +82,7 @@ export const ViewProduct: React.FC = () => {
             (itemActive !== null) &&
             <div className='containerPrincipal__productView'>
 
+                <div>
                 <div className='containerbuttonGoToSTore__productView'>
                     <button onClick={handleGoBack} > <FontAwesomeIcon icon={faArrowLeft} /> Volver a la tienda  </button>
                 </div>
@@ -94,6 +95,12 @@ export const ViewProduct: React.FC = () => {
                     <div className='containerImgProduct__productView'>
                         <img src={itemActive.imagen} />
                     </div>
+                    
+                </div>
+                </div>
+
+                <div className='containerActions__productView'>
+                    <div className='containerDescriptcionAndPRince'>
                     <div className='containerPrice__productView'>
                         <h2>Precio: ${itemActive.precioVenta}</h2>
                     </div>
@@ -102,9 +109,8 @@ export const ViewProduct: React.FC = () => {
                             <p>{itemActive.descripcion}</p>
                         </div>
                     </div>
-                </div>
-
-                <div className='containerActions__productView'>
+                    </div>
+                    <div className='containerActionProductView'>
                     <div className='container__actions'>
                         <button className='buttonsactions__productView' onClick={addCantidad}> <FontAwesomeIcon icon={faPlus} /> </button>
                         <p> {cantidad}</p>
@@ -113,12 +119,13 @@ export const ViewProduct: React.FC = () => {
                     <div className='containerButtonAddCart'>
                         <button className='buttonAddToCart__productView' onClick={handleAddCart}>Añadir al carrito</button>
                     </div>
+                    </div>
                 </div>
 
-                <Footer />
             </div>
         }
         </>
     );
 };
 
+{/* <Footer /> */}

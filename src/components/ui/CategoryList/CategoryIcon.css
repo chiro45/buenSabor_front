@@ -14,8 +14,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1vh;
 }
-
 .category-icon img,
 .fa-icon {
     width: 4vh;

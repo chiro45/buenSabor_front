@@ -8,6 +8,7 @@ import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
 import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
 import { Link } from "react-router-dom";
+import { Ordenes } from "../components/Screens/Ordenes/Ordenes";
 
 export const routesConfig = [
   {
@@ -44,7 +45,7 @@ export const routesConfig = [
   },
   {
     path: '/order',
-    component: () => <Link to={'/'}>¡Próximamente!</Link>,
+    component: Ordenes,
   },  
   {
     path: '/ViewProduct',

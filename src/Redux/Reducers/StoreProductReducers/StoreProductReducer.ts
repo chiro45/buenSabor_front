@@ -4,10 +4,11 @@ import { TypesStoreProductReducer } from "../../Types/TypesStoreProductReducer";
 import { IActionStoreProductsReducer, IProductReducer } from "./IStoreProductReducer";
 
 // Definimos el estado inicial
-const initialState: IProductReducer = {
+export const initialState: IProductReducer = {
     productStore: [],
     productActive: null,
-    busqueda: ""
+    busqueda: "",
+    categoriaActiva: ""
 };
 
 // Creamos el reducer de los modales
@@ -22,7 +23,8 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
             return {
                 productStore: [],
                 productActive: null,
-                busqueda: ""
+                busqueda: "",
+                categoriaActiva: ""
             }
         case TypesStoreProductReducer.addProducActive:
             return {
@@ -34,15 +36,27 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
                 ...state,
                 productActive: null
             }
-        case TypesStoreProductReducer.addSearch :
+        case TypesStoreProductReducer.addSearch:
             return {
                 ...state,
                 busqueda: action.payload
             }
-        case TypesStoreProductReducer.removeSearch :
+        case TypesStoreProductReducer.removeSearch:
             return {
                 ...state,
+                categoriaActiva: "",
                 busqueda: ""
+            }
+        case TypesStoreProductReducer.addCategoryActive:
+            return {
+                ...state,
+                busqueda: "",
+                categoriaActiva: action.payload,
+            }
+        case TypesStoreProductReducer.removeCategoryActive:
+            return {
+                ...state,
+                categoriaActiva: ""
             }
         default:
             return state;
@@ -55,13 +69,14 @@ export const startAddProductStore = (url: string, headers: Record<string, string
             const respuesta = await fetchGet(url, headers);
             // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
             dispatch(addProducsStore(respuesta));
+            console.log(respuesta)
         } catch (error) {
             console.error(error);
         }
     };
 }
 
-const addProducsStore = (data: IArticuloManufacturado[]) => ({
+export const addProducsStore = (data: IArticuloManufacturado[]) => ({
     type: TypesStoreProductReducer.addProductsStore,
     payload: data
 })
@@ -98,6 +113,14 @@ export const addSearchActive = (search: string) => ({
 
 export const removeSearchActive = () => ({
     type: TypesStoreProductReducer.removeSearch
+})
+export const addCategoryActive = (search: string) => ({
+    type: TypesStoreProductReducer.addCategoryActive,
+    payload: search
+})
+
+export const removeCategoryActive = () => ({
+    type: TypesStoreProductReducer.removeCategoryActive
 })
 
 
