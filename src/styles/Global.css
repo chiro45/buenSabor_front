@@ -12,7 +12,9 @@
   --letraBlanca: white;
   --letraGris: gray;
 }
-
+button:hover{
+  cursor: pointer;
+}
 .Body-Modals {
   display: flex;
   flex-direction: column;

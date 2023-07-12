@@ -12,6 +12,9 @@
   justify-content: center;
   width: 20vw;
 }
+.containerImgLogo__storePage:hover{
+  cursor: pointer;
+}
 .containerImgLogo__storePage img{
   width: 4vh;
 }

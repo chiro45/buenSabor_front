@@ -8,7 +8,7 @@ export const Banner = ({bannerItem}:any) => {
         navigate('/cart')
     }
     const handleViewProduct = () => {
-        console.log(bannerItem)
+        
     }
     return (
         <div onClick={handleViewProduct} className="containerPrincipal-Banner">

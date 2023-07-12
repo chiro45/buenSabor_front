@@ -8,6 +8,7 @@ import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
 import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
 import { Link } from "react-router-dom";
+import { Ordenes } from "../components/Screens/Ordenes/Ordenes";
 import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
 import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
 import { RegisterSecond } from "../components/Screens/Register/RegisterSecond/RegisterSecond";
@@ -51,7 +52,7 @@ export const routesConfig = [
   },
   {
     path: '/order',
-    component: () => <Link to={'/'}>¡Próximamente!</Link>,
+    component: Ordenes,
   },  
   {
     path: '/ViewProduct',
