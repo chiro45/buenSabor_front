@@ -6,5 +6,6 @@ export const TypesStoreProductReducer =  {
     addSearch: '[TypesStoreProductReducer] ADD SEARCH ACTIVE',
     removeSearch: '[TypesStoreProductReducer] REMOVE SEARCH ACTIVE',
     addCategoryActive: '[TypesStoreProductReducer] ADD Category ACTIVE',
-    removeCategoryActive: '[TypesStoreProductReducer] REMOVE Category ACTIVE'
+    removeCategoryActive: '[TypesStoreProductReducer] REMOVE Category ACTIVE',
+    addOrderPriceActive:'[TypesStoreProductReducer] ADD orderPrice ACTIVE'
 }

@@ -8,7 +8,8 @@ export const initialState: IProductReducer = {
     productStore: [],
     productActive: null,
     busqueda: "",
-    categoriaActiva: ""
+    categoriaActiva: "",
+    orderPriceActive: "",
 };
 
 // Creamos el reducer de los modales
@@ -25,7 +26,8 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
                 productStore: [],
                 productActive: null,
                 busqueda: "",
-                categoriaActiva: ""
+                categoriaActiva: "",
+                orderPriceActive: ""
             }
         case TypesStoreProductReducer.addProducActive:
             return {
@@ -46,7 +48,8 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
             return {
                 ...state,
                 categoriaActiva: "",
-                busqueda: ""
+                busqueda: "",
+                orderPriceActive: ""
             }
         case TypesStoreProductReducer.addCategoryActive:
             return {
@@ -54,10 +57,17 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
                 busqueda: "",
                 categoriaActiva: action.payload,
             }
+        case TypesStoreProductReducer.addOrderPriceActive:
+            return {
+                ...state,
+                busqueda: "",
+                orderPriceActive: action.payload,
+            }
         case TypesStoreProductReducer.removeCategoryActive:
             return {
                 ...state,
-                categoriaActiva: ""
+                categoriaActiva: "",
+                orderPriceActive: ""
             }
         default:
             return state;
@@ -70,8 +80,7 @@ export const startAddProductStore = (url: string, headers: Record<string, string
             const respuesta = await fetchGet(url, headers);
             // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
             dispatch(addProducsStore(respuesta));
-            
-            console.log(respuesta.totalPages)
+
         } catch (error) {
             console.error(error);
         }
@@ -92,7 +101,6 @@ export const startAddProductActive = (url: string, id: number, headers: Record<s
         try {
             const respuesta = await fetchGet(`${url}/${id}`, headers);
             // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
-            console.log(respuesta)
             dispatch(addProductActive(respuesta));
         } catch (error) {
             console.error(error);
@@ -118,6 +126,10 @@ export const removeSearchActive = () => ({
 })
 export const addCategoryActive = (search: string) => ({
     type: TypesStoreProductReducer.addCategoryActive,
+    payload: search
+})
+export const addOrderPriceActive = (search: string) => ({
+    type: TypesStoreProductReducer.addOrderPriceActive,
     payload: search
 })
 

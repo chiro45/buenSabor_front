@@ -17,18 +17,25 @@ export const StorePage = () => {
 
     const headers = useAccessToken();
 
-    const search = useSelector((state: any) => state.StoreProductReducer)
+    const {orderPriceActive, categoriaActiva, busqueda} = useSelector((state: any) => state.StoreProductReducer)
     const totalPages = useSelector((state: any) => state.StoreProductReducer.totalPages);
-    
     const [page, setPage] = useState(0)
+    const [changeFilter, setchangeFilter] = useState(false)
     useEffect(() => {
-        if (search.busqueda === '' && search.categoriaActiva === '') {
-            const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/paged/${page}`
+        if (busqueda === '') {
+            const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/${page}/${orderPriceActive || 'default'}/${categoriaActiva || 'default'}`
+            dispatch(startAddProductStore(url, headers))
+        } else {
+            const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/allByName/${page}/${orderPriceActive || 'default'}/${busqueda || 'default'}`
             dispatch(startAddProductStore(url, headers))
         }
-       
-    }, [page,])
+    }, [page,changeFilter,])
 
+    useEffect(() => {
+        setPage(0)
+        setchangeFilter(!changeFilter)
+    }, [orderPriceActive, categoriaActiva])
+    
 
     return (
         <div className="containerPrincipal__storePage">

@@ -19,7 +19,7 @@ export const NavBarMobile = () => {
         <div className="navBarMobile__contaierItems">
           {
             [{
-              text: "Home", icon: faHome, route: "/"
+              text: "Home", icon: faHome, route: '/'
             }, {
               text: "Store", icon: faShop, route: "/store"
             }, {
@@ -30,7 +30,7 @@ export const NavBarMobile = () => {
               <div key={text}
                 onClick={() => {
                   navigate(route)
-                  if (text === "Store") {
+                  if (text === "Store" || text === "Home") {
                     dispatch(removeCategoryActive())
                     dispatch(removeSearchActive())
                   }

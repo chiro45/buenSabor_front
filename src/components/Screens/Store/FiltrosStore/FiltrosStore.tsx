@@ -1,10 +1,10 @@
 import { faArrowRightArrowLeft, faBars } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './FiltroStore.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAccessToken } from "../../../../hooks"
 import { useDispatch } from "react-redux"
-import { startAddProductStore } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
+import { addCategoryActive, addOrderPriceActive, startAddProductStore } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 export const FiltrosStore = () => {
 
     const [openOrder, setOpenOrder] = useState(false)
@@ -12,35 +12,32 @@ export const FiltrosStore = () => {
 
     const headers = useAccessToken();
     const dispatch = useDispatch()
-    const handleFetchFilter = (param: string) => {
-        //TODO: arreglar
-        /*
-        const url = `${import.meta.env.VITE_URL_CATEGORY}/buscar_nombre/${param}`
-            dispatch(startAddProductStore(url, headers))
-        */
 
+    const [sortPrice, setSortPrice] = useState('menor')
+    const [category, setCategory] = useState('default')
+
+    const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/${sortPrice}/${category}`
+    const handleFetchFilter = (param: string) => {
+        setCategory(param);
+        dispatch(addCategoryActive(param));
     }
 
     const handleFetchOrder = (param: string) => {
-        const ascendente = param === "menorPrecio" ? true : false;
-        let url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/dsadsa/da`
-
-        if (!ascendente) {
-            url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/mayor/papas`
-        };
-        setOpenOrder(false)
-        dispatch(startAddProductStore(url, headers))
-
+        setSortPrice(param)
+        dispatch(addOrderPriceActive(param))
     };
 
+    useEffect(() => {
+        setOpenOrder(false)
+    }, [sortPrice, category])
 
     const arrOrder = [
         {
-            param: "mayorPrecio",
+            param: "mayor",
             text: "Mayor Precio"
         },
         {
-            param: "menorPrecio",
+            param: "menor",
             text: "Menor Precio"
         }
     ]

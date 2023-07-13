@@ -12,30 +12,32 @@ import DropdownLogin from "../DropdownLogin/DropdownLogin";
 export const Header = () => {
 
   const [inputState, onInputChange, setInputState]: any = useInput({
-    search: ""
+    busqueda: ""
   })
 
 
   const dispatch = useDispatch()
   const headers = useAccessToken();
   const navigate = useNavigate()
-  const search = useSelector((state: any) => state.StoreProductReducer.busqueda)
-  useEffect(() => {
-    setInputState({
-      search
-    })
-    if(search !== ""){
-      const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/buscar_nombre/${search}`
-      dispatch(startAddProductStore(url, headers))
-      
-      navigate('/store')
-    }
-  }, [search])
+  const {busqueda, orderPriceActive} = useSelector((state: any) => state.StoreProductReducer)
   
+  useEffect(() => {
+    onSearched()
+  }, [busqueda]);
+
+  const onSearched = async() =>{
+    if(busqueda !== ""){
+      const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/allByName/0/${orderPriceActive || 'default'}/${busqueda || 'default'}`
+      dispatch(startAddProductStore(url, headers)).then(() =>{ navigate('/store')})
+      
+     
+    }
+  }
+
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
-      if(inputState.search !==""){
-        dispatch(addSearchActive(inputState.search))
+      if(inputState.busqueda !==""){
+        dispatch(addSearchActive(inputState.busqueda))
       }
     }
   };
@@ -49,9 +51,9 @@ export const Header = () => {
         <img src="/src/assets/logopng.webp" />
       </div>
       <div className="containerInputStore__storePage">
-        <input name='search'
+        <input name='busqueda'
           onKeyDown={handleSearch}
-          value={inputState.search}
+          value={inputState.busqueda}
           onChange={onInputChange}
           className="InputStore__storePage"
           type="text"
