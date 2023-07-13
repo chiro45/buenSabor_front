@@ -2,17 +2,14 @@ import { faArrowRightArrowLeft, faBars } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './FiltroStore.css'
 import { useState } from "react"
-import { useSelector } from "react-redux"
-import { IArticuloManufacturado } from "../../../../interfaces"
 import { useAccessToken } from "../../../../hooks"
 import { useDispatch } from "react-redux"
-import { addProducsStore, startAddProductStore } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
+import { startAddProductStore } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 export const FiltrosStore = () => {
 
     const [openOrder, setOpenOrder] = useState(false)
     const [openFilter, setOpenFilter] = useState(false)
-    const productStore : IArticuloManufacturado[] = useSelector((state:any) => state.StoreProductReducer.productStore)
-    
+
     const headers = useAccessToken();
     const dispatch = useDispatch()
     const handleFetchFilter = (param: string) => {
@@ -21,62 +18,60 @@ export const FiltrosStore = () => {
         const url = `${import.meta.env.VITE_URL_CATEGORY}/buscar_nombre/${param}`
             dispatch(startAddProductStore(url, headers))
         */
-        
+
     }
 
     const handleFetchOrder = (param: string) => {
         const ascendente = param === "menorPrecio" ? true : false;
-        const arrEntrante = [...productStore]; // Crear una copia inmutable del estado
-        const arrOrdenado = arrEntrante.sort((a, b) => {
-          if (ascendente) {
-            return a.precioVenta - b.precioVenta;
-          } else {
-            return b.precioVenta - a.precioVenta;
-          }
-        });
+        let url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/dsadsa/da`
+
+        if (!ascendente) {
+            url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/mayor/papas`
+        };
         setOpenOrder(false)
-        dispatch(addProducsStore(arrOrdenado));
-      };
-      
- 
+        dispatch(startAddProductStore(url, headers))
+
+    };
+
+
     const arrOrder = [
-    { 
-    param: "mayorPrecio", 
-    text: "Mayor Precio" 
-    },
-    { 
-    param: "menorPrecio",
-    text: "Menor Precio" 
-    }
+        {
+            param: "mayorPrecio",
+            text: "Mayor Precio"
+        },
+        {
+            param: "menorPrecio",
+            text: "Menor Precio"
+        }
     ]
-    
+
     const arrFilter = [
-    { 
-    param: "Hamburguesas",
-    text: "Hamburguesas" 
-    },
-    { 
-    param: "pizzas",
-    text: "Pizzas" 
-    }, 
-    { 
-    param: "papas", 
-    text: "Papas" 
-    }, 
-    { 
-    param: "bebidas",
-    text: "Bebidas" 
-    }
+        {
+            param: "Hamburguesas",
+            text: "Hamburguesas"
+        },
+        {
+            param: "pizzas",
+            text: "Pizzas"
+        },
+        {
+            param: "papas",
+            text: "Papas"
+        },
+        {
+            param: "bebidas",
+            text: "Bebidas"
+        }
     ]
-    
+
     return (
         <div className="containerPrincipal__FiltroStore">
             <div className="containerActions__FiltroStore" onClick={() => {
-                    setOpenOrder(!openOrder)
-                    setOpenFilter(false)
+                setOpenOrder(!openOrder)
+                setOpenFilter(false)
 
-                }}>
-                <button  className="">
+            }}>
+                <button className="">
                     <FontAwesomeIcon style={{ rotate: "90deg", marginLeft: "-.3rem" }} icon={faArrowRightArrowLeft} /><p>Ordenar</p>
                 </button>
                 {
@@ -92,12 +87,12 @@ export const FiltrosStore = () => {
                 }
 
             </div>
-            <div style={{ borderLeft: "1px solid #ccc" }} 
-            className="containerActions__FiltroStore"
-            onClick={() => {
-                setOpenFilter(!openFilter)
-                setOpenOrder(false)
-            }}>
+            <div style={{ borderLeft: "1px solid #ccc" }}
+                className="containerActions__FiltroStore"
+                onClick={() => {
+                    setOpenFilter(!openFilter)
+                    setOpenOrder(false)
+                }}>
                 <button >
                     <FontAwesomeIcon icon={faBars} /><p>Filtrar</p>
                 </button>
