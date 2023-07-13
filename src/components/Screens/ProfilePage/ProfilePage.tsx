@@ -1,7 +1,7 @@
-import Profile from '../../../security/Auth0/Profile'
+import Profile from '../../ui/Profile/Profile'
 import { Header, NavBarMobile } from '../../ui'
 import './ProfilePage.css'
-export const PruebaAuth0 = () => {
+export const ProfilePage = () => {
   return (
     <div className='containerPrincipal'> 
       <Header/>

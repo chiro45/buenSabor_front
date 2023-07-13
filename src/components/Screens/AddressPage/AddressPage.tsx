@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import {useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
-import { InputGeneric } from "../../../ui/InputGeneric/InputGeneric"
-import { fetchGet, fetchPost, fetchPut} from "../../../../helpers";
-import { useAccessToken, useInput } from "../../../../hooks";
-import { ICliente} from "../../../../interfaces";
-import logo from "../../../../assets/logopng.webp"
-import "./RegisterSecond.css"
+import { InputGeneric } from "../../ui"
+import { fetchGet, fetchPost, fetchPut} from "../../../helpers";
+import { useAccessToken, useInput } from "../../../hooks";
+import { ICliente} from "../../../interfaces";
+import logo from '../../../assets/logopng.webp'
+import "./AddressPage.css"
 const urlCliente = `${import.meta.env.VITE_URL_CLIENTE}`
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
 
-export const RegisterSecond = () => {
+export const AddressPage = () => {
     const headers = useAccessToken();
     const { user, isAuthenticated,  getAccessTokenSilently } = useAuth0();
     const [clientePost, setClientePost] = useState<ICliente | any>();

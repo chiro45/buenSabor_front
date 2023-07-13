@@ -1,4 +1,6 @@
 
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './PaginationButtons.css'
 
 export const PaginationButtons = ({ page, totalPages, setPage }: any) => {
@@ -69,13 +71,13 @@ export const PaginationButtons = ({ page, totalPages, setPage }: any) => {
                 <ul className="pagination mt-4">
                     <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
                         <a className="page-link" onClick={() => handlePageChange(page - 1)}>
-                            Previous
+                        <FontAwesomeIcon icon={faArrowLeft} />
                         </a>
                     </li>
                     {showButtons && renderPageButtons()}
                     <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
                         <a className="page-link" onClick={() => handlePageChange(page + 1)}>
-                            Next
+                        <FontAwesomeIcon icon={faArrowRight} />
                         </a>
                     </li>
                 </ul>

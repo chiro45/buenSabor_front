@@ -3,15 +3,14 @@ import { ConfigCategory } from "../components/Screens/ConfigCategory/ConfigCateg
 import { ConfigArticuloInsumo } from "../components/Screens/ConfigArticuloInsumo/ConfigArticuloInsumo"
 import { ConfigUnidadMedida } from "../components/Screens/ConfigUnidadMedida/ConfigUnidadMedida"
 import { ConfigArtiruloManufacturado } from "../components/Screens/ConfigArtiruloManufacturado/ConfigArtiruloManufacturado";
-import { PruebaAuth0 } from "../components/Screens/PruebaAuth0/PruebaAuth0";
+import { ProfilePage } from "../components/Screens/ProfilePage/ProfilePage";
 import { StorePage } from "../components/Screens/Store/StorePage";
 import { Cart } from "../components/Screens/Cart";
 import { ViewProduct } from "../components/Screens/ViewProduct/ViewProduct";
-import { Link } from "react-router-dom";
 import { Ordenes } from "../components/Screens/Ordenes/Ordenes";
 import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
 import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
-import { RegisterSecond } from "../components/Screens/Register/RegisterSecond/RegisterSecond";
+import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
 
 export const routesConfig = [
   {
@@ -40,11 +39,11 @@ export const routesConfig = [
   },
   {
     path: '/address',
-    component: RegisterSecond,
+    component: AddressPage,
   },
   {
     path: '/profile',
-    component: PruebaAuth0,
+    component: ProfilePage,
   },
   {
     path: '/store',

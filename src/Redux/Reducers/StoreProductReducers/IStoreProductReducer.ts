@@ -5,7 +5,7 @@ export interface IProductReducer{
     productActive: IArticuloManufacturado | null
     busqueda?:string
     categoriaActiva?:string
-    totalPages?:number
+    orderPriceActive?:string
 }
 export interface IActionStoreProductsReducer {
     type: string;
