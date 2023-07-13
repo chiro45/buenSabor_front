@@ -1,7 +1,7 @@
 import { fetchGet } from "../../../helpers";
 import { IArticuloManufacturado } from "../../../interfaces";
 import { TypesStoreProductReducer } from "../../Types/TypesStoreProductReducer";
-import { IActionStoreProductsReducer, IProductReducer } from "./IStoreProductReducer";
+import { IActionStoreProductsReducer, IApiResponse, IProductReducer } from "./IStoreProductReducer";
 
 // Definimos el estado inicial
 export const initialState: IProductReducer = {
@@ -17,7 +17,8 @@ export const StoreProductReducer = (state = initialState, action: IActionStorePr
         case TypesStoreProductReducer.addProductsStore:
             return {
                 ...state,
-                productStore: action.payload
+                productStore: action.payload?.content,
+                totalPages: action.payload?.totalPages,
             }
         case TypesStoreProductReducer.removeProductsStore:
             return {
@@ -69,14 +70,15 @@ export const startAddProductStore = (url: string, headers: Record<string, string
             const respuesta = await fetchGet(url, headers);
             // Cuando se recibe la respuesta, se llama a la función addDataTable para agregar los datos a la tabla
             dispatch(addProducsStore(respuesta));
-            console.log(respuesta)
+            
+            console.log(respuesta.totalPages)
         } catch (error) {
             console.error(error);
         }
     };
 }
 
-export const addProducsStore = (data: IArticuloManufacturado[]) => ({
+export const addProducsStore = (data: IApiResponse) => ({
     type: TypesStoreProductReducer.addProductsStore,
     payload: data
 })

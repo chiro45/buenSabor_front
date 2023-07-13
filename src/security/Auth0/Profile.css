@@ -1,0 +1,137 @@
+/* * {
+    outline: red dashed 1px;
+} */
+.profile-section{
+    align-items: center;
+    display: flex;
+    height: 92%;
+    justify-content: center;
+    width: 100%;
+}
+.profile_container {
+    border: 4px solid var(--principal);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 1rem;
+    width: 70%;
+}
+
+.profile_btn-container{
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+.profile_btn{
+    align-self: flex-end;
+    background-color: var(--principal);
+    border: 2px solid var(--principal);
+    border-radius: .4rem;
+    color: var(--letraBlanca);
+    cursor: pointer;
+    font-size: .8rem;
+    padding: .3rem;
+    width: 25%;
+}
+
+.profile_btn-modify:hover {
+    color: #555;
+}
+
+.profile_picture-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.profile_picture-container img {
+    border-radius: 50%;
+    height: 8rem;
+    width: 8rem;
+}
+
+.profile_picture-container h1 {
+    font-size: 1.5rem;
+    margin-top: .8rem;
+}
+
+.profile_pedidos-title {
+    align-self: center;
+    font-size: 1rem;
+}
+
+.profile_pedidos-container {
+
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+}
+
+.profile_pedidos-container-status {
+    align-self: center;
+    display: flex;
+    gap: 5%;
+    justify-content: space-between;
+    margin-top: .4rem;
+    width: 60%;
+    
+}
+
+.profile_pedido-status {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.circunferencia-status {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+}
+
+.profile_pedido-status svg {
+    font-size: 1.3rem;
+}
+
+.profile_information-container {
+    align-self: center;
+    background-color: var(--principal);
+    border-radius: 1rem;
+    color: var(--letraBlanca);
+    margin-bottom: 1.2rem;
+    margin-top: 1.2rem;
+    padding: 1rem;
+    width: 80%;
+}
+
+.profile_information-item {
+    align-items: center;
+    display: flex;
+    margin-bottom: .9rem;
+}
+
+.profile_information-item svg {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.profile_information-item p {
+    hyphens: auto;
+    margin: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    
+}
+
+.profile_information-item p:empty::before {
+    color: gray;
+    content: "Sin datos actuales";
+    font-style: italic;
+}

@@ -1,19 +1,14 @@
 import Profile from '../../../security/Auth0/Profile'
-import AdminApiCall from '../../../security/TestApiCalls/AdminApiCall'
-import ProtectedApiCall from '../../../security/TestApiCalls/ProtectedApiCall'
-import PublicApiCall from '../../../security/TestApiCalls/PublicApiCall'
-import { Header } from '../../ui'
-import DropdownLogin from '../../ui/DropdownLogin/DropdownLogin'
-
+import { Header, NavBarMobile } from '../../ui'
+import './ProfilePage.css'
 export const PruebaAuth0 = () => {
   return (
-    <div>
+    <div className='containerPrincipal'> 
       <Header/>
       <Profile />
-      <ProtectedApiCall />
+      {/* <ProtectedApiCall />
       <PublicApiCall />
-      <AdminApiCall />
-      <DropdownLogin/>
+      <AdminApiCall /> */}
     </div>
   )
 }

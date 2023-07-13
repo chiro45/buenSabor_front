@@ -5,8 +5,14 @@ export interface IProductReducer{
     productActive: IArticuloManufacturado | null
     busqueda?:string
     categoriaActiva?:string
+    totalPages?:number
 }
 export interface IActionStoreProductsReducer {
     type: string;
-    payload?: IArticuloManufacturado[] | [] | IArticuloManufacturado 
+    payload?: IApiResponse
 }
+
+export interface IApiResponse {
+    content: IArticuloManufacturado[];
+    totalPages?: number;
+  }

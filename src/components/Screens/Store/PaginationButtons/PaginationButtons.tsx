@@ -3,7 +3,7 @@ import './PaginationButtons.css'
 
 export const PaginationButtons = ({ page, totalPages, setPage }: any) => {
     const handlePageChange = (newPage: number) => {
-        setPage(newPage);
+        setPage(newPage-1);
         window.scrollTo({
             top: 0,
             behavior: "smooth"
