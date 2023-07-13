@@ -3,9 +3,9 @@ import { faAt, faCheck, faClockRotateLeft, faLocationDot, faPhone, faXmark } fro
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchGet } from '../../helpers';
-import { useAccessToken } from '../../hooks';
-import { ICliente } from '../../interfaces';
+import { fetchGet } from '../../../helpers';
+import { useAccessToken } from '../../../hooks';
+import { ICliente } from '../../../interfaces';
 import './Profile.css'
 
 const urlCliente = `${import.meta.env.VITE_URL_CLIENTE}`
