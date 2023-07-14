@@ -11,6 +11,7 @@ import { Ordenes } from "../components/Screens/Ordenes/Ordenes";
 import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
 import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
 import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
+import Kitchen from "../components/Screens/Kitchen/Kitchen";
 
 export const routesConfig = [
   {
@@ -64,5 +65,13 @@ export const routesConfig = [
   {
     path: '/viewPedidoPrivate',
     component: PedidosPruebaPrivate,
+  },
+  {
+    path: '/kitchen/process',
+    component: Kitchen,
+  },
+  {
+    path: '/kitchen/done',
+    component: Kitchen,
   }
 ];

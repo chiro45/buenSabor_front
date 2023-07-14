@@ -1,0 +1,146 @@
+/* * {
+    outline: red dashed 1px;
+} */
+
+:root {
+    --principal: #0f232f;
+    --secundario: #fcfffc;
+    --terciario: #ba3423;
+    --background: #ffffff;
+    --backgroundSecundario: #eae8d8;
+    --letraBlanca: white;
+    --letraGris: gray;
+    --backgroundGrisaseo: #f0f0f4;
+    --estadoNaranja: #FF7700;
+    --estadoAmarillo: #FFCC32;
+    --estadoVerde: #1DD75B;
+    --estadoAzul: #00BDD6;
+    --estadoRojo: #F22128;
+}
+
+.cardKitchen_container-principal {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .2rem;
+    margin-top: .2rem;
+    width: 18vw;
+}
+
+.cardKitchen_header-container {
+    background-color: var(--principal);
+    border-radius: 0.3rem 0.3rem 0 0;
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+}
+
+.cardKitchen_header {
+
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.cardKitchen_label {
+    color: var(--letraGris);
+    font-size: .8rem;
+}
+
+.cardKitchen_order {
+    font-size: 2rem;
+}
+
+.cardKitchen_header-left {
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.cardKitchen_header-right {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cardKitchen_clock {
+    align-items: center;
+    border-radius: .4rem;
+    font-size: .8rem;
+    padding: .05rem .2rem;
+}
+
+.cardKitchen_state {
+    border-radius: .2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: .05rem .8rem;
+}
+
+.cardKitchen_body-container {
+    align-items: center;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+}
+
+.cardKitchen_body-item {
+    border-radius: 0.3rem;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    margin: .4rem;
+    width: 90%;
+}
+
+
+.cardKitchen_item-number {
+    align-items: center;
+    background-color: var(--estadoAmarillo);
+    border-radius: 0.3rem 0 0 0.3rem;
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.item-number {
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 600;
+    height: 2vw;
+    justify-content: center;
+    margin: .4rem 0;
+    /* 1rem para el padding superior e inferior, y 0 para el padding izquierdo y derecho */
+    width: 2vw;
+}
+
+.cardKitchen_item-name {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-left: 0.6rem;
+}
+
+
+.cardKitchen_footer-container {
+    background-color: var(--principal);
+    border-radius: 0 0 0.3rem 0.3rem;
+    display: flex;
+    height: 4vh;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.cardKitchen_footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    
+}
+
+.cardKitchen_footer button{
+    border-radius: 0.5rem;
+}
