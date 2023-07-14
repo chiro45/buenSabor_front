@@ -1,0 +1,112 @@
+.pedidosKitchen_container-principal {
+    background: var(--backgroundCocina);
+    height: 100%;
+    max-height: 83vh;
+    width: 100%;
+}
+
+.pedidosKitchen_container {
+    height: 100%;
+    overflow: scroll;
+}
+
+.pedidosKitchen_title {
+    display: flex;
+    height: 7%;
+
+}
+
+.pedidosKitchen_title-espera {
+    align-items: center;
+    background-color: var(--estadoAmarillo);
+    display: flex;
+    justify-content: center;
+    width: 25%;
+}
+
+.pedidosKitchen_title-preparacion {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 75%;
+
+}
+
+.pedidosKitchen_title-preparacion h4 {
+    background: var(--estadoAzul);
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: .5rem;
+}
+
+.pedidosKitchen_title-espera h4 {
+    background: var(--estadoNaranja);
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: .5rem;
+}
+
+
+.pedidosKitchen_cardContainer {
+    display: flex;
+    height: 93%;
+    overflow: auto;
+    /* Agrega scroll horizontal si el contenido desborda */
+
+}
+
+
+.pedidosKitchen_espera {
+    align-items: center;
+    background-color: var(--estadoAmarillo);
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    height: 100%;
+    overflow: auto;
+    /* Agrega scroll vertical si el contenido desborda */
+    /* padding-top: 1rem; */
+    width: 25%;
+}
+
+.pedidosKitchen_preparacion {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10%;
+    height: 100%;
+    justify-content: center;
+    margin: auto;
+    overflow: auto;
+    /* padding-top: 1rem;  */
+    width: 75%;
+}
+
+.pedidosKitchen_done {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+    height: 100%;
+    justify-content: center;
+    margin: auto;
+    overflow: auto;
+    /* padding-top: 1rem;  */
+    width: 90%;
+
+}
+.pedidosKitchen_title-done {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.pedidosKitchen_title-done h4 {
+    background: var(--estadoVerde);
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: .5rem;
+}
+.done{
+    justify-content: center;
+}

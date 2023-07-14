@@ -12,6 +12,13 @@
   --letraBlanca: white;
   --letraGris: gray;
   --backgroundGrisaseo:#f0f0f4;
+  --estadoNaranja:#FF7700;
+  --estadoAmarillo:#FFCC32;
+  --estadoVerde:#1DD75B;
+  --estadoAzul:#00BDD6;
+  --estadoRojo:#F22128;
+  --backgroundCocina: #DEE1E6;
+  --backgroundNaranja:#F7583A;
 }
 button:hover{
   cursor: pointer;
