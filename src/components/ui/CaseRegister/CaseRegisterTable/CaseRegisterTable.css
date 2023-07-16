@@ -1,0 +1,85 @@
+.containerTableCaseRegister {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tableCaseRegister {
+    width: 90vw;
+}
+
+.theadCaseRegister {
+    height: 8vh;
+    color: #fff;
+
+}
+
+.theadCaseRegister,
+.trBodyCaseRegister {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    background-color: var(--principal);
+    align-items: center;
+    justify-items: center;
+}
+
+.trBodyCaseRegister div {
+    height: 8VH;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tbodycaseRegister {
+    min-height: 70;
+    max-height: 75vh;
+    overflow: auto;
+}
+
+.claro {
+    background-color: #f1f1f1;
+}
+
+.oscuro {
+    background-color: #fff;
+}
+
+.atiempo,
+.demorado,
+.preparado,
+.enviado,
+.cancelado,
+.espera {
+    border-radius: .6rem;
+    padding: .3rem;
+    font-size: 1vw;
+    width: 5vw;
+    text-align: center;
+    font-weight: 600;
+}
+
+.atiempo {
+    background-color: #a5f9ff;
+    color: #24606e;
+}
+
+.cancelado {
+    background-color: #f7b8b8;
+    color: #f00;
+}
+
+.enviado {
+    background-color: rgba(103, 255, 103, 0.829);
+    color: green
+}
+
+.demorado {
+    background-color: rgb(247, 247, 121);
+    color: rgb(153, 131, 35)
+}
+
+.preparado {
+    background-color: #ccc;
+    color: rgba(78, 78, 78, 0.867)
+}
