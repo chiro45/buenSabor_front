@@ -116,47 +116,7 @@ const arrElements = [
 ]
 
 export const CaseTable = () => {
-    const [state, setstate] = useState(arrElements)
-
-
-    const handleTypeEnvio = (state: string) => {
-        if (state === "delivery") {
-            return <FontAwesomeIcon icon={faMotorcycle} />
-        } else {
-            return <FontAwesomeIcon icon={faShop} />
-        }
-    }
-    const handleStateOrder = (state: string) => {
-        let text = ''
-        let classname = ''
-        switch (state) {
-            case 'atiempo':
-                text = "A tiempo"
-                classname = 'atiempo'
-                break;
-            case 'demorado':
-                text = "Demorado"
-                classname = 'demorado'
-                break;
-            case 'enviado':
-                text = "Enviado"
-                classname = 'enviado'
-                break;
-            case 'espera':
-                text = "En espera"
-                classname = 'espera'
-                break;
-            case 'preparado':
-                text = "Preparado"
-                classname = 'preparado'
-                break;
-            case 'cancelado':
-                text = "Cancelado"
-                classname = 'cancelado'
-                break;
-        }
-        return <p className={classname}>{text}</p>
-    }
+    const [state, setstate] = useState(arrElements) 
     return (
         <div className="containerTableCaseRegister">
             <div className="tableCaseRegister">
@@ -174,9 +134,7 @@ export const CaseTable = () => {
                         state.map((order: any, index: number) => (
                             <div
                                 key={order.numeroPedido}
-                                className={` trBodyCaseRegister ${(index + 1) % 2 === 0 ? 'oscuro' : 'claro'
-                                    }`}
-                            >
+                                className={` trBodyCaseRegister ${(index + 1) % 2 === 0 ? 'oscuro' : 'claro'}`}>
                                 <div><p>{order.numeroPedido}</p></div>
                                 <div><p>{order.cliente}</p></div>
                                 <div><p>{order.fecha}</p></div>
@@ -196,4 +154,44 @@ export const CaseTable = () => {
             </div>
         </div>
     );
+}
+
+const handleTypeEnvio = (state: string) => {
+    if (state === "delivery") {
+        return <FontAwesomeIcon icon={faMotorcycle} />
+    } else {
+        return <FontAwesomeIcon icon={faShop} />
+    }
+}
+
+const handleStateOrder = (state: string) => {
+    let text = ''
+    let classname = ''
+    switch (state) {
+        case 'atiempo':
+            text = "A tiempo"
+            classname = 'atiempo'
+            break;
+        case 'demorado':
+            text = "Demorado"
+            classname = 'demorado'
+            break;
+        case 'enviado':
+            text = "Enviado"
+            classname = 'enviado'
+            break;
+        case 'espera':
+            text = "En espera"
+            classname = 'espera'
+            break;
+        case 'preparado':
+            text = "Preparado"
+            classname = 'preparado'
+            break;
+        case 'cancelado':
+            text = "Cancelado"
+            classname = 'cancelado'
+            break;
+    }
+    return <p className={classname}>{text}</p>
 }
