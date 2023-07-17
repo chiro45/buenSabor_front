@@ -7,7 +7,7 @@ import { useAccessToken } from '../../../../hooks';
 import { EEstadoPedido, IPedido } from '../../../../interfaces';
 import CardKitchen from '../CardKitchen/CardKitchen';
 import './PedidosKitchen.css'
-const urlDoneRejected = `${import.meta.env.VITE_URL_PEDIDOSDONEREJECTED}`;
+const urlDoneRejected = `${import.meta.env.VITE_URL_PEDIDOSPREPAREDREJECTED}`;
 const urlEspera = `${import.meta.env.VITE_URL_PEDIDOSBYESTADO}`;
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
 var stompClient: any = null;
@@ -18,7 +18,7 @@ const PedidosKitchen = () => {
     const [pedidosPreparacion, setPedidosPreparacion] = useState<IPedido[]>([]);
     const [socketState, setsocketState] = useState(true)
     const { pathname } = useLocation();
-    
+
     useEffect(() => {
         createSocket();
     }, []);
