@@ -1,13 +1,12 @@
 .pedidosKitchen_container-principal {
-    background: var(--backgroundCocina);
+    background: var( --backgroundPreparacion);
     height: 100%;
-    max-height: 83vh;
+    max-height: 84vh;
     width: 100%;
 }
 
 .pedidosKitchen_container {
     height: 100%;
-    overflow: scroll;
 }
 
 .pedidosKitchen_title {
@@ -18,7 +17,7 @@
 
 .pedidosKitchen_title-espera {
     align-items: center;
-    background-color: var(--estadoAmarillo);
+    background-color: var(  --backgroundEspera);
     display: flex;
     justify-content: center;
     width: 25%;
@@ -31,9 +30,8 @@
     width: 75%;
 
 }
-
 .pedidosKitchen_title-preparacion h4 {
-    background: var(--estadoAzul);
+    background: var(--estadoAmarillo);
     border-radius: 0.2rem;
     font-size: 1rem;
     font-weight: 600;
@@ -60,7 +58,7 @@
 
 .pedidosKitchen_espera {
     align-items: center;
-    background-color: var(--estadoAmarillo);
+    background-color:   var(--backgroundEspera);
     display: flex;
     flex-direction: column;
     gap: 5%;

@@ -4,36 +4,37 @@ import SockJS from 'sockjs-client/dist/sockjs';
 import { over } from 'stompjs';
 import { getElementSetState } from '../../../../helpers';
 import { useAccessToken } from '../../../../hooks';
-import { IPedido } from '../../../../interfaces';
+import { EEstadoPedido, IPedido } from '../../../../interfaces';
 import CardKitchen from '../CardKitchen/CardKitchen';
 import './PedidosKitchen.css'
-const url = `${import.meta.env.VITE_URL_PEDIDOS}`;
+const urlDoneRejected = `${import.meta.env.VITE_URL_PEDIDOSPREPAREDREJECTED}`;
+const urlEspera = `${import.meta.env.VITE_URL_PEDIDOSBYESTADO}`;
+const urlWs = `${import.meta.env.VITE_URL_WS}`;
 var stompClient: any = null;
-
 const PedidosKitchen = () => {
     const header = useAccessToken();
-    const [pedidos, setPedidos] = useState<IPedido[]>([]);
+    const [pedidosDone, setPedidosDone] = useState<IPedido[]>([]);
+    const [pedidosEspera, setPedidosEspera] = useState<IPedido[]>([]);
+    const [pedidosPreparacion, setPedidosPreparacion] = useState<IPedido[]>([]);
     const [socketState, setsocketState] = useState(true)
     const { pathname } = useLocation();
+
     useEffect(() => {
         createSocket();
     }, []);
+
     useEffect(() => {
         if (pathname === "/kitchen/process") {
-            getElementSetState(url, header, setPedidos);
-            //aca va la url de pedidos en proceso y otra de en espera
-            //agregar un estado mas para almacenar diferentes pedidos
-
+            getElementSetState(`${urlEspera}/${EEstadoPedido.ESPERA}`, header, setPedidosEspera);
+            getElementSetState(`${urlEspera}/${EEstadoPedido.PREPARACION}`, header, setPedidosPreparacion);
         } else if (pathname === "/kitchen/done") {
-            getElementSetState(url, header, setPedidos);
-            //aca va la url de pedidos en cancelados y aprobados
-
+            getElementSetState(urlDoneRejected, header, setPedidosDone);
         }
     }, [pathname, socketState]);
 
 
     const createSocket = () => {
-        const Sock = new SockJS('http://localhost:9000/ws');
+        const Sock = new SockJS(urlWs);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -44,14 +45,14 @@ const PedidosKitchen = () => {
     };
 
     const onMessageReceived = async () => {
-        setsocketState(!socketState)
+        setsocketState(prevState => !prevState);
     };
 
     const onError = (err: any) => {
         console.log(err);
     };
 
-    const renderPedidos = () => {
+    const renderPedidos = (pedidos:IPedido[]) => {
         return pedidos.map((pedido: IPedido) => (
             <CardKitchen pedido={pedido} key={pedido.id} />
         ));
@@ -63,18 +64,18 @@ const PedidosKitchen = () => {
                 <div className="pedidosKitchen_container">
                     <div className="pedidosKitchen_title">
                         <div className='pedidosKitchen_title-espera'>
-                            <h4>Pedidos en espera: {pedidos.length}</h4>
+                            <h4>Pedidos en espera: {pedidosEspera.length}</h4>
                         </div>
                         <div className='pedidosKitchen_title-preparacion'>
-                            <h4>Pedidos en Preparacion: {pedidos.length}</h4>
+                            <h4>Pedidos en Preparacion: {pedidosPreparacion.length}</h4>
                         </div>
                     </div>
                     <div className="pedidosKitchen_cardContainer">
                         <div className="pedidosKitchen_espera">
-                            {renderPedidos()}
+                            {renderPedidos(pedidosEspera)}
                         </div>
                         <div className="pedidosKitchen_preparacion">
-                            {renderPedidos()}
+                            {renderPedidos(pedidosPreparacion)}
                         </div>
                     </div>
                 </div>
@@ -84,12 +85,12 @@ const PedidosKitchen = () => {
                 <div className="pedidosKitchen_container">
                     <div className="pedidosKitchen_title done">
                         <div className='pedidosKitchen_title-done'>
-                            <h4>Pedidos terminados y cancelados: {pedidos.length} </h4>
+                            <h4>Pedidos terminados y cancelados: {pedidosDone.length} </h4>
                         </div>
                     </div>
                     <div className="pedidosKitchen_cardContainer">
                         <div className="pedidosKitchen_done">
-                            {renderPedidos()}
+                            {renderPedidos(pedidosDone)}
                         </div>
                     </div>
                 </div>

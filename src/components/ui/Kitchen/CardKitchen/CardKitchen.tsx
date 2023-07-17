@@ -1,6 +1,9 @@
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { alertConfirm } from '../../../../functions/alerts'
+import { useAccessToken } from '../../../../hooks'
 import { EEstadoPedido, IDetallePedido, IPedido } from '../../../../interfaces'
 import KitchenItem from '../KitchenItem/KitchenItem'
 import './CardKitchen.css'
@@ -8,30 +11,43 @@ import './CardKitchen.css'
 interface CardKitchenProps {
     pedido: IPedido;
 }
-
+const urlUpdateEstado = `${import.meta.env.VITE_URL_PEDIDOSUPDATESTATE}`;
 const CardKitchen = ({ pedido }: CardKitchenProps) => {
 
-    const PENDIENTE = "#FF7700"; // naranja
+
+    const ESPERA = "#FF7700"; // naranja
     const PREPARADO = "#1DD75B"; // verde
-    const PREPARACION = "#00BDD6";
-    const RECHAZADO = "#F22128";
+    const PREPARACION = "#FFCC32"; //amarillo
+    const RECHAZADO = "#F22128"; //rojo
     const [colorState, setColorState] = useState<string | undefined>(undefined);
     const [btnState, setbtnState] = useState<string>()
+    const header = useAccessToken();
     useEffect(() => {
-        if (pedido.estadoPedido === "PENDIENTE") {
-            setColorState(PENDIENTE);
+        if (pedido.estadoPedido === EEstadoPedido.ESPERA) {
+            setColorState(ESPERA);
             setbtnState('ACEPTAR')
-        } else if (pedido.estadoPedido === "PREPARADO") {
+        } else if (pedido.estadoPedido === EEstadoPedido.PREPARADO) {
             setColorState(PREPARADO);
             setbtnState('PREPARADO')
-        } else if (pedido.estadoPedido === "PREPARACION") {
+        } else if (pedido.estadoPedido === EEstadoPedido.PREPARACION) {
             setColorState(PREPARACION);
             setbtnState('FINALIZAR')
-        } else if (pedido.estadoPedido === "RECHAZADO") {
+        } else if (pedido.estadoPedido === EEstadoPedido.RECHAZADO) {
             setColorState(RECHAZADO);
             setbtnState('CANCELADO')
         }
     }, []);
+
+    const handleUpdateState = async () => {
+        if (pedido.estadoPedido === EEstadoPedido.ESPERA) {
+            await axios.put(`${urlUpdateEstado}/${pedido.id}/${EEstadoPedido.PREPARACION}`, header)
+        } else if (pedido.estadoPedido === EEstadoPedido.PREPARACION) {
+            await axios.put(`${urlUpdateEstado}/${pedido.id}/${EEstadoPedido.PREPARADO}`, header)
+        }
+    }
+    const handleCancelState = async () => {
+        await axios.put(`${urlUpdateEstado}/${pedido.id}/${EEstadoPedido.RECHAZADO}`, header)
+    }
     return (
         <div className='cardKitchen_container-principal' >
             <div className='cardKitchen_header-container'>
@@ -41,8 +57,18 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
                         <h4 className='cardKitchen_order' style={{ color: colorState }}>#{pedido.id}</h4>
                     </div>
                     <div className='cardKitchen_header-right'>
-                        <p className='cardKitchen_clock' style={{ background: colorState }}><FontAwesomeIcon icon={faClock} /> 23:40</p>
-                        <h4 className='cardKitchen_state' style={{ background: colorState }}>{pedido.estadoPedido === 'PENDIENTE' ? 'EN ESPERA' : pedido.estadoPedido}</h4>
+                        <p className='cardKitchen_clock' style={{ background: colorState }}>
+                            <>
+                                <FontAwesomeIcon icon={faClock} />  {pedido.fecha}
+                            </>
+                        </p>
+
+
+                        <h4
+                            className='cardKitchen_state'
+                            style={{ background: colorState }}>
+                            {pedido.estadoPedido === 'PENDIENTE' ? 'EN ESPERA' : pedido.estadoPedido}
+                        </h4>
                     </div>
                 </div>
 
@@ -56,6 +82,17 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
             </div>
             <div className='cardKitchen_footer-container'>
                 <div className="cardKitchen_footer">
+                    {pedido.estadoPedido === EEstadoPedido.ESPERA &&
+                        <button
+                            className="cardKitchen_state"
+                            style={{
+                                background: '#F22128'
+                            }}
+                            onClick={() => alertConfirm('CANCELAR PEDIDO?', 'Cancelacion pedido', 'SI', handleCancelState, "No")}
+                        >
+                            RECHAZAR
+                        </button>
+                    }
                     <button
                         className="cardKitchen_state"
                         style={{
@@ -63,7 +100,7 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
                             pointerEvents: pedido.estadoPedido === 'RECHAZADO' || pedido.estadoPedido === 'PREPARADO' ? 'none' : 'auto',
                             opacity: pedido.estadoPedido === 'RECHAZADO' || pedido.estadoPedido === 'PREPARADO' ? 0.5 : 1,
                         }}
-                        onClick={()=>{console.log('ACA va el update del pedido')}}
+                        onClick={() => handleUpdateState()}
                     >
                         {btnState}
                     </button>
