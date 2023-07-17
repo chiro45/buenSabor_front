@@ -1,0 +1,191 @@
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.containerDeliveryView {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    background-color: var(--backgroundSecundario);
+}
+
+.headerDelivery {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--principal);
+    width: 100vw;
+}
+
+.nameHeader {
+    font-size: 3.3vh;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+
+}
+
+.imgHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgHeader img {
+    width: 15vw;
+    height: 7vh;
+
+}
+
+.buttonAccountHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonAccountHeader button {
+    border: none;
+    height: 5vh;
+    width: 100%;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: none;
+    
+}
+
+.containerBodyDelivery {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.containerPadding {
+    width: 90%;
+}
+
+.containerCheckDisponible {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 7vh;
+    margin: .3rem 0rem;
+    border-radius: .4rem;
+}
+
+.disponible {
+    background-color: green;
+}
+
+.noDisponible {
+    background-color: #f00;
+}
+
+.containerPedidos {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 5vh;
+}
+
+.containerHeaderPedidos {
+    display: grid;
+    border-radius: .4rem .4rem 0 0;
+    grid-template-columns: 10% 20% 25% 45%;
+    height: 8vh;
+    background-color: var(--principal);
+    color: #fff;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.containerPedidosBody {
+    min-height: 45vh;
+    max-height: 46vh;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 0 0 .4rem .4rem;
+}
+
+.containerItemDelivery {
+    display: grid;
+    grid-template-columns: 10% 20% 25% 45%;
+    align-items: center;
+    text-align: center;
+    height: 8vh;
+    background-color: #fff;
+    border-bottom: 1px solid #cdd;
+}
+
+.buttonViewItemOrder {
+    width: 60%;
+    height: 50%;
+    border: none;
+    color: #fff;
+    border: 1px solid var(--principal);
+    color: var(--principal);
+    border-radius: .4rem;
+
+}

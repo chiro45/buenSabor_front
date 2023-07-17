@@ -12,6 +12,8 @@ import PedidosPrueba from "../components/Screens/Pedidos/PedidosPrueba";
 import PedidosPruebaPrivate from "../components/Screens/Pedidos/PedidosPruebaPrivate";
 import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
 import Kitchen from "../components/Screens/Kitchen/Kitchen";
+import { CaseRegister } from "../components/Screens/CaseRegister/CaseRegister";
+import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview";
 
 export const routesConfig = [
   {
@@ -73,5 +75,17 @@ export const routesConfig = [
   {
     path: '/kitchen/done',
     component: Kitchen,
+  },
+  {
+    path: '/caseRegister/process',
+    component: CaseRegister,
+  },
+  {
+    path: '/caseRegister/done',
+    component: CaseRegister,
+  },
+  {
+    path: '/deliveryView',
+    component: Deliveryview,
   }
 ];

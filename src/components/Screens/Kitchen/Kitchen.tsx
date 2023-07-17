@@ -1,7 +1,4 @@
-import React from 'react'
 import { Header, Subheader } from '../../ui'
-import { Footer } from '../../ui/Footer/Footer'
-import CardKitchen from '../../ui/Kitchen/CardKitchen/CardKitchen'
 import PedidosKitchen from '../../ui/Kitchen/PedidosKitchen/PedidosKitchen'
 import './Kitchen.css'
 const kitchenRoutes = [
