@@ -1,5 +1,5 @@
 import { CategoryIcon } from "./CategoryIcon"
-import { faHamburger, faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
+import { faHamburger, faPizzaSlice, faWineBottle } from '@fortawesome/free-solid-svg-icons';
 import "./CategoryList.css"
 import papas from "../../../assets/papas.svg"
 
@@ -18,6 +18,10 @@ export const CategoryList = () => {
         <CategoryIcon
           categoryName="Pizzas"
           icon={faPizzaSlice}
+          color={"var(--principal)"} />
+        <CategoryIcon
+          categoryName="Bebidas"
+          icon={faWineBottle}
           color={"var(--principal)"} />
       </div>
     </div>
