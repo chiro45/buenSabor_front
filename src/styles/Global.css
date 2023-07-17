@@ -19,6 +19,8 @@
   --estadoRojo:#F22128;
   --backgroundCocina: #DEE1E6;
   --backgroundNaranja:#F7583A;
+  --backgroundEspera:#ac8b8b;
+  --backgroundPreparacion:#3E5C6E;
 }
 button:hover{
   cursor: pointer;
