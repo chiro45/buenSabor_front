@@ -1,10 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { cancelOrder, deliverOrder, handleViewDetail, handleViewFacture, payOrder, sendToKitchen } from "../CaseRegisterTableFunctions";
 import { ButtonsTableCaseRegister } from "../ButtonsTable/ButtonsTableCaseRegister";
 
 import './CaseRegisterTable.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMotorcycle, faShop } from "@fortawesome/free-solid-svg-icons";
+import { EEstadoPedido, IPedido } from "../../../../interfaces";
+import { getElementSetState } from "../../../../helpers";
+import { useAccessToken } from "../../../../hooks";
+import { useLocation } from "react-router-dom";
+import { useSocket } from "../../../../hooks/useSocket";
 
 interface TableHeader {
     text: string;
@@ -16,6 +21,7 @@ const arrHead: TableHeader[] = [
     { text: 'Fecha' },
     { text: 'Estado' },
     { text: 'Envio' },
+    { text: 'Monto' },
     { text: 'DetallePedido' },
     { text: 'Factura' },
     { text: 'Enviar a cocina' },
@@ -63,63 +69,34 @@ const btnActions: ActionButton[] = [
     }
 ]
 
-const arrElements = [
-    {
-        numeroPedido: 4244,
-        cliente: 'Pepe honguito',
-        fecha: '11/04/23',
-        estado: 'atiempo',
-        envio: 'retiroEnLocal',
-        detallePedido: 'Detalle',
-        factura: 'Factura'
-
-    }, {
-        numeroPedido: 4243,
-        cliente: 'Pepe honguito',
-        fecha: '11/04/23',
-        estado: 'enviado',
-        envio: 'delivery',
-        detallePedido: 'Detalle',
-        factura: 'Factura'
-
-    },
-    {
-        numeroPedido: 4244,
-        cliente: 'Pepe honguito',
-        fecha: '11/04/23',
-        estado: 'cancelado',
-        envio: 'retiroEnLocal',
-        detallePedido: 'Detalle',
-        factura: 'Factura'
-
-    },
-    {
-        numeroPedido: 4244,
-        cliente: 'Pepe honguito',
-        fecha: '11/04/23',
-        estado: 'preparado',
-        envio: 'retiroEnLocal',
-        detallePedido: 'Detalle',
-        factura: 'Factura'
-
-    },
-    {
-        numeroPedido: 4244,
-        cliente: 'Pepe honguito',
-        fecha: '11/04/23',
-        estado: 'demorado',
-        envio: 'retiroEnLocal',
-        detallePedido: 'Detalle',
-        factura: 'Factura'
-
-    }
-]
+const urlWs = `${import.meta.env.VITE_URL_WS}`;
+const urlEspera = `${import.meta.env.VITE_URL_PEDIDOS}/allCaja`
+const urlEntregadoAndRejected = `${import.meta.env.VITE_URL_PEDIDOS}/rejectedAndDelivered`
 
 export const CaseTable = () => {
-    const [state, setstate] = useState(arrElements) 
+    const [state, setstate] = useState<IPedido[]>([])
+
+    const header = useAccessToken();
+    const { pathname } = useLocation();
+    const socketState = useSocket({
+        connectionUrl: urlWs, subscriptionTopic: `/pedidows/public`
+    })
+    useEffect(() => {
+        if (pathname === "/caseRegister/process") {
+            getElementSetState(urlEspera, header, setstate);
+        } else if (pathname === "/caseRegister/done") {
+            getElementSetState(urlEntregadoAndRejected, header, setstate);
+        }
+        console.log('meactualizo')
+    }, [pathname, socketState]);
+
+
+
     return (
         <div className="containerTableCaseRegister">
+            <h1>{state.length}</h1>
             <div className="tableCaseRegister">
+                <div><button></button></div>
                 <div className="theadCaseRegister">
                     {arrHead.map(({ text }) => (
                         <div>
@@ -128,18 +105,18 @@ export const CaseTable = () => {
                     ))}
                 </div>
                 <div className="tbodycaseRegister">
-
                     {
                         state.length > 0 &&
-                        state.map((order: any, index: number) => (
+                        state.map((order, index: number) => (
                             <div
-                                key={order.numeroPedido}
+                                key={order.id}
                                 className={` trBodyCaseRegister ${(index + 1) % 2 === 0 ? 'oscuro' : 'claro'}`}>
-                                <div><p>{order.numeroPedido}</p></div>
-                                <div><p>{order.cliente}</p></div>
-                                <div><p>{order.fecha}</p></div>
-                                <div >{handleStateOrder(order.estado)}</div>
-                                <div><p>{handleTypeEnvio(order.envio)}</p></div>
+                                <div><p>{order.numero}</p></div>
+                                <div><p>{order.cliente.usuario.usuario.split('@').shift()}</p></div>
+                                <div><p>11/04/01</p></div>
+                                <div >{handleStateOrder(order.estadoPedido)}</div>
+                                <div><p>{handleTypeEnvio(order.tipoEnvio)}</p></div>
+                                <div><p>${order.numero}</p></div>
                                 {btnActions.map((button) => (
                                     <ButtonsTableCaseRegister
                                         element={order}
@@ -157,41 +134,45 @@ export const CaseTable = () => {
 }
 
 const handleTypeEnvio = (state: string) => {
-    if (state === "delivery") {
+    if (state === "DELIVERY") {
         return <FontAwesomeIcon icon={faMotorcycle} />
-    } else {
+    } else if ("LOCAL") {
         return <FontAwesomeIcon icon={faShop} />
     }
 }
 
 const handleStateOrder = (state: string) => {
-    let text = ''
-    let classname = ''
+    let text = "";
+    let classname = "";
     switch (state) {
-        case 'atiempo':
-            text = "A tiempo"
-            classname = 'atiempo'
+        case EEstadoPedido.PENDIENTE:
+            text = "Pendiente";
+            classname = "pendiente";
             break;
-        case 'demorado':
-            text = "Demorado"
-            classname = 'demorado'
+        case EEstadoPedido.PREPARACION:
+            text = "Preparación";
+            classname = "preparacion";
             break;
-        case 'enviado':
-            text = "Enviado"
-            classname = 'enviado'
+        case EEstadoPedido.CAMINO:
+            text = "Enviado";
+            classname = "enviado";
             break;
-        case 'espera':
-            text = "En espera"
-            classname = 'espera'
+        case EEstadoPedido.ESPERA:
+            text = "En espera";
+            classname = "espera";
             break;
-        case 'preparado':
-            text = "Preparado"
-            classname = 'preparado'
+        case EEstadoPedido.ENTREGADO:
+            text = "Entregado";
+            classname = "entregado";
             break;
-        case 'cancelado':
-            text = "Cancelado"
-            classname = 'cancelado'
+        case EEstadoPedido.RECHAZADO:
+            text = "Cancelado";
+            classname = "cancelado";
+            break;
+        case EEstadoPedido.PREPARADO:
+            text = "Preparado";
+            classname = "entregado";
             break;
     }
-    return <p className={classname}>{text}</p>
-}
+    return <p className={classname}>{text}</p>;
+};

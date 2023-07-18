@@ -2,10 +2,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { NavBarMobile } from "../../ui"
 import "./Ordenes.css"
 import { faArrowLeft, faBagShopping } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react"
+import { IPedido } from "../../../interfaces"
+import { useSocket } from "../../../hooks/useSocket"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useAccessToken } from "../../../hooks"
+import { getElementSetState } from "../../../helpers"
+const urlWs = `${import.meta.env.VITE_URL_WS}`;
 
+const urlPedidosByID = `http://localhost:9000/pedidos/byCliente/18`
 export const Ordenes = () => {
+    const header = useAccessToken();
 
-    const arr = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+    const { user } = useAuth0()
+
+    const [orders, setOrders] = useState<IPedido[]>([])
+    const socketState = useSocket({
+        connectionUrl: urlWs, subscriptionTopic: `/user/${user?.email}/private`
+    })
+    useEffect(() => {
+        getElementSetState(`${urlPedidosByID}`, header, setOrders);
+    }, [socketState])
+
     return (
         <>
             <div className="containerOrderPrincipal">
@@ -17,7 +35,7 @@ export const Ordenes = () => {
                 }}>
                     <button className="buttonVolverAStore" >
                         <FontAwesomeIcon icon={faArrowLeft} /> Volver a la tienda</button>
-                         </div>
+                </div>
                 <div className="containerTitleOrders">
                     <p >Mis Ordenes</p>
                 </div>
@@ -25,15 +43,15 @@ export const Ordenes = () => {
 
                     <div style={{ display: "flex", flexDirection: 'column', gap: '2vh' }}>
                         {
-                            arr.map((el: any) => (
+                            orders.map((el) => (
                                 <div className="containerItemOrder">
                                     <div className="containerDescriptionOrders">
-                                        <div style={{width:'24%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                                        <FontAwesomeIcon fontSize={'4vh'} icon={faBagShopping} />
+                                        <div style={{ width: '24%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <FontAwesomeIcon fontSize={'4vh'} icon={faBagShopping} />
                                         </div>
-                                        <div style={{width:'75%'}}>
-                                            <p><b>Número de pedido: </b>1234</p>
-                                            <p><b>Estado:</b> Entregado</p>
+                                        <div style={{ width: '75%' }}>
+                                            <p><b>Número de pedido: </b>{el.numero}</p>
+                                            <p><b>Estado:</b> {el.estadoPedido}</p>
                                         </div>
                                     </div>
                                     <div className="containerButtonItemOrder">
