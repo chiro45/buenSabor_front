@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { NavBarMobile } from "../../ui"
-import "./Ordenes.css"
 import { faArrowLeft, faBagShopping } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useState } from "react"
 import { IPedido } from "../../../interfaces"
@@ -8,21 +7,28 @@ import { useSocket } from "../../../hooks/useSocket"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useAccessToken } from "../../../hooks"
 import { getElementSetState } from "../../../helpers"
+import useCliente from "../../../hooks/useCliente"
+import "./Ordenes.css"
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
+const urlPedidosByID = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}/`
 
-const urlPedidosByID = `http://localhost:9000/pedidos/byCliente/18`
 export const Ordenes = () => {
     const header = useAccessToken();
-
     const { user } = useAuth0()
-
+    const cliente = useCliente();
     const [orders, setOrders] = useState<IPedido[]>([])
     const socketState = useSocket({
-        connectionUrl: urlWs, subscriptionTopic: `/user/${user?.email}/private`
+        connectionUrl: urlWs,
+        subscriptionTopic: `/user/${user?.email}/private`
     })
     useEffect(() => {
-        getElementSetState(`${urlPedidosByID}`, header, setOrders);
-    }, [socketState])
+        const fetchData = async () => {
+            if (cliente) {
+                await getElementSetState(`${urlPedidosByID}${cliente.id}`, header, setOrders);
+            }
+        };
+        fetchData();
+    }, [socketState, cliente]);
 
     return (
         <>
