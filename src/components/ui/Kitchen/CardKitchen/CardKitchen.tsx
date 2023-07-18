@@ -62,8 +62,6 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
                                 <FontAwesomeIcon icon={faClock} />  {pedido.fecha}
                             </>
                         </p>
-
-
                         <h4
                             className='cardKitchen_state'
                             style={{ background: colorState }}>
@@ -82,7 +80,7 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
             </div>
             <div className='cardKitchen_footer-container'>
                 <div className="cardKitchen_footer">
-                    {pedido.estadoPedido === EEstadoPedido.ESPERA &&
+                    {(pedido.estadoPedido === EEstadoPedido.ESPERA || pedido.estadoPedido === EEstadoPedido.PREPARACION)  &&
                         <button
                             className="cardKitchen_state"
                             style={{
