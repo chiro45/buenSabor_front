@@ -18,7 +18,7 @@
 .theadCaseRegister,
 .trBodyCaseRegister {
     display: grid;
-    grid-template-columns: repeat(11, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     background-color: var(--principal);
     align-items: center;
     justify-items: center;
@@ -50,36 +50,44 @@
 .preparado,
 .enviado,
 .cancelado,
+.preparacion,
+.entregado,
 .espera {
     border-radius: .6rem;
     padding: .3rem;
     font-size: 1vw;
-    width: 5vw;
+    width: 8vw;
     text-align: center;
     font-weight: 600;
 }
 
-.atiempo {
-    background-color: #a5f9ff;
-    color: #24606e;
+.pendiente {
+    background-color: #f9d9ca;
+    color: #ff5722;
+}
+
+.preparacion {
+    background-color: #ffe1cc;
+    color: #ff9800;
+}
+
+.enviado {
+    background-color: #e8e8f4;
+    color: #303f9f;
+}
+
+.espera,
+.cocina {
+    background-color: #cdd;
+    color: #4b4b4b;
+}
+
+.entregado {
+    background-color: #d3f0d6;
+    color: #4caf50;
 }
 
 .cancelado {
     background-color: #f7b8b8;
     color: #f00;
-}
-
-.enviado {
-    background-color: rgba(103, 255, 103, 0.829);
-    color: green
-}
-
-.demorado {
-    background-color: rgb(247, 247, 121);
-    color: rgb(153, 131, 35)
-}
-
-.preparado {
-    background-color: #ccc;
-    color: rgba(78, 78, 78, 0.867)
 }
