@@ -8,6 +8,8 @@ export interface IPedido {
   tipoClase: string;
   fecha: Date;
   numero: number;
+  monto: number;
+  pagoConfirmado: boolean;
   domicilio: IDomicilio;
   estadoPedido: EEstadoPedido;
   tipoEnvio: ETipoEnvio;
