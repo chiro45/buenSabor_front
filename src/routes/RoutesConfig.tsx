@@ -14,6 +14,7 @@ import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
 import Kitchen from "../components/Screens/Kitchen/Kitchen";
 import { CaseRegister } from "../components/Screens/CaseRegister/CaseRegister";
 import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview";
+import { Analytics } from "../components/Screens/Analytics/Analytics";
 
 export const routesConfig = [
   {
@@ -87,5 +88,9 @@ export const routesConfig = [
   {
     path: '/deliveryView',
     component: Deliveryview,
+  },
+  {
+    path: '/analytics',
+    component: Analytics,
   }
 ];
