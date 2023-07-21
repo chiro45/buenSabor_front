@@ -8,5 +8,7 @@ export interface IInputProps {
   value?: string;
   checked?: boolean;
   className?: string;
+  readOnly?: boolean;
+  required?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

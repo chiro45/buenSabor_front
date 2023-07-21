@@ -13,6 +13,8 @@ export const InputGeneric: FC<IInputProps> = ({
   checked,
   onChange,
   className,
+  readOnly,
+  required
 }) => {
   return (
     <div className={className}>
@@ -25,6 +27,8 @@ export const InputGeneric: FC<IInputProps> = ({
         style={{ height, width }}
         value={value}
         onChange={onChange}
+        readOnly={readOnly}
+        required={required}
       />
     </div>
   );

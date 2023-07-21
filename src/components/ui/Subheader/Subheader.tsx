@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux"
 import { Link, useLocation } from "react-router-dom"
+import Swal from "sweetalert2";
+import { alertConfirm } from "../../../functions/alerts";
 import { removeDataTable } from "../../../Redux/Reducers/TableReducer/TableReducer"
 import "./Subheader.css"
 
@@ -13,6 +15,7 @@ export const Subheader = ({ routes }: SubheaderProps) => {
     { route: "/config/category", text: "Categoria", icon: "" },
     { route: "/config/unidadMedida", text: "Unidad Medida", icon: "" },
     { route: "/config/articuloManufacturado", text: "Articulos Manufacturado", icon: "" },
+    { route: "/config/employedRegister", text: "Gestion Empleados", icon: "" },
   ];
 
   const renderedRoutes = routes || adminRoutes;
