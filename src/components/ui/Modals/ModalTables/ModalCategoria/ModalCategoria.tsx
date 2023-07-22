@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
+import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
 import { createElement, getElementSetState, updateElement } from "../../../../../helpers";
 import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
 import { ICategoria } from "../../../../../interfaces"
 import "./ModalCategoria.css"
+import { useAuth0 } from "@auth0/auth0-react";
 
 const urlFetch = `${import.meta.env.VITE_URL_CATEGORY}`
 
 export const ModalCategoria = () => {
-    const headers = useAccessToken();
+    const { getAccessTokenSilently } = useAuth0()
     const dispatch = useDispatch()
     const openModal = useSelector((state: any) => state.ModalsReducer.modalCategoria)
     const elementActive: ICategoria = useSelector((state: any) => state.TableReducer.elementActive)
@@ -21,7 +22,13 @@ export const ModalCategoria = () => {
     const [checkboxStates, onInputCheckboxChange, setCheckboxStates]: any = useCheckBoxInput({
         altaBaja: false,
     });
-    const getDataCategories = () => getElementSetState(urlFetch, headers, setDataCategories);
+    const getDataCategories = async () => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(urlFetch, headers, setDataCategories)
+    };
 
     useEffect(() => {
         if (openModal === true) {
@@ -36,7 +43,11 @@ export const ModalCategoria = () => {
     }, [openModal])
 
 
-    const handleSubmitModal = () => {
+    const handleSubmitModal = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const data = {
             parent: valuesSelector.categoria !== "" ? { id: parseInt(valuesSelector.categoria) } : null,
             denominacion: inputState.denominacion,

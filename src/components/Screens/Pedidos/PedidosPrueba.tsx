@@ -1,15 +1,21 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client/dist/sockjs';
 import { over } from "stompjs";
 import { getElementSetState } from '../../../helpers';
-import { useAccessToken } from '../../../hooks';
 
 var stompClient: any = null;
 
 const PedidosPrueba = () => {
+  const { getAccessTokenSilently } = useAuth0()
   const [pedidos, setPedidos] = useState<any>([]);
-  const headers = useAccessToken();
-  const getPedidos = async() => await getElementSetState('http://localhost:9000/pedidos', headers, setPedidos)
+  const getPedidos = async () => {
+    const token = await getAccessTokenSilently();
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    } 
+    await getElementSetState('http://localhost:9000/pedidos', headers, setPedidos)
+  };
 
   useEffect(() => {
     createSocket();
@@ -26,7 +32,7 @@ const PedidosPrueba = () => {
     console.log('OnConnected');
   };
 
-  const onMessageReceived = async() => {
+  const onMessageReceived = async () => {
     // const payloadData = JSON.parse(payload.body);
     console.log("Mensaje recibido");
     await getPedidos();

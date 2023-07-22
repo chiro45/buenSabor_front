@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux"
 import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
-import { useInput, useCheckBoxInput, useSelectorInput, useAccessToken } from "../../../../../hooks"
+import { useInput, useCheckBoxInput, useSelectorInput } from "../../../../../hooks"
 import { IArticuloInsumo } from "../../../../../interfaces"
 import { createElement, getElementSetState, updateElement } from "../../../../../helpers";
 import "./ModalArticuloInsumo.css"
+import { useAuth0 } from "@auth0/auth0-react"
 
 // URL base para las solicitudes HTTP
 const urlArtInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
@@ -14,10 +15,9 @@ const urlArtInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
 
 export const ModalArticuloInsumo = () => {
     const dispatch = useDispatch();
-    const headers = useAccessToken();
     // Obtiene el estado de Redux que indica si el modal de ArticuloInsumo está abierto o no
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloInsumo);
-
+    const {getAccessTokenSilently} = useAuth0();
     // Obtiene el elemento activo de la tabla actual de Redux
     const elementActive: IArticuloInsumo = useSelector((state: any) => state.TableReducer.elementActive);
 
@@ -35,9 +35,21 @@ export const ModalArticuloInsumo = () => {
         altaBaja: false
     });
     // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
-    const getDataUnidadMedidas = () => getElementSetState(urlMedidas, headers, setDataUnidadMedidas);
+    const getDataUnidadMedidas = async() => {
+              const token = await getAccessTokenSilently();
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+      getElementSetState(urlMedidas, headers, setDataUnidadMedidas);
+    }
 
-    const getDataCategories = () => getElementSetState(urlCategorias, headers, setDataCategories);
+    const getDataCategories = async() => {
+              const token = await getAccessTokenSilently();
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+      getElementSetState(urlCategorias, headers, setDataCategories);
+    }
 
     useEffect(() => {
         if (openModal === true) {
@@ -75,7 +87,11 @@ export const ModalArticuloInsumo = () => {
         }
     }, [openModal])
 
-    const handleSubmitModal = () => {
+    const handleSubmitModal = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const data = {
             denominacion: inputState.denominacion,
             precioCompra: parseFloat(inputState.precioCompra),

@@ -1,26 +1,33 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { fetchDeleteById, getElementSetState } from '../../../helpers'
-import { useAccessToken } from '../../../hooks'
 import { IUsuario } from '../../../interfaces'
 
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
 const TableEmployed = () => {
 
-    const header = useAccessToken();
+    const {getAccessTokenSilently} = useAuth0()
     const [employed, setEmployed] = useState<IUsuario[]>([]);
     const columns = [
         { label: 'Nombre y Apellido', key: 'usuario' },
         { label: 'Puesto', key: 'rol' },
         { label: 'Dar de baja', key: 'acciones' }
     ]
+    const fetchData = async() =>{
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(urlUsuario, headers, setEmployed);
+    }
     useEffect(() => {
-        getElementSetState(urlUsuario, header, setEmployed);
+        fetchData();
     }, [employed, ])
 
-    const handleDelete = (usuario:IUsuario) => {
+    const handleDelete = async (usuario:IUsuario) => {
         Swal.fire({
             title: '¿Estas seguro?',
             text: `¿Seguro que quieres eliminar a ${usuario.usuario}?`,
@@ -30,9 +37,13 @@ const TableEmployed = () => {
             cancelButtonColor: '#d33',
             confirmButtonText: "Si, Eliminar!",
             cancelButtonText: "Cancelar"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                fetchDeleteById(`${urlUsuario}/${usuario.id}`, header)
+                const token = await getAccessTokenSilently();
+                const headers = {
+                  'Authorization': `Bearer ${token}`
+                };
+                fetchDeleteById(`${urlUsuario}/${usuario.id}`, headers)
                     .then((response) => {
                         Swal.fire(
                             'Eliminado',

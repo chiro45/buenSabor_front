@@ -1,8 +1,8 @@
 import { InputGeneric } from "../InputGeneric/InputGeneric"
 import "./LoginRegisterAdminEmployed.css"
-import { useAuth0, User } from "@auth0/auth0-react"
+import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
-import { useAccessToken, useInput } from "../../../hooks"
+import { useInput } from "../../../hooks"
 import jwt_decode from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons"
@@ -10,11 +10,12 @@ import { alertConfirm, alertError } from "../../../functions/alerts"
 import { fetchPost } from "../../../helpers"
 import { IUsuario } from "../../../interfaces"
 import Swal from "sweetalert2"
+
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
 const urlAdminLogoutRegister = `${import.meta.env.VITE_URL_LOGOUT_ADMIN_REGISTER_EMPLOYED}`
 const urlAdminLogin = `${import.meta.env.VITE_URL_LOGIN_ADMIN}`
+
 export const LoginRegisterAdminEmployed = () => {
-    const header = useAccessToken();
     const { isAuthenticated, loginWithRedirect, logout, user, getAccessTokenSilently } = useAuth0();
     const [inputState, onInputChange]: any = useInput();
     const [rol, setRol] = useState('')
@@ -54,6 +55,10 @@ export const LoginRegisterAdminEmployed = () => {
         return (nombre !== undefined && nombre !== '')
     };
     const handleRegisterEmployed = async () => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const idAuth0 = user?.sub?.split('|').pop(); // Utiliza el operador ?? para proporcionar un valor predeterminado '' si idAuth0 es undefined
         if (checkAllFieldsFilled()) {
             const employed = {
@@ -61,7 +66,7 @@ export const LoginRegisterAdminEmployed = () => {
                 usuario: inputState.usuario,
                 rol: rol,
             }
-            fetchPost(urlUsuario, employed, header)
+            fetchPost(urlUsuario, employed, headers)
                 .then((response: IUsuario) => Swal.fire({
                     icon: 'success',
                     title: 'Registro Exitoso',

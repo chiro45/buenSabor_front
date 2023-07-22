@@ -3,7 +3,6 @@ import { faAt, faCheck, faClockRotateLeft, faLocationDot, faPhone, faUser, faXma
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchGet } from '../../../helpers';
-import { useAccessToken } from '../../../hooks';
 import { EEstadoPedido, ICliente, IPedido } from '../../../interfaces';
 import ModalProfile from '../Modals/ModalProfile/ModalProfile';
 import PedidoStatus from './PedidoStatus/PedidoStatus';
@@ -15,16 +14,14 @@ const urlPedidosByCliente = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}`
 
 const Profile = () => {
 
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   let userIdAuth0 = user?.sub?.split('|').pop();
-  const headers = useAccessToken();
   const [cliente, setCliente] = useState<ICliente>()
   const [pedidos, setPedidos] = useState<IPedido[]>([])
   const [pedidosCompletados, setpedidosCompletados] = useState<number>()
   const [pedidosRechazados, setpedidosRechazados] = useState<number>()
   const [pedidosPendientes, setpedidosPendientes] = useState<number>()
   const navigate = useNavigate();
-
   useEffect(() => {
     userIdAuth0 = user?.sub?.split('|').pop();
     cargarCliente();
@@ -43,10 +40,18 @@ const Profile = () => {
 
 
   const cargarPedidos = async () => {
+    const token = await getAccessTokenSilently();
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
     await fetchGet(`${urlPedidosByCliente}/${cliente?.id}`, headers)
       .then(response => setPedidos(response));
   }
   const cargarCliente = async () => {
+    const token = await getAccessTokenSilently();
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
     await fetchGet(`${urlCliente}/getByUsuarioIdAuth0/${userIdAuth0}`, headers)
       .then(response => setCliente(response));
   }

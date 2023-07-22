@@ -2,17 +2,18 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { handleModalsTable, getDataTable, removeElementActiveTable } from "../../../../../Redux";
 import { LayoutModal, InputGeneric, ButtonStandard } from "../../../../ui"
-import { useInput, useCheckBoxInput, useAccessToken } from '../../../../../hooks';
+import { useInput, useCheckBoxInput } from '../../../../../hooks';
 import { IUnidadMedida } from "../../../../../interfaces";
 import { createElement, updateElement } from "../../../../../helpers";
 import "./ModalUnidadMedida.css"
+import { useAuth0 } from "@auth0/auth0-react";
 
 const urlFetch = `${import.meta.env.VITE_URL_UNIDADMEDIDA}`
 
 export const ModalUnidadMedida = () => {
 
+    const {getAccessTokenSilently} = useAuth0()
     const dispatch = useDispatch()
-    const headers = useAccessToken();
     const openModal = useSelector((state: any) => state.ModalsReducer.modalMedidas)
     const elementActive: IUnidadMedida = useSelector((state: any) => state.TableReducer.elementActive)
     const [inputState, onInputChange, setInputState]: any = useInput()
@@ -33,7 +34,11 @@ export const ModalUnidadMedida = () => {
         }
     }, [openModal]);
 
-    const handleSubmitModal = () => {
+    const handleSubmitModal = async () => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const data = {
             denominacion: inputState.denominacionUnidadMedida,
             tipo: inputState.tipoUnidadMedida,
