@@ -67,7 +67,11 @@ export const Header = () => {
               placeholder="Busca un producto"
             />
           ) : (
-            <h4 style={{color:'white'}}>{rol}</h4> // Muestra el rol si no es CLIENTE ni COCINERO o no está autenticado
+            isAuthenticated ? (
+              <h4 style={{ color: 'white' }}>{rol}</h4>
+            ) : (
+              <h4 style={{ color: 'white' }}></h4>
+            )
           )}
         </div>
       )}

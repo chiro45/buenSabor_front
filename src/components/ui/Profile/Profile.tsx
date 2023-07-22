@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchGet } from '../../../helpers';
 import { useAccessToken } from '../../../hooks';
 import { EEstadoPedido, ICliente, IPedido } from '../../../interfaces';
+import ModalProfile from '../Modals/ModalProfile/ModalProfile';
 import PedidoStatus from './PedidoStatus/PedidoStatus';
 import './Profile.css'
 import ProfileInfoItem from './ProfileInfoItem/ProfileInfoItem';
@@ -15,7 +16,7 @@ const urlPedidosByCliente = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}`
 const Profile = () => {
 
   const { user } = useAuth0();
-  const userIdAuth0 = user?.sub?.split('|').pop();
+  let userIdAuth0 = user?.sub?.split('|').pop();
   const headers = useAccessToken();
   const [cliente, setCliente] = useState<ICliente>()
   const [pedidos, setPedidos] = useState<IPedido[]>([])
@@ -25,6 +26,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    userIdAuth0 = user?.sub?.split('|').pop();
     cargarCliente();
   }, [])
   useEffect(() => {
@@ -68,7 +70,9 @@ const Profile = () => {
 
         <div className='profile_btn-container'>
           <button className='profile_btn' onClick={() => handleGoBack()}>Volver</button>
-          <button className='profile_btn'>Modificar</button>
+          {
+            cliente ? <ModalProfile cliente={cliente} cargarCliente={cargarCliente} /> : null
+          }
         </div>
         <div className='profile_picture-container'>
           <img src={user?.picture} />
