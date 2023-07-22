@@ -30,12 +30,17 @@ export const options = {
       text: 'Grafico Productos mas vendidos',
     },
   },
+  scales: {
+    y:{
+        grace:"5%"
+      }
+    }
 };
 
 
 
 //{datos:number[],dayStart:}
-export const GraficoBarra = ({ datos, dayStart, dayEnd }: any) => {
+export const GraficoProductos = ({ datos}: any) => {
   const [dataEntry, setDataEntry] = useState({
     labels: [""],
     datasets: [
@@ -46,8 +51,7 @@ export const GraficoBarra = ({ datos, dayStart, dayEnd }: any) => {
       }
     ],
   });
-  useEffect(() => {
-    if (dayStart !== "" && dayEnd !== "") {
+  useEffect(() => { 
       setDataEntry({
         labels: datos.map((e:any) => e.denominacion),
         datasets: [
@@ -58,7 +62,6 @@ export const GraficoBarra = ({ datos, dayStart, dayEnd }: any) => {
           }
         ],
       })
-    }
   }, [datos]);
   return <Bar options={options} data={dataEntry} />;
 }

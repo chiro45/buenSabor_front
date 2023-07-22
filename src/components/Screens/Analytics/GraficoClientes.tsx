@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
@@ -60,9 +60,8 @@ export const GraficoClientes = ({ datos}: any) => {
       }
     ],
   });
-  const chartRef = useRef<any>();
+
   useEffect(() => {
-    const maxCountCompras = Math.max(...datos.map((e: topClientes) => e.countCompras));
       setDataEntry({
         labels: datos.map((e:topClientes) => e.emailUsuario),
         datasets: [
@@ -73,10 +72,7 @@ export const GraficoClientes = ({ datos}: any) => {
           }
         ],
       });
-      if (chartRef.current) {
-        chartRef.current.options.scales.y.max = maxCountCompras + 2;
-        chartRef.current.update();
-      }
+     
     }, [datos]);
     
   return <Bar options={options} data={dataEntry} />;
