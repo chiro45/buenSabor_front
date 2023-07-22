@@ -1,0 +1,63 @@
+:root {
+    --backgroundRegister: #2A3C47;
+    --backgroundBordoOscuro: #671c1c;
+    --backgroundBordoClaro: #bc3434;
+    --letraplaceholder: #9c7474;
+    --letra: white;
+  }
+  
+.profileForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: auto;
+    width: 90%;
+}
+.profileForm h1{
+    align-self: center;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+
+    height: 35vh;
+    justify-content: space-around;
+    margin-bottom: 3vh;
+
+}
+
+.inputProfile {
+    color: var(--principal);
+    display: flex;
+    flex-direction: column;
+}
+
+.inputProfile label {
+    padding-bottom: 2%;
+}
+
+.inputProfile input {
+    border: 1px solid var(--principal);
+    border-radius: .5rem;
+    color: var(--backgroundBordoOscuro);
+    text-indent: .7rem;
+}
+
+.inputProfile input::placeholder {
+    color: var(--letraplaceholder);
+}
+
+
+.profileButtons {
+    align-items: center;
+    display: flex;
+    height: 40%;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.not-allowed input {
+    cursor: not-allowed
+}
