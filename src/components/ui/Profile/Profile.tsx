@@ -1,14 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { faAt, faCheck, faClockRotateLeft, faLocationDot, faPhone, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAt, faCheck, faClockRotateLeft, faLocationDot, faPhone, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchGet } from '../../../helpers';
 import { useAccessToken } from '../../../hooks';
-import { ICliente } from '../../../interfaces';
+import { EEstadoPedido, ICliente, IPedido } from '../../../interfaces';
+import PedidoStatus from './PedidoStatus/PedidoStatus';
 import './Profile.css'
+import ProfileInfoItem from './ProfileInfoItem/ProfileInfoItem';
 
 const urlCliente = `${import.meta.env.VITE_URL_CLIENTE}`
+const urlPedidosByCliente = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}`
 
 const Profile = () => {
 
@@ -16,12 +18,32 @@ const Profile = () => {
   const userIdAuth0 = user?.sub?.split('|').pop();
   const headers = useAccessToken();
   const [cliente, setCliente] = useState<ICliente>()
+  const [pedidos, setPedidos] = useState<IPedido[]>([])
+  const [pedidosCompletados, setpedidosCompletados] = useState<number>()
+  const [pedidosRechazados, setpedidosRechazados] = useState<number>()
+  const [pedidosPendientes, setpedidosPendientes] = useState<number>()
   const navigate = useNavigate();
+
   useEffect(() => {
     cargarCliente();
-
   }, [])
+  useEffect(() => {
+    if (cliente)
+      if (cliente.id !== undefined || cliente.id !== null) {
+        cargarPedidos()
+      }
+  }, [cliente])
+  useEffect(() => {
+    setpedidosCompletados(pedidos.filter(pedido => pedido.estadoPedido === EEstadoPedido.ENTREGADO).length);
+    setpedidosRechazados(pedidos.filter(pedido => pedido.estadoPedido === EEstadoPedido.RECHAZADO).length);
+    setpedidosPendientes(pedidos.filter(pedido => pedido.estadoPedido !== EEstadoPedido.ENTREGADO && pedido.estadoPedido !== EEstadoPedido.RECHAZADO).length);
+  }, [pedidos])
 
+
+  const cargarPedidos = async () => {
+    await fetchGet(`${urlPedidosByCliente}/${cliente?.id}`, headers)
+      .then(response => setPedidos(response));
+  }
   const cargarCliente = async () => {
     await fetchGet(`${urlCliente}/getByUsuarioIdAuth0/${userIdAuth0}`, headers)
       .then(response => setCliente(response));
@@ -55,45 +77,43 @@ const Profile = () => {
         <div className='profile_pedidos-container'>
           <h2 className='profile_pedidos-title'>Tus Ordenes</h2>
           <div className='profile_pedidos-container-status'>
-            <div className='profile_pedido-status'>
-              <div className='circunferencia-status' style={{ backgroundColor: '#FFCC99' }}>
-                <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: '#FF6600' }} />
-              </div>
-              {/* pedidosCompletados */}
-              5
-            </div>
-            <div className='profile_pedido-status'>
-              <div className='circunferencia-status' style={{ backgroundColor: '#99FF99' }}>
-                <FontAwesomeIcon icon={faCheck} style={{ color: '#00CC00' }} />
-              </div>
-              {/* pedidosCompletados */}
-              5
-            </div>
-            <div className='profile_pedido-status'>
-              <div className='circunferencia-status' style={{ backgroundColor: '#FF9999' }}>
-                <FontAwesomeIcon icon={faXmark} style={{ color: '#FF3333' }} />
-              </div>
-              {/* pedidosCompletados */}
-              5
-            </div>
-
-
+            <PedidoStatus
+              icon={faClockRotateLeft}
+              backgroundColor='#FFCC99'
+              color='#FF6600'
+              status={pedidosPendientes}
+            />
+            <PedidoStatus
+              icon={faCheck}
+              backgroundColor='#99FF99'
+              color='#00CC00'
+              status={pedidosCompletados}
+            />
+            <PedidoStatus
+              icon={faXmark}
+              backgroundColor='#FF9999'
+              color='#FF3333'
+              status={pedidosRechazados} />
           </div>
         </div>
 
         <div className='profile_information-container'>
-          <div className='profile_information-item'>
-            <FontAwesomeIcon icon={faPhone} />
-            <p>{cliente?.telefono}</p>
-          </div>
-          <div className='profile_information-item'>
-            <FontAwesomeIcon icon={faAt} />
-            <p>{cliente?.email}</p>
-          </div>
-          <div className='profile_information-item'>
-            <FontAwesomeIcon icon={faLocationDot} />
-            <p>{fullDomicilio}</p>
-          </div>
+          <ProfileInfoItem
+            icon={faUser}
+            datap={cliente?.nombre && cliente?.apellido ? `${cliente.nombre} ${cliente?.apellido}` : null}
+          />
+          <ProfileInfoItem
+            icon={faPhone}
+            datap={cliente?.telefono ? cliente.telefono : null}
+          />
+          <ProfileInfoItem
+            icon={faAt}
+            datap={cliente?.email}
+          />
+          <ProfileInfoItem
+            icon={faLocationDot}
+            datap={fullDomicilio}
+          />
         </div>
       </div>
     </div>)
