@@ -1,9 +1,9 @@
 
 import "./Header.css"
 import { useDispatch } from "react-redux";
-import { addSearchActive, removeCategoryActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
+import { addSearchActive, removeSearchActive, startAddProductStore } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer";
 import { useNavigate } from "react-router-dom";
-import { useAccessToken, useInput } from "../../../hooks";
+import { useInput } from "../../../hooks";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import DropdownLogin from "../DropdownLogin/DropdownLogin";
@@ -16,10 +16,9 @@ export const Header = () => {
     busqueda: ''
   });
 
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { rol, loading } = useUserRole();
   const dispatch = useDispatch();
-  const headers = useAccessToken();
   const navigate = useNavigate();
   const { busqueda, orderPriceActive } = useSelector((state: any) => state.StoreProductReducer);
 
@@ -28,6 +27,10 @@ export const Header = () => {
   }, [busqueda]);
 
   const onSearched = async () => {
+    const token = await getAccessTokenSilently();
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
     if (busqueda !== '') {
       const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/allByName/0/${orderPriceActive || 'default'}/${busqueda || 'default'}`;
       dispatch(startAddProductStore(url, headers)).then(() => {

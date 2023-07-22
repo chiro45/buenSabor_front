@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMotorcycle, faShop } from "@fortawesome/free-solid-svg-icons";
 import { EEstadoPedido, IPedido } from "../../../../interfaces";
 import { getElementSetState } from "../../../../helpers";
-import { useAccessToken } from "../../../../hooks";
 import { useLocation } from "react-router-dom";
 import { useSocket } from "../../../../hooks/useSocket";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface TableHeader {
     text: string;
@@ -106,17 +106,23 @@ const urlEntregadoAndRejected = `${import.meta.env.VITE_URL_PEDIDOS}/rejectedAnd
 
 export const CaseTable = () => {
     const [state, setstate] = useState<IPedido[]>([])
-
-    const header = useAccessToken();
+    const {getAccessTokenSilently} = useAuth0()
     const { pathname } = useLocation();
     const socketState = useSocket({
         connectionUrl: urlWs, subscriptionTopic: `/pedidows/public`
     })
+    const fetchData = async(url:any, setPedido:any) =>{
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(url, headers, setPedido);
+    }
     useEffect(() => {
         if (pathname === "/caseRegister/process") {
-            getElementSetState(urlEspera, header, setstate);
+            fetchData(urlEspera, setstate);
         } else if (pathname === "/caseRegister/done") {
-            getElementSetState(urlEntregadoAndRejected, header, setstate);
+            fetchData(urlEntregadoAndRejected, setstate);
         }
         console.log('meactualizo')
     }, [pathname, socketState]);

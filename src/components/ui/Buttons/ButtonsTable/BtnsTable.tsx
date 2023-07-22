@@ -8,18 +8,21 @@ import { faPenToSquare, faTrash, faEye } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Swal from "sweetalert2"
 import "./BtsTable.css"
-import { useAccessToken } from "../../../../hooks";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const BtnsTable: FunctionComponent<IBtnsTable> = ({ element, nameTable, urlFetch }) => {
 
-    const headers = useAccessToken();
-
+    const {getAccessTokenSilently} = useAuth0()
     const dispatch = useDispatch()
     const handleView = () => {
         dispatch(addElementActiveTable(element))
         dispatch(handleModalsTable("modalView"))
     }
-    const handleDelete = () => {
+    const handleDelete = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         Swal.fire({
             title: '¿Estas seguro?',
             text: `¿Seguro que quieres eliminar?`,

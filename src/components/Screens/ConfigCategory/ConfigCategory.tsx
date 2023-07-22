@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useAccessToken } from "../../../hooks";
 import { getDataTable } from "../../../Redux";
 import { IColumnsCategoria, ICategoria } from "../../../interfaces";
 import { GenericTable, Header, SearchGeneric, ModalCategoria, Subheader, ModalViewElements } from "../../ui"
 import "./ConfigCategory.css"
 import { Footer } from "../../ui/Footer/Footer";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const url = `${import.meta.env.VITE_URL_CATEGORY}`
 
 export const ConfigCategory = () => {
 
-    const headers = useAccessToken();
     // Obtiene la función dispatch del store
     const dispatch = useDispatch();
     // Define las columnas de la tabla como un array de objetos con label y key
@@ -19,12 +18,19 @@ export const ConfigCategory = () => {
         ...IColumnsCategoria,
         { label: "Acciones", key: "acciones" }
     ];
-
+    
+    const {getAccessTokenSilently} = useAuth0();
     // Ejecuta la acción para obtener los datos de la tabla al cargar el componente
-    useEffect(() => {
+    const dispatchData = async () => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
         dispatch(getDataTable(url, headers));
+    }
+    useEffect(() => {
+        dispatchData()
     }, [dispatch]);
-
 
     return (
         <div>

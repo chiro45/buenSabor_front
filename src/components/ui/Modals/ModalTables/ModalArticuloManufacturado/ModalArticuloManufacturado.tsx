@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useAccessToken, useCheckBoxInput, useInput, useSelectorInput } from "../../../../../hooks";
+import { useCheckBoxInput, useInput, useSelectorInput } from "../../../../../hooks";
 import { getDataTable, removeElementActiveTable, handleModalsTable } from "../../../../../Redux";
 import { InputGeneric, ButtonStandard, LayoutModal } from "../../../../ui";
 import { startUploading } from "../../../../../functions/functions";
@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import noImage from "../../../../../assets/noImage.jpg"
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./ModalArticuloManufacturado.css"
+import { useAuth0 } from "@auth0/auth0-react";
 
 const
     urlArticuloInsumo = `${import.meta.env.VITE_URL_ARTICULOINSUMO}`,
@@ -17,7 +18,7 @@ const
 
 export const ModalArticuloManufacturado = () => {
 
-    const headers = useAccessToken();
+    const {getAccessTokenSilently} = useAuth0();
     const openModal = useSelector((state: any) => state.ModalsReducer.modalArticuloManufacturado)
     // Obtiene el elemento activo de la tabla actual de Redux
     const elementActive = useSelector((state: any) => state.TableReducer.elementActive);
@@ -36,8 +37,19 @@ export const ModalArticuloManufacturado = () => {
 
     // Obtiene los datos de las listas desplegables desde el servidor cuando el modal se abre por primera vez
 
-    const getArticulosInsumos = () => getElementSetState(urlArticuloInsumo, headers, setOptionValues);
-    const getDataCategories = () => getElementSetState(urlCategorias, headers, setDataCategories);
+    const getArticulosInsumos = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(urlArticuloInsumo, headers, setOptionValues);
+    }
+    const getDataCategories = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(urlCategorias, headers, setDataCategories);}
 
 
     const parseIngredientsToBd = () => {
@@ -153,7 +165,11 @@ export const ModalArticuloManufacturado = () => {
     const [imageProduct, setImageProduct] = useState({ image: "" })
 
 
-    const handleSubmitArticuloManufacturado = () => {
+    const handleSubmitArticuloManufacturado = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const parseIngredientes = ingredientes.map((el: any) => ({
             cantidad: el.cantidad,
             articuloInsumo: { id: el.id }

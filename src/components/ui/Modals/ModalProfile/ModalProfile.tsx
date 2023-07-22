@@ -1,8 +1,8 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { alertError, alertSuccess } from "../../../../functions/alerts";
 import { updateElement } from "../../../../helpers";
-import { useAccessToken, useInput } from "../../../../hooks";
+import { useInput } from "../../../../hooks";
 import { ICliente } from "../../../../interfaces";
 import { ButtonStandard } from "../../Buttons";
 import { InputGeneric } from "../../InputGeneric";
@@ -11,9 +11,8 @@ import './ModalProfile.css'
 
 const urlCliente = `${import.meta.env.VITE_URL_CLIENTE}`
 const ModalProfile = ({ cliente, cargarCliente }: { cliente: ICliente, cargarCliente:any }) => {
-    const headers = useAccessToken();
     const [openModal, setOpenModal] = useState(false)
-
+    const {getAccessTokenSilently} = useAuth0()
     const [inputState, onInputChange, setInputState]: any = useInput({});
 
     useEffect(() => {
@@ -25,18 +24,18 @@ const ModalProfile = ({ cliente, cargarCliente }: { cliente: ICliente, cargarCli
                 telefono: telefono || "",
                 email: email || "",
             });
-        } else {
-
         }
     }, [openModal]);
 
-    const handleSubmitModal = () => {
-     
+    const handleSubmitModal = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
         const data = {
             nombre: inputState.nombre,
             apellido: inputState.apellido,
             telefono: inputState.telefono,
-            email: inputState.email,
         };
         updateElement(urlCliente, cliente.id, {...cliente,...data}, headers)
           .then(() => {

@@ -2,21 +2,18 @@ import { faArrowRightArrowLeft, faBars } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './FiltroStore.css'
 import { useEffect, useState } from "react"
-import { useAccessToken } from "../../../../hooks"
 import { useDispatch } from "react-redux"
-import { addCategoryActive, addOrderPriceActive, startAddProductStore } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
+import { addCategoryActive, addOrderPriceActive } from "../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 export const FiltrosStore = () => {
 
     const [openOrder, setOpenOrder] = useState(false)
     const [openFilter, setOpenFilter] = useState(false)
-
-    const headers = useAccessToken();
     const dispatch = useDispatch()
 
     const [sortPrice, setSortPrice] = useState('menor')
     const [category, setCategory] = useState('default')
 
-    const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/${sortPrice}/${category}`
+    // const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/${sortPrice}/${category}` no se usaba, revisar
     const handleFetchFilter = (param: string) => {
         setCategory(param);
         dispatch(addCategoryActive(param));

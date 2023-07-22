@@ -1,9 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import SockJS from 'sockjs-client/dist/sockjs';
 import { over } from 'stompjs';
 import { getElementSetState } from '../../../../helpers';
-import { useAccessToken } from '../../../../hooks';
 import { EEstadoPedido, IPedido } from '../../../../interfaces';
 import CardKitchen from '../CardKitchen/CardKitchen';
 import './PedidosKitchen.css'
@@ -12,7 +12,7 @@ const urlEspera = `${import.meta.env.VITE_URL_PEDIDOSBYESTADO}`;
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
 var stompClient: any = null;
 const PedidosKitchen = () => {
-    const header = useAccessToken();
+    const {getAccessTokenSilently} = useAuth0()
     const [pedidosDone, setPedidosDone] = useState<IPedido[]>([]);
     const [pedidosEspera, setPedidosEspera] = useState<IPedido[]>([]);
     const [pedidosPreparacion, setPedidosPreparacion] = useState<IPedido[]>([]);
@@ -23,12 +23,19 @@ const PedidosKitchen = () => {
         createSocket();
     }, []);
 
+    const fetchData = async(url:any, setPedido:any) =>{
+        const token = await getAccessTokenSilently();
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(url, headers, setPedido);
+    }
     useEffect(() => {
         if (pathname === "/kitchen/process") {
-            getElementSetState(`${urlEspera}/${EEstadoPedido.ESPERA}`, header, setPedidosEspera);
-            getElementSetState(`${urlEspera}/${EEstadoPedido.PREPARACION}`, header, setPedidosPreparacion);
+            fetchData(`${urlEspera}/${EEstadoPedido.ESPERA}`, setPedidosEspera);
+            fetchData(`${urlEspera}/${EEstadoPedido.PREPARACION}`, setPedidosPreparacion);
         } else if (pathname === "/kitchen/done") {
-            getElementSetState(urlDoneRejected, header, setPedidosDone);
+            fetchData(urlDoneRejected, setPedidosDone);
         }
     }, [pathname, socketState]);
 
