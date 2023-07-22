@@ -6,7 +6,7 @@ import { IArticuloManufacturado } from '../../../../interfaces';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import { useDispatch } from 'react-redux';
 import { startAddProductActive } from '../../../../Redux/Reducers/StoreProductReducers/StoreProductReducer';
-import { useAccessToken } from '../../../../hooks';
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 interface IItemStore {
@@ -25,7 +25,7 @@ export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
     const [cont, setCont] = useState(0)
     const [showMoreLess, setShoMoreLess] = useState(false)
 
-
+    const {getAccessTokenSilently} = useAuth0()
     const navigate = useNavigate()
     const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
 
@@ -63,10 +63,13 @@ export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
         setItem(updatedItems);
     };
 
-    const headers = useAccessToken();
 
     const dispatch = useDispatch()
-    const handleViewProduct = () => {
+    const handleViewProduct = async() => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
         const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
         dispatch(startAddProductActive(url, id, headers))
         navigate('/ViewProduct')

@@ -1,17 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react'
-import { fetchGet, getElementSetState } from '../helpers';
-import { ICliente, IUsuario } from '../interfaces';
-import { useAccessToken } from './useAccessToken';
+import  { useEffect, useState } from 'react'
+import { fetchGet  } from '../helpers';
+import { ICliente  } from '../interfaces';
 const urlCliente = `${import.meta.env.VITE_URL_CLIENTE}`
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
 const useCliente = () => {
-    const headers = useAccessToken();
-    const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [cliente, setCliente] = useState<ICliente>();
 
     const getUsuario = async () => {
         try {
+            const token = await getAccessTokenSilently();
+            const headers = {
+              'Authorization': `Bearer ${token}`
+            };
             const usuarioResponse = await fetchGet(`${urlUsuario}/getByUsuario/${user?.email}`, headers);
 
             if (usuarioResponse?.idAuth0) {

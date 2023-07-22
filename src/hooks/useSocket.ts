@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client/dist/sockjs';
 import { over, Client, Message } from 'stompjs';
@@ -11,14 +12,22 @@ interface SocketOptions {
 export const useSocket = ({ connectionUrl, subscriptionTopic }: SocketOptions) => {
     const [socketState, setSocketState] = useState(true);
     let stompClient = useRef<Client | null>(null)
-
+    const { getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
+
         // Función para crear la conexión del socket
-        const createSocket = () => {
+        const createSocket = async () => {
+            const token = await getAccessTokenSilently(); // Obtener el token de acceso
+            const headers = {
+                Authorization: `Bearer ${token}` // Crear el header de autorización con el token de acceso
+            };
             const Sock = new SockJS(connectionUrl); // Crear el objeto SockJS
             const client = over(Sock); // Crear el cliente STOMP sobre la conexión SockJS
-            client.connect({}, onConnected, onError); // Conectar el cliente STOMP
+            // Función para anular la impresión de mensajes de log
+            client.debug = () => { };
+            client.connect({headers}, onConnected, onError); // Conectar el cliente STOMP
+
             stompClient.current = client; // Almacenar el cliente STOMP en el estado
         };
 
@@ -50,6 +59,5 @@ export const useSocket = ({ connectionUrl, subscriptionTopic }: SocketOptions) =
         // };
     }, [connectionUrl, subscriptionTopic]); // Efecto depende de la URL de conexión y el tema de suscripción
 
-    console.log(socketState)
     return socketState; // Devolver el estado para indicar la recepción de mensajes
 };

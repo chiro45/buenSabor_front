@@ -1,9 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { alertConfirm } from '../../../../functions/alerts'
-import { useAccessToken } from '../../../../hooks'
 import { EEstadoPedido, IDetallePedido, IPedido } from '../../../../interfaces'
 import KitchenItem from '../KitchenItem/KitchenItem'
 import './CardKitchen.css'
@@ -14,6 +14,7 @@ interface CardKitchenProps {
 const urlUpdateEstado = `${import.meta.env.VITE_URL_PEDIDOSUPDATESTATE}`;
 const CardKitchen = ({ pedido }: CardKitchenProps) => {
 
+    const {getAccessTokenSilently} = useAuth0();
 
     const ESPERA = "#FF7700"; // naranja
     const PREPARADO = "#1DD75B"; // verde
@@ -21,7 +22,6 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
     const RECHAZADO = "#F22128"; //rojo
     const [colorState, setColorState] = useState<string | undefined>(undefined);
     const [btnState, setbtnState] = useState<string>()
-    const header = useAccessToken();
     useEffect(() => {
         if (pedido.estadoPedido === EEstadoPedido.ESPERA) {
             setColorState(ESPERA);
@@ -39,6 +39,10 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
     }, []);
 
     const handleUpdateState = async () => {
+        const token = await getAccessTokenSilently();
+        const header = {
+          'Authorization': `Bearer ${token}`
+        };
         if (pedido.estadoPedido === EEstadoPedido.ESPERA) {
             await axios.put(`${urlUpdateEstado}/${pedido.id}/${EEstadoPedido.PREPARACION}`, header)
         } else if (pedido.estadoPedido === EEstadoPedido.PREPARACION) {
@@ -46,6 +50,10 @@ const CardKitchen = ({ pedido }: CardKitchenProps) => {
         }
     }
     const handleCancelState = async () => {
+        const token = await getAccessTokenSilently();
+        const header = {
+          'Authorization': `Bearer ${token}`
+        };
         await axios.put(`${urlUpdateEstado}/${pedido.id}/${EEstadoPedido.RECHAZADO}`, header)
     }
     return (

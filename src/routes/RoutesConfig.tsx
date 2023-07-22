@@ -14,6 +14,9 @@ import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
 import Kitchen from "../components/Screens/Kitchen/Kitchen";
 import { CaseRegister } from "../components/Screens/CaseRegister/CaseRegister";
 import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview";
+import { LoginRegisterAdminEmployed } from "../components/ui/LoginRegisterAdminEmployed/LoginRegisterAdminEmployed";
+import LoginEmployed from "../components/Screens/LoginEmployed/LoginEmployed";
+import ConfigAdmin from "../components/Screens/ConfigAdmin/ConfigAdmin";
 import { Analytics } from "../components/Screens/Analytics/Analytics";
 
 export const routesConfig = [
@@ -88,6 +91,18 @@ export const routesConfig = [
   {
     path: '/deliveryView',
     component: Deliveryview,
+  },
+  {
+    path: '/config/employedRegister',
+    component: LoginRegisterAdminEmployed,
+  },
+  {
+    path: '/config/loginEmployed',
+    component: LoginEmployed,
+  },
+  {
+    path: '/config/admin',
+    component: ConfigAdmin,
   },
   {
     path: '/analytics',

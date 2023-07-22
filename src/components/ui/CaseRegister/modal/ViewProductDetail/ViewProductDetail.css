@@ -1,0 +1,17 @@
+.containerLayoutModalCaseRegister {
+    position: absolute;
+    top: 0vh;
+    left: 0vw;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 400;
+
+}
+
+.containerChildrensLayoutModaRegister {
+    z-index: 1000;
+    background-color: #fff;
+}

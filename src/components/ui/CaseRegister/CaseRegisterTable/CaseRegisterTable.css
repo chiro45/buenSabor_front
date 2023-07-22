@@ -7,12 +7,14 @@
 
 .tableCaseRegister {
     width: 90vw;
+    margin: 1vh;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .3);
 }
 
 .theadCaseRegister {
     height: 8vh;
     color: #fff;
-
+    border-radius: .4rem .4rem 0 0;
 }
 
 .theadCaseRegister,
@@ -22,9 +24,10 @@
     background-color: var(--principal);
     align-items: center;
     justify-items: center;
+
 }
 
-.trBodyCaseRegister div {
+.divtrBody {
     height: 8VH;
     display: flex;
     justify-content: center;
@@ -34,6 +37,7 @@
 .tbodycaseRegister {
     min-height: 70;
     max-height: 75vh;
+
     overflow: auto;
 }
 
@@ -52,6 +56,7 @@
 .cancelado,
 .preparacion,
 .entregado,
+.pendiente,
 .espera {
     border-radius: .6rem;
     padding: .3rem;
