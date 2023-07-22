@@ -1,17 +1,19 @@
-import { InputGeneric } from "../../ui/InputGeneric/InputGeneric"
-import "./ConfigEmployed.css"
+import { InputGeneric } from "../InputGeneric/InputGeneric"
+import "./LoginRegisterAdminEmployed.css"
 import { useAuth0, User } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
 import { useAccessToken, useInput } from "../../../hooks"
 import jwt_decode from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons"
-import { alertConfirm, alertError, alertSuccess } from "../../../functions/alerts"
+import { alertConfirm, alertError } from "../../../functions/alerts"
 import { fetchPost } from "../../../helpers"
 import { IUsuario } from "../../../interfaces"
 import Swal from "sweetalert2"
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
-export const ConfigEmployed = () => {
+const urlAdminLogoutRegister = `${import.meta.env.VITE_URL_LOGOUT_ADMIN_REGISTER_EMPLOYED}`
+const urlAdminLogin = `${import.meta.env.VITE_URL_LOGIN_ADMIN}`
+export const LoginRegisterAdminEmployed = () => {
     const header = useAccessToken();
     const { isAuthenticated, loginWithRedirect, logout, user, getAccessTokenSilently } = useAuth0();
     const [inputState, onInputChange]: any = useInput();
@@ -65,13 +67,13 @@ export const ConfigEmployed = () => {
                     title: 'Registro Exitoso',
                     text: `${response.usuario} registrado.`
                 })
-                    .then(() => logout({ logoutParams: { returnTo: 'http://localhost:5173/config/employedRegister' } })))
+                    .then(() => logout({ logoutParams: { returnTo: urlAdminLogoutRegister } })))
         } else {
             alertError('Complete el nombre antes de continuar', 'Ingrese Nombre');
         }
     };
     const handleCancelEmployed = async () => {
-        alertConfirm('', 'Cancelar registro?', 'Si', () => logout({ logoutParams: { returnTo: 'http://localhost:5173/config/employedRegister' } }), 'No')
+        alertConfirm('', 'Cancelar registro?', 'Si', () => logout({ logoutParams: { returnTo: urlAdminLogoutRegister } }), 'No')
 
     }
 
@@ -135,7 +137,7 @@ export const ConfigEmployed = () => {
                                 <button onClick={() => loginWithRedirect({
                                     authorizationParams: {
                                         screen_hint: 'signup',
-                                        redirect_uri: 'http://localhost:5173/config/employedRegister',
+                                        redirect_uri: urlAdminLogoutRegister,
                                     },
                                 })} className='buttonRegister-register-employed'>
                                     Registrar Empleado
@@ -146,7 +148,7 @@ export const ConfigEmployed = () => {
                                 <button onClick={() => loginWithRedirect({
                                     authorizationParams: {
                                         screen_hint: 'signup',
-                                        redirect_uri: 'http://localhost:5173/config/articuloInsumo',
+                                        redirect_uri: urlAdminLogin,
                                     },
                                 })} className='buttonRegister-register-employed'>
                                     Iniciar Sesion

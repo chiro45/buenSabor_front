@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import { alertError } from '../../../functions/alerts';
+import Swal from 'sweetalert2';
+
+const urlEmployedLoginLogout = `${import.meta.env.VITE_URL_LOGIN_LOGOUT_EMPLOYED}`
 
 const LoginEmployed = () => {
-    const { loginWithRedirect, isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, getAccessTokenSilently, logout, isLoading } = useAuth0();
     const [rol, setRol] = useState('')
+    const [loading, setLoading] = useState(false)
     const [invalidRol, setInvalidRol] = useState(false)
     const handleToken = async () => {
         const token = await getAccessTokenSilently();
@@ -41,7 +45,13 @@ const LoginEmployed = () => {
             } else if (rol === 'CAJERO') {
                 window.location.href = 'http://localhost:5173/caseRegister/process';
             } else {
-                logout({ logoutParams: { returnTo: 'http://localhost:5173/config/loginEmployed' } })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Acceso Denegado',
+                    text: 'Credenciales invalidas, intente nuevamente'
+                }).then(() =>
+                    logout({ logoutParams: { returnTo: urlEmployedLoginLogout } })
+                )
             }
         }
     }, [rol])
@@ -51,37 +61,47 @@ const LoginEmployed = () => {
         handleToken(); // Si no se encuentra ningún
     }, [isAuthenticated])
 
-
+    useEffect(() => {
+        if (!isLoading) {
+            if (isAuthenticated) {
+                setLoading(true);
+            }
+        }
+    }, [isLoading]);
 
     return (
-
         <div className="containerPrincipalRegister">
             <div className="containerRegister">
-
                 <div className="register_image-container">
                     <FontAwesomeIcon icon={faAddressCard} size="6x" />
                     <h1>Bienvenido</h1>
-                    <p>Inicie sesion para continuar a su modulo de trabajo</p>
+                    <p>Inicie sesión para continuar a su módulo de trabajo</p>
                 </div>
 
-                <div className='containerbuttonsRegister'>
-                    <div className='buttonRegister-register-employed'>
-                        <button onClick={() => loginWithRedirect({
-                            authorizationParams: {
-                                screen_hint: 'signup',
-                                redirect_uri: 'http://localhost:5173/config/loginEmployed',
-                            },
-                        })} className='buttonRegister-register-employed'>
-                            Iniciar Sesion
-                        </button>
-                    </div>
-
+                <div className="containerbuttonsRegister">
+                    {(loading || isLoading) ? (
+                        <div className='buttonRegister-register-employed'>
+                            <button className='buttonRegister-register-employed'>
+                                Cargando...
+                            </button>
+                        </div>
+                    ) : (
+                        <div className='buttonRegister-register-employed'>
+                            <button onClick={() => loginWithRedirect({
+                                authorizationParams: {
+                                    screen_hint: 'signup',
+                                    redirect_uri: urlEmployedLoginLogout,
+                                },
+                            })} className='buttonRegister-register-employed'>
+                                Iniciar Sesión
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
-
-    )
-}
+    );
+};
 
 
 export default LoginEmployed

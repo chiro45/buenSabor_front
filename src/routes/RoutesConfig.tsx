@@ -14,8 +14,9 @@ import { AddressPage } from "../components/Screens/AddressPage/AddressPage";
 import Kitchen from "../components/Screens/Kitchen/Kitchen";
 import { CaseRegister } from "../components/Screens/CaseRegister/CaseRegister";
 import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview";
-import { ConfigEmployed } from "../components/Screens/ConfigEmployed/ConfigEmployed";
+import { LoginRegisterAdminEmployed } from "../components/ui/LoginRegisterAdminEmployed/LoginRegisterAdminEmployed";
 import LoginEmployed from "../components/Screens/LoginEmployed/LoginEmployed";
+import ConfigAdmin from "../components/Screens/ConfigAdmin/ConfigAdmin";
 
 export const routesConfig = [
   {
@@ -92,10 +93,14 @@ export const routesConfig = [
   },
   {
     path: '/config/employedRegister',
-    component: ConfigEmployed,
+    component: LoginRegisterAdminEmployed,
   },
   {
     path: '/config/loginEmployed',
     component: LoginEmployed,
+  },
+  {
+    path: '/config/admin',
+    component: ConfigAdmin,
   },
 ];
