@@ -18,7 +18,10 @@ export const useSocket = ({ connectionUrl, subscriptionTopic }: SocketOptions) =
         const createSocket = () => {
             const Sock = new SockJS(connectionUrl); // Crear el objeto SockJS
             const client = over(Sock); // Crear el cliente STOMP sobre la conexión SockJS
+            // Función para anular la impresión de mensajes de log
+            client.debug = () => {};
             client.connect({}, onConnected, onError); // Conectar el cliente STOMP
+        
             stompClient.current = client; // Almacenar el cliente STOMP en el estado
         };
 
@@ -50,6 +53,5 @@ export const useSocket = ({ connectionUrl, subscriptionTopic }: SocketOptions) =
         // };
     }, [connectionUrl, subscriptionTopic]); // Efecto depende de la URL de conexión y el tema de suscripción
 
-    console.log(socketState)
     return socketState; // Devolver el estado para indicar la recepción de mensajes
 };

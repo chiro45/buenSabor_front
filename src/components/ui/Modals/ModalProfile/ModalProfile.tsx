@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { alertError, alertSuccess } from "../../../../functions/alerts";
 import { updateElement } from "../../../../helpers";
 import { useAccessToken, useInput } from "../../../../hooks";
@@ -25,18 +24,14 @@ const ModalProfile = ({ cliente, cargarCliente }: { cliente: ICliente, cargarCli
                 telefono: telefono || "",
                 email: email || "",
             });
-        } else {
-
         }
     }, [openModal]);
 
     const handleSubmitModal = () => {
-     
         const data = {
             nombre: inputState.nombre,
             apellido: inputState.apellido,
             telefono: inputState.telefono,
-            email: inputState.email,
         };
         updateElement(urlCliente, cliente.id, {...cliente,...data}, headers)
           .then(() => {
