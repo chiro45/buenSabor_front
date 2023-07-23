@@ -82,4 +82,8 @@
     border: none;
     background-color: var(--terciario);
 }
-
+@media only screen and (max-width: 576px) {
+    .buttonVolverAStore{
+        display: none;
+    }
+}

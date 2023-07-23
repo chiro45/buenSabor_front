@@ -4,6 +4,8 @@ import { EEstadoPedido, IPedido } from '../../../../interfaces';
 import { useAccessToken } from '../../../../hooks';
 import { cancelOrder, deliverOrder, payOrder, sendToKitchen } from "../CaseRegisterTableFunctions";
 import { ViewProductDetail } from '../modal/ViewProductDetail/ViewProductDetail';
+import { LayoutModalCaseRegister } from '../modal/Layout/LayoutModalCaseRegister';
+import { ViewFacture } from '../../ViewFacture/ViewFacture';
 interface ActionButton {
     element: IPedido,
     textButton: string;
@@ -20,13 +22,15 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
     const handleOnclickButton = () => {
         if (fnOnclick === 'viewDetail') {
             setProduct(element)
+        }
+        else if (fnOnclick === 'viewFacture') {
+            setFacture(element)
         } else if (fnOnclick === 'cancelOrder') {
             cancelOrder(element, header)
         } else if (fnOnclick === 'payOrder') {
             payOrder(element, header)
         } else if (fnOnclick === 'deliverOrder') {
             deliverOrder(element, header)
-
         } else if (fnOnclick === 'sendtoKittchen') {
             sendToKitchen(element, header)
         }
@@ -43,6 +47,7 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
     }
 
     const [product, setProduct] = useState<IPedido | null>(null)
+    const [facture, setFacture] = useState<IPedido | null>(null)
 
     return (
         <div className='container__ButtonsTableCaseRegister'>
@@ -54,6 +59,22 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
                     width={'40vw'}
                     height={'55vh'}
                 />
+            }
+
+            {
+                facture &&
+                <LayoutModalCaseRegister height={'80vh'} width={'50vw'} >
+                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
+                        <div>
+                                <ViewFacture pedido={facture} />
+                        </div>
+                        <div>
+                                <button onClick={() => { setFacture(null) }}>cerrar</button>
+                        </div>
+                    </div>
+
+
+                </LayoutModalCaseRegister>
             }
 
             <button key={element.numero}
