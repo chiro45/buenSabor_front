@@ -18,7 +18,7 @@
   width: 100vw;
 }
 
-.containerRegister {
+.containerRegisterEmployed {
   align-items: center;
   /* background: linear-gradient(to bottom, var(--backgroundBordoOscuro), var(--backgroundBordoOscuro)); */
   background: var(--backgroundBordoClaro);

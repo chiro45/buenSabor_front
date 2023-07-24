@@ -88,7 +88,7 @@ export const LoginRegisterAdminEmployed = () => {
             <div className="containerPrincipalRegister">
                 {isAuthenticated ?
                     (
-                        <div className="containerRegister">
+                        <div className="containerRegisterEmployed">
                             <div className="register_image-container">
                                 <FontAwesomeIcon icon={faAddressCard} size="6x" />
                                 <h1>Registro de empleado</h1>
@@ -136,7 +136,7 @@ export const LoginRegisterAdminEmployed = () => {
                             </div>
                         </div>
                     ) :
-                    <div className="containerRegister">
+                    <div className="containerRegisterEmployed">
                         <div className='containerbuttonsRegister'>
                             <div className='buttonRegister-register-employed'>
                                 <button onClick={() => loginWithRedirect({
