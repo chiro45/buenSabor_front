@@ -1,0 +1,110 @@
+.containerLayoutModalCaseRegister {
+    position: absolute;
+    top: 0vh;
+    left: 0vw;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 400;
+
+}
+
+.containerChildrensLayoutModaRegister {
+    z-index: 1000;
+    background-color: #fff;
+    border-radius: .4rem;
+}
+
+/* Styles for the main container */
+.main-container {
+    background-color: #fff;
+    border-radius: .4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/* Styles for the inner container */
+.inner-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    margin-top: 1vh;
+}
+
+
+
+
+
+/* Styles for the individual product container */
+.product-container {
+    padding: 0.5vh;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    min-height: 20vh;
+    width: 100%;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+/* Styles for the grid layout in the product container */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid #cdd;
+
+}
+
+/* Styles for the quantity and denomination cells in the grid layout */
+.grid-cell {
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* Styles for the individual product rows */
+.product-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    justify-items: center;
+    border-bottom: 1px solid #cdd;
+}
+
+.product-list {
+    max-height: 20vh;
+    overflow-y: auto;
+}
+
+/* Styles for the close button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    width: 100%;
+    margin-top: 1vh;
+    margin-bottom: 4vh;
+
+}
+
+/* Styles for the close button */
+.button-container button {
+    padding: .5rem;
+    border: none;
+    border-radius: .4rem;
+    color: #fff;
+    font-weight: 400;
+    background-color: var(--terciario);
+}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { cancelOrder, deliverOrder, handleViewDetail, handleViewFacture, payOrder, sendToKitchen } from "../CaseRegisterTableFunctions";
 import { ButtonsTableCaseRegister } from "../ButtonsTable/ButtonsTableCaseRegister";
 
 import './CaseRegisterTable.css'
@@ -33,39 +32,71 @@ const arrHead: TableHeader[] = [
 interface ActionButton {
     textButton: string;
     className: string;
-    fnOnclick: () => void;
+    conditions: EEstadoPedido[]
+    fnOnclick: 'viewDetail' | 'viewFacture' | 'sendtoKittchen' | 'payOrder' | 'cancelOrder' | 'deliverOrder';
 }
 
+const {
+    ENTREGADO,
+    CAMINO,
+    PENDIENTE,
+    ESPERA,
+    PREPARACION,
+    PREPARADO,
+    RECHAZADO
+} = EEstadoPedido
 const btnActions: ActionButton[] = [
     {
         textButton: 'Ver',
         className: 'btn__actionCaseRegister__viewDetailButton',
-        fnOnclick: handleViewDetail
+        fnOnclick: 'viewDetail',
+        conditions: [
+            ENTREGADO,
+            CAMINO,
+            PENDIENTE,
+            ESPERA,
+            PREPARACION,
+            PREPARADO,
+            RECHAZADO
+        ]
     },
     {
         textButton: 'Ver',
         className: 'btn__actionCaseRegister__viewFactureButton',
-        fnOnclick: handleViewFacture
+        fnOnclick: 'viewFacture',
+        conditions: []
     },
     {
         textButton: 'Enviar a cocina',
         className: 'btn__actionCaseRegister__sendToKitchen',
-        fnOnclick: sendToKitchen
+        fnOnclick: 'sendtoKittchen',
+        conditions: [PENDIENTE]
     },
     {
         textButton: 'Pagar',
         className: ' btn__actionCaseRegister__payOrder',
-        fnOnclick: payOrder
+        fnOnclick: 'payOrder',
+        conditions: [
+            CAMINO,
+            PENDIENTE,
+            ESPERA,
+            PREPARACION,
+            PREPARADO,
+        ]
     },
     {
         textButton: 'Entregar',
         className: 'btn__actionCaseRegister__deliverOrder',
-        fnOnclick: deliverOrder
+        fnOnclick: 'deliverOrder',
+        conditions: [PREPARADO] // ver
+
     },
     {
         textButton: 'Cancelar',
         className: 'btn__actionCaseRegister__cancelOrder',
-        fnOnclick: cancelOrder
+        fnOnclick: 'cancelOrder',
+        conditions: [PENDIENTE, ESPERA]
+
     }
 ]
 
@@ -97,12 +128,11 @@ export const CaseTable = () => {
     }, [pathname, socketState]);
 
 
-
     return (
         <div className="containerTableCaseRegister">
-            <h1>{state.length}</h1>
+
             <div className="tableCaseRegister">
-                <div><button></button></div>
+
                 <div className="theadCaseRegister">
                     {arrHead.map(({ text }) => (
                         <div>
@@ -117,17 +147,18 @@ export const CaseTable = () => {
                             <div
                                 key={order.id}
                                 className={` trBodyCaseRegister ${(index + 1) % 2 === 0 ? 'oscuro' : 'claro'}`}>
-                                <div><p>{order.numero}</p></div>
-                                <div><p>{order.cliente.usuario.usuario.split('@').shift()}</p></div>
-                                <div><p>11/04/01</p></div>
-                                <div >{handleStateOrder(order.estadoPedido)}</div>
-                                <div><p>{handleTypeEnvio(order.tipoEnvio)}</p></div>
-                                <div><p>${order.numero}</p></div>
+                                <div className="divtrBody"><p>{order.numero}</p></div>
+                                <div className="divtrBody"><p>{order.cliente.usuario.usuario.split('@').shift()}</p></div>
+                                <div className="divtrBody"><p>{`${order.fecha.toString().slice(0, 10)}`}</p></div>
+                                <div className="divtrBody" >{handleStateOrder(order.estadoPedido)}</div>
+                                <div className="divtrBody"><p>{handleTypeEnvio(order.tipoEnvio)}</p></div>
+                                <div className="divtrBody"><p>${order.monto}</p></div>
                                 {btnActions.map((button) => (
                                     <ButtonsTableCaseRegister
                                         element={order}
                                         className={button.className}
                                         fnOnclick={button.fnOnclick}
+                                        conditions={button.conditions}
                                         textButton={button.textButton}
                                     />
                                 ))}

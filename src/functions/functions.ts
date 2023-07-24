@@ -68,3 +68,23 @@ export const startUploading = async(file:File,setImageProduct:Function) =>{
        return fileUrl
         
 }
+// Función para generar colores aleatorios en formato rgba
+export const getRandomColor = () => {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgba(${r}, ${g}, ${b}, 0.8)`;
+};
+export const getIntermediaDates = (startDate: string, endDate: string): string[] => {
+  const startDateTime = new Date(startDate);
+  const endDateTime = new Date(endDate);
+  const dates = [];
+  const currentDate = new Date(startDateTime);
+
+  while (currentDate <= endDateTime) {
+    dates.push(currentDate.toISOString().slice(0, 10)); // Almacenar solo la fecha (sin hora)
+    currentDate.setDate(currentDate.getDate() + 1); // Incrementar en un día
+  }
+
+  return dates;
+}

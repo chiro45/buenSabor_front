@@ -13,15 +13,12 @@
     transition: .2s ease;
 }
 
-.container__ButtonsTableCaseRegister button:hover {
-    opacity: .3;
-}
+
 
 .btn__actionCaseRegister__viewDetailButton,
 .btn__actionCaseRegister__viewFactureButton {
     background-color: #4fb3f5;
 }
-
 
 .btn__actionCaseRegister__sendToKitchen {
     background-color: #FF7700;
@@ -37,4 +34,26 @@
 
 .btn__actionCaseRegister__cancelOrder {
     background-color: #f00
+}
+
+.btn__actionCaseRegister__viewDetailButton:hover,
+.btn__actionCaseRegister__viewFactureButton:hover,
+.btn__actionCaseRegister__sendToKitchen:hover,
+.btn__actionCaseRegister__payOrder:hover,
+.btn__actionCaseRegister__deliverOrder:hover,
+.btn__actionCaseRegister__cancelOrder:hover {
+    opacity: .8;
+}
+
+.disabled {
+    background-color: #ccc;
+}
+
+.disabled:hover {
+    cursor: auto;
+}
+
+.buttonFactureCaseRegister {
+    background-color: #4fb3f5;
+    font-size: 2vh;
 }

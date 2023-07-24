@@ -17,6 +17,7 @@ import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview";
 import { LoginRegisterAdminEmployed } from "../components/ui/LoginRegisterAdminEmployed/LoginRegisterAdminEmployed";
 import LoginEmployed from "../components/Screens/LoginEmployed/LoginEmployed";
 import ConfigAdmin from "../components/Screens/ConfigAdmin/ConfigAdmin";
+import { Analytics } from "../components/Screens/Analytics/Analytics";
 
 export const routesConfig = [
   {
@@ -103,4 +104,8 @@ export const routesConfig = [
     path: '/config/admin',
     component: ConfigAdmin,
   },
+  {
+    path: '/analytics',
+    component: Analytics,
+  }
 ];
