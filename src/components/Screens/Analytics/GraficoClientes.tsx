@@ -1,4 +1,3 @@
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +9,7 @@ import {
 } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { getRandomColor } from '../../../functions';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -39,13 +39,7 @@ export const options = {
       }
     }
 };
-// Función para generar colores aleatorios en formato rgba
-const getRandomColor = () => {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-  return `rgba(${r}, ${g}, ${b}, 0.8)`;
-};
+
 
 
 //{datos:number[],dayStart:}
