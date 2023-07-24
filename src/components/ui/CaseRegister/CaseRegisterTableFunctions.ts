@@ -1,9 +1,9 @@
 import axios from "axios";
-import { EEstadoPedido, ETipoEnvio, IPedido } from "../../../interfaces"
+import { EEstadoPedido, IPedido } from "../../../interfaces"
 
 const urlUpdateEstado = `${import.meta.env.VITE_URL_PEDIDOSUPDATESTATE}`;
 
-const handleUpdateState = async (estado: EEstadoPedido, pedido: IPedido, header: Headers) => {
+export const handleUpdateState = async (estado: EEstadoPedido, pedido: IPedido, header: any) => {
     await axios.put(`${urlUpdateEstado}/${pedido.id}/${estado}`, header)
 
 }
@@ -22,9 +22,3 @@ export const cancelOrder = (pedido: IPedido, header: any) => {
     console.log('Cancelar Order')
 }
 
-//TODO: TE VAS A OTRO LADO
-export const deliverOrder = (pedido: IPedido, header: any) => {
-    pedido.tipoEnvio === ETipoEnvio.DELIVERY
-        ? handleUpdateState(EEstadoPedido.CAMINO, pedido, header)
-        : handleUpdateState(EEstadoPedido.ENTREGADO, pedido, header)
-}
