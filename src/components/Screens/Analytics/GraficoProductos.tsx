@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { getRandomColor } from '../../../functions';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -45,7 +46,12 @@ export const GraficoProductos = ({ datos}: any) => {
     labels: [""],
     datasets: [
       {
-        label: "datset",
+        label: "Ganancias",
+        data: [],
+        backgroundColor: 'rgba(210, 99, 132)',
+      },
+      {
+        label: "Costos",
         data: [],
         backgroundColor: 'rgba(255, 99, 132)',
       }
@@ -58,7 +64,7 @@ export const GraficoProductos = ({ datos}: any) => {
           {
             label: "datset",
             data: datos.map((e:any) => e.countVentas),
-            backgroundColor: 'rgba(255, 99, 132)',
+            backgroundColor:  datos.map(() => getRandomColor()),
           }
         ],
       })

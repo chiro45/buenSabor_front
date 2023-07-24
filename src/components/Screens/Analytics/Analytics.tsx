@@ -6,10 +6,14 @@ import { Header } from "../../ui";
 import { Footer } from "../../ui/Footer/Footer";
 import "./Analytics.css"
 import { alertError } from "../../../functions/alerts";
+import { fetchPost } from "../../../helpers";
+import { useAuth0 } from '@auth0/auth0-react';
+import { GraficoCostos } from "./GraficoCostos";
 const urlClientesProductos = `${import.meta.env.VITE_URL_ANALITICO_CLIENTES_TOP}`
-
+const urlCostos = `${import.meta.env.VITE_URL_ANALITICO_COSTOS}`
 const urlAnaliticasProductos = `${import.meta.env.VITE_URL_ANALITICO_PRODUCTOS_TOP}`
 export const Analytics = () => {
+	const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
 	const [data, setData] = useState([]);
 	const [startDate, setStartDate] = useState("");
@@ -44,7 +48,12 @@ export const Analytics = () => {
 		handleFechas(startDate, endDate);
 	}
 
-	const handleGetData = (fecha1: string, fecha2: string) => {
+	const handleGetData = async (fecha1: string, fecha2: string) => {
+		const token = await getAccessTokenSilently();
+		
+		const headers = {
+		  'Authorization': `Bearer ${token}`
+		};
 		let url = ""
 		if(optionSelected==="Clientes"){
 			url = urlClientesProductos
@@ -52,17 +61,13 @@ export const Analytics = () => {
 		else if(optionSelected==="Productos"){
 			url = urlAnaliticasProductos
 		}
-		fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
+		else if(optionSelected==="Costos"){
+			url = urlCostos;
+		}
+		fetchPost(url,{
 				fecha1: fecha1,
 				fecha2: fecha2,
-			}),
-		})
-			.then(response => response.json())
+			},headers)
 			.then(data => { setData(data) });
 	}
 	const handleComponent = (param: string) => {
@@ -96,6 +101,23 @@ export const Analytics = () => {
 						height: "55vh",
 					}}>
 						<GraficoProductos datos={data} /></div>
+				</div>)
+		}
+		
+		else if (param === "Costos"){
+			return (
+				<div style={{
+					width: "100vw",
+					height: "60vh",
+					justifyContent: "center",
+					alignItems: "center",
+					display: "flex"
+				}}>
+					<div style={{
+						width: "60vw",
+						height: "55vh",
+					}}>
+						<GraficoCostos datos={data} fechaIn={startDate} fechaEnd={endDate} /></div>
 				</div>)
 		}
 		else {
