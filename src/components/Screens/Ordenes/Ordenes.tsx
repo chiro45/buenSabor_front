@@ -7,10 +7,10 @@ import { useSocket } from "../../../hooks/useSocket"
 import { useAuth0 } from "@auth0/auth0-react"
 import { getElementSetState } from "../../../helpers"
 import useCliente from "../../../hooks/useCliente"
-import "./Ordenes.css"
-import { ViewProductDetail } from "../../ui/CaseRegister/modal/ViewProductDetail/ViewProductDetail"
 import jsPDF from "jspdf"
+import { ViewProductDetail } from "../../ui/CaseRegister/modal/ViewProductDetail/ViewProductDetail"
 import { ViewFacture } from "../../ui/ViewFacture/ViewFacture"
+import "./Ordenes.css"
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
 const urlPedidosByID = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}/`
 
@@ -39,8 +39,8 @@ export const Ordenes = () => {
 
     const printRef = useRef<HTMLElement | null>(null);
 
-    const handleDownloadPDF = () => {
-        printRef.current = document.getElementById('divPrint')
+    const handleDownloadPDF = (i:number) => {
+        printRef.current = document.getElementById(`divPrint${i}`)
         if (printRef.current) {
             const pdf = new jsPDF('p', 'pt', 'letter');
             const printContents = printRef.current;
@@ -82,10 +82,11 @@ export const Ordenes = () => {
 
                     <div style={{ display: "flex", flexDirection: 'column', gap: '2vh' }}>
                         {
-                            orders.map((el) => (
+
+                            orders.map((el, i) => (
                                 <div className="containerItemOrder">
                                     <div style={{ display: 'none' }}>
-                                        <ViewFacture pedido={el} />
+                                        <ViewFacture pedido={el} indice={i} />
                                     </div>
                                     <div className="containerDescriptionOrders">
                                         <div style={{ width: '24%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -105,7 +106,7 @@ export const Ordenes = () => {
                                     <div className="containerButtonItemOrder ">
                                         <button onClick={() => {
                                             if (el.pagoConfirmado) {
-                                                handleDownloadPDF()
+                                                handleDownloadPDF(i)
                                             }
                                         }} className={`buttoncontainerButtonItemOrder ${el.pagoConfirmado ? '' : 'disabled'}`}>
                                             DescargarFactura

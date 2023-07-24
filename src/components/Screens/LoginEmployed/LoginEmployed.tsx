@@ -71,7 +71,7 @@ const LoginEmployed = () => {
 
     return (
         <div className="containerPrincipalRegister">
-            <div className="containerRegister">
+            <div className="containerRegisterEmployed">
                 <div className="register_image-container">
                     <FontAwesomeIcon icon={faAddressCard} size="6x" />
                     <h1>Bienvenido</h1>

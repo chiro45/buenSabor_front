@@ -30,6 +30,7 @@ const DropdownLogin = () => {
               <>
                 <Link className='dropdown_option' to='/profile'>Perfil</Link>
                 <Link className='dropdown_option' to='/address'>Domicilio</Link>
+                <Link className='dropdown_option' to='/order'>Pedidos</Link>
                 <a className='dropdown_option' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                   Cerrar Sesión
                 </a>

@@ -6,7 +6,7 @@ import { IDomicilio } from "./IDomicilio";
 export interface IPedido {
   id: number;
   tipoClase: string;
-  fecha: Date;
+  fecha: string;
   numero: number;
   monto: number;
   pagoConfirmado: boolean;

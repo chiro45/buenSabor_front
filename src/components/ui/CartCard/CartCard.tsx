@@ -4,7 +4,7 @@ import { IArticuloManufacturado } from '../../../interfaces';
 import { ButtonsCartCard } from '../Buttons';
 
 interface IcartLocalStorage {
-  itemStore: IArticuloManufacturado
+  articuloManufacturado: IArticuloManufacturado
   cantidad: number
 }
 export const CartCard = ({
@@ -26,19 +26,21 @@ export const CartCard = ({
 
 
   const handleUpdateElementsInLocalStorage = () => {
-    const existingItemIndex = items.findIndex((el: any) => el.itemStore.denominacion === producto.denominacion);
+    const existingItemIndex = items.findIndex((el: any) => el.articuloManufacturado.denominacion === producto.denominacion);
 
     const updatedItems = [...items];
 
     if (existingItemIndex !== -1) {
       updatedItems[existingItemIndex].cantidad = contador;
+      updatedItems[existingItemIndex].subtotal = (contador * producto.precioVenta);
 
       if (contador === 0) {
         updatedItems.splice(existingItemIndex, 1);
       }
     } else {
       updatedItems.push({
-        itemStore: producto,
+        articuloManufacturado: producto,
+        subtotal: (contador * producto.precioVenta),
         cantidad: contador
       });
     }

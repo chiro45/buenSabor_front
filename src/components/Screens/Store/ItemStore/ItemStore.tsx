@@ -10,16 +10,17 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 
 interface IItemStore {
-    itemStore: IArticuloManufacturado
+    articuloManufacturado: IArticuloManufacturado
 
 }
 
 interface IcartLocalStorage {
-    itemStore: IArticuloManufacturado
+    articuloManufacturado: IArticuloManufacturado
+    subtotal:number
     cantidad: number
 }
 
-export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
+export const ItemStore: FC<IItemStore> = ({ articuloManufacturado: itemStore }) => {
 
     const { denominacion, id, imagen, precioVenta } = itemStore
     const [cont, setCont] = useState(0)
@@ -31,7 +32,7 @@ export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
 
     useEffect(() => {
         if (showMoreLess === true) {
-            const existingItemIndex = items.filter((el) => el.itemStore.denominacion === itemStore.denominacion);
+            const existingItemIndex = items.filter((el) => el.articuloManufacturado.denominacion === itemStore.denominacion);
             if (existingItemIndex.length > 0) {
                 setCont(existingItemIndex[0].cantidad)
             }
@@ -43,7 +44,7 @@ export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
         setCont(0);
         setShoMoreLess(false)
         const existingItemIndex = items.findIndex(
-            (el) => el.itemStore.denominacion === itemStore.denominacion
+            (el) => el.articuloManufacturado.denominacion === itemStore.denominacion
         );
         const updatedItems = [...items];
 
@@ -55,7 +56,8 @@ export const ItemStore: FC<IItemStore> = ({ itemStore }) => {
             }
         } else {
             updatedItems.push({
-                itemStore,
+                articuloManufacturado: itemStore,
+                subtotal:(cont * itemStore.precioVenta),
                 cantidad: cont
             });
         }

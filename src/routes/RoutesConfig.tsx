@@ -41,7 +41,7 @@ export const routesConfig = [
     component: ConfigArtiruloManufacturado,
   },
   {
-    path: '/cart',
+    path: '/cart*',
     component: Cart,
   },
   {
