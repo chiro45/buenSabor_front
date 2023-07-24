@@ -50,7 +50,7 @@ const TableEmployed = () => {
                             `${usuario.usuario} eliminado`,
                             'success'
                         )
-                    }).then()
+                    }).then(()=>fetchData())
                     .catch((error) => {
                         Swal.fire(
                             'Error!',
