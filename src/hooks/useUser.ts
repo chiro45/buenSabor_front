@@ -7,14 +7,16 @@ const useUser = () => {
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0(); // Replace 'your-auth-library' with the actual authentication library you are using
     const [userBD, setUserBD] = useState<IUsuario | null>(null); // Initialize userBD as null initially
     const [isLoading, setIsLoading] = useState(true); // Add a loading state
+    const idAuth0 = user?.sub?.split('|').pop();
 
     const getUsuario = async () => {
         const token = await getAccessTokenSilently();
         const headers = {
             'Authorization': `Bearer ${token}`
         };
-        if (user?.email !== undefined) {
-            const userfetch = await fetchGet(`${urlUsuario}/getByUsuario/${user?.email}`, headers);
+        if (idAuth0 !== undefined) {
+            const userfetch = await fetchGet(`${urlUsuario}/getByIdAuth0/${idAuth0}`, headers);
+            // console.log(userfetch)
             setUserBD(userfetch);
             setIsLoading(false); // Once the user data is fetched, set isLoading to false
         }

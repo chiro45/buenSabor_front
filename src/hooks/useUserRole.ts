@@ -33,7 +33,7 @@ const useUserRole = () => {
         setRol('ROL INVALIDO');
         setLoading(false);
       } catch (error) {
-        console.error('Error al obtener el rol:', error);
+        // console.error('Error al obtener el rol:', error);
         setRol('ERROR');
         setLoading(false);
       }
