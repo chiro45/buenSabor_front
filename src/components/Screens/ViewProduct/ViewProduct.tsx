@@ -15,7 +15,8 @@ import { removeProductActive } from '../../../Redux/Reducers/StoreProductReducer
 
 
 interface IcartLocalStorage {
-    itemStore: IArticuloManufacturado
+    articuloManufacturado: IArticuloManufacturado
+    subtotal: number
     cantidad: number
 }
 
@@ -28,7 +29,7 @@ export const ViewProduct: React.FC = () => {
     useEffect(() => {
         if (itemStore !== null) {
             setItemActive(itemStore)
-            const existingItemIndex = items.filter((el) => el.itemStore.denominacion === itemStore.denominacion);
+            const existingItemIndex = items.filter((el) => el.articuloManufacturado.denominacion === itemStore.denominacion);
             if (existingItemIndex.length > 0) {
                 setCantidad(existingItemIndex[0].cantidad)
             }
@@ -48,21 +49,23 @@ export const ViewProduct: React.FC = () => {
     const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
 
     const handleAddCart = () => {
-        setCantidad(0);
+        // setCantidad(0);
         const existingItemIndex = items.findIndex(
-            (el) => el.itemStore.denominacion === itemStore.denominacion
+            (el) => el.articuloManufacturado.denominacion === itemStore.denominacion
         );
         const updatedItems = [...items];
 
         if (existingItemIndex !== -1) {
             updatedItems[existingItemIndex].cantidad = cantidad;
+            updatedItems[existingItemIndex].subtotal = (cantidad * itemStore.precioVenta);
 
             if (cantidad === 0) {
                 updatedItems.splice(existingItemIndex, 1);
             }
         } else {
             updatedItems.push({
-                itemStore,
+                articuloManufacturado: itemStore,
+                subtotal: (cantidad * itemStore.precioVenta),
                 cantidad: cantidad
             });
         }

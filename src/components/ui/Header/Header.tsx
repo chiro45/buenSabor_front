@@ -49,12 +49,23 @@ export const Header = () => {
 
   return (
     <div className="containerHeaderPage__storePage">
-      <div className="containerImgLogo__storePage" onClick={() => {
-        navigate('/');
-        dispatch(removeSearchActive());
-      }}>
+      {loading ? <div className="containerImgLogo__storePage" style={{ cursor: 'default' }} >
         <img src="/src/assets/logopng.webp" />
-      </div>
+      </div> : (
+        (isAuthenticated && (rol === 'CLIENTE' || rol === 'CAJERO') ? (
+          <div className="containerImgLogo__storePage" onClick={() => {
+            navigate('/');
+            dispatch(removeSearchActive());
+          }}>
+            <img src="/src/assets/logopng.webp" />
+          </div>
+        ) : (
+          <div className="containerImgLogo__storePage" style={{ cursor: 'default' }} >
+            <img src="/src/assets/logopng.webp" />
+          </div>
+        )
+        ))}
+
       {loading ? (
         <h4>Cargando...</h4> // Muestra 'Cargando...' mientras se obtiene el rol
       ) : (

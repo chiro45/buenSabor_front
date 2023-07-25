@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-interface topClientes{
+interface topClientes {
   emailUsuario: string;
   countCompras: number;
 }
@@ -34,16 +34,16 @@ export const options = {
     },
   },
   scales: {
-    y:{
-        grace:"5%"
-      }
+    y: {
+      grace: "5%"
     }
+  }
 };
 
 
 
 //{datos:number[],dayStart:}
-export const GraficoClientes = ({ datos}: any) => {
+export const GraficoClientes = ({ datos }: any) => {
   const [dataEntry, setDataEntry] = useState({
     labels: [""],
     datasets: [
@@ -56,18 +56,18 @@ export const GraficoClientes = ({ datos}: any) => {
   });
 
   useEffect(() => {
-      setDataEntry({
-        labels: datos.map((e:topClientes) => e.emailUsuario),
-        datasets: [
-          {
-            label: "datset",
-            data: datos.map((e:topClientes) => e.countCompras),
-            backgroundColor: datos.map(() => getRandomColor()),
-          }
-        ],
-      });
-     
-    }, [datos]);
-    
+    setDataEntry({
+      labels: datos.map((e: topClientes) => e.emailUsuario),
+      datasets: [
+        {
+          label: "datset",
+          data: datos.map((e: topClientes) => e.countCompras),
+          backgroundColor: datos.map(() => getRandomColor()),
+        }
+      ],
+    });
+
+  }, [datos]);
+
   return <Bar options={options} data={dataEntry} />;
 }

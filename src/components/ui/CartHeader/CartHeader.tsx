@@ -11,7 +11,7 @@ interface CartHeaderProps {
 export const CartHeader: FC<CartHeaderProps> = ({ title, subtitle }) => {
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(-1);
+    navigate('/store');
   };
   return (
     <div className="cart_header">

@@ -25,7 +25,8 @@ export const ButtonStandard: FC<IButtonStandard> = ({
     height,
     text,
     icon,
-    handleClick
+    handleClick,
+    disabled
 }) => {
     const style = {
         backgroundColor,

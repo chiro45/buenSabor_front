@@ -12,7 +12,7 @@
 
 .containerPrincipalRegister {
   align-items: center;
-  background-color: var(--letra);
+  background-color: var(--principal);
 
   display: flex;
   flex-direction: column;
@@ -30,6 +30,7 @@
   flex-direction: column;
   height: 90vh;
   justify-content: center;
+  max-width: 430px;
   width: 90vw;
 }
 
@@ -139,9 +140,10 @@
   border: 2px solid var(--letra);
   border-radius: .4rem;
   color: var(--letra);
-  font-size: 4vw;
+  font-size: 1.3rem;
   font-weight: 600;
   height: 5vh;
+  max-width: 300px;
   padding: .4rem;
   width: 60vw;
 }

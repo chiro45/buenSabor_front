@@ -25,7 +25,7 @@ const TableEmployed = () => {
     }
     useEffect(() => {
         fetchData();
-    }, [employed, ])
+    }, [ ])
 
     const handleDelete = async (usuario:IUsuario) => {
         Swal.fire({
@@ -50,7 +50,7 @@ const TableEmployed = () => {
                             `${usuario.usuario} eliminado`,
                             'success'
                         )
-                    }).then()
+                    }).then(()=>fetchData())
                     .catch((error) => {
                         Swal.fire(
                             'Error!',

@@ -7,6 +7,7 @@ export interface IButtonStandard {
     width?: string
     height?: string
     text?: string
+    disabled?: boolean
     icon?: IconDefinition
     handleClick: Function
 }

@@ -189,12 +189,61 @@
 
 .cart_btn-pagar {
   background-color: var(--terciario);
+  border: none;
   border-radius: .5rem;
   color: var(--letraBlanca);
   font-size: 1rem;
   font-weight: 600;
   height: 3rem;
-  border: none;
 
   width: 90%;
+}
+.cart_pago-container {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+}
+
+.opcion-btn {
+  border: 1px solid var(--principal);
+  border-radius: 0; /* Quitamos el border-radius por defecto */
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, left 0.3s ease;
+  width: 50%;
+}
+
+.opcion-btn:first-child {
+  border-bottom-left-radius: 0.4rem; /* Redondear la esquina inferior izquierda */
+  border-top-left-radius: 0.4rem; /* Redondear la esquina superior izquierda */
+}
+
+.opcion-btn:last-child {
+  border-bottom-right-radius: 0.4rem; /* Redondear la esquina inferior derecha */
+  border-left: none;
+  border-top-right-radius: 0.4rem; /* Redondear la esquina superior derecha */
+}
+
+.opcion-btn:hover {
+  background-color: #eee;
+}
+
+.opcion-btn.activo {
+  background-color: var(--principal);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.opcion-btn.activo:hover {
+  background-color: var(--terciario);
+}
+
+/* Transición para el efecto activo de "Delivery" */
+.opcion-btn.activo:nth-child(1) {
+  left: 0;
+}
+
+/* Transición para el efecto activo de "Retiro por local" */
+.opcion-btn.activo:nth-child(2) {
+  left: 50%;
 }

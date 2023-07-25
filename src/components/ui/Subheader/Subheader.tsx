@@ -16,6 +16,7 @@ export const Subheader = ({ routes }: SubheaderProps) => {
     { route: "/config/unidadMedida", text: "Unidad Medida", icon: "" },
     { route: "/config/articuloManufacturado", text: "Articulos Manufacturado", icon: "" },
     { route: "/config/admin", text: "Gestion Empleados", icon: "" },
+    { route: "/analytics", text: "Analiticas", icon: "" },
   ];
 
   const renderedRoutes = routes || adminRoutes;

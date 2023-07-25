@@ -41,7 +41,7 @@ export const ProductStore = () => {
                             {
                                 products.map((el, i) => (
                                     <Fragment key={i}>
-                                        <ItemStore itemStore={el} />
+                                        <ItemStore articuloManufacturado={el} />
                                     </Fragment>
                                 ))
                             }

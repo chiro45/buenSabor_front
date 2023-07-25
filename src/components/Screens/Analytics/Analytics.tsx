@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { GraficoClientes } from "./GraficoClientes";
 import { GraficoProductos } from "./GraficoProductos";
-import { Header } from "../../ui";
+import { ButtonStandard, Header, Subheader } from "../../ui";
 import { Footer } from "../../ui/Footer/Footer";
 import "./Analytics.css"
-import { alertError } from "../../../functions/alerts";
+import { alertError, alertSuccess } from "../../../functions/alerts";
 import { fetchPost } from "../../../helpers";
 import { useAuth0 } from '@auth0/auth0-react';
 import { GraficoCostos } from "./GraficoCostos";
@@ -39,7 +39,7 @@ export const Analytics = () => {
 		const endDateObj = new Date(endDate);
 
 		if (endDateObj < startDateObj) {
-			alertError("ERROR DE FECHAS", "La fecha de finalizacion no puede ser menor que inicio. Por favor, inténtalo de nuevo.");
+			alertError("La fecha de finalizacion no puede ser menor que inicio. Por favor, inténtalo de nuevo.", "ERROR DE FECHAS");
 			return;
 		}
 		handleGetData(startDate, endDate);
@@ -50,25 +50,31 @@ export const Analytics = () => {
 
 	const handleGetData = async (fecha1: string, fecha2: string) => {
 		const token = await getAccessTokenSilently();
-		
+
 		const headers = {
-		  'Authorization': `Bearer ${token}`
+			'Authorization': `Bearer ${token}`
 		};
 		let url = ""
-		if(optionSelected==="Clientes"){
+		if (optionSelected === "Clientes") {
 			url = urlClientesProductos
 		}
-		else if(optionSelected==="Productos"){
+		else if (optionSelected === "Productos") {
 			url = urlAnaliticasProductos
 		}
-		else if(optionSelected==="Costos"){
+		else if (optionSelected === "Costos") {
 			url = urlCostos;
 		}
-		fetchPost(url,{
-				fecha1: fecha1,
-				fecha2: fecha2,
-			},headers)
-			.then(data => { setData(data) });
+		fetchPost(url, {
+			fecha1: fecha1,
+			fecha2: fecha2,
+		}, headers)
+			.then(data => {
+				setData(data)
+				if (data.length === 0) {
+					alertSuccess("No se han encontrado datos para este rango de fechas", 'Sin datos suficientes')
+				}
+			})
+			.catch(() => { alertError('Ingrese correctamente las fechas', 'Error al cargar datos') });
 	}
 	const handleComponent = (param: string) => {
 		if (param === "Clientes") {
@@ -103,8 +109,8 @@ export const Analytics = () => {
 						<GraficoProductos datos={data} /></div>
 				</div>)
 		}
-		
-		else if (param === "Costos"){
+
+		else if (param === "Costos") {
 			return (
 				<div style={{
 					width: "100vw",
@@ -130,31 +136,42 @@ export const Analytics = () => {
 	return (
 		<div>
 			<Header />
+			<Subheader />
 			<div className="container-subheader-analytics">
 				{[{ title: "Clientes" },
 				{ title: "Productos" },
 				{ title: "Costos" },
 				{ title: "Pedidos por cliente" }].map((e) => (
-					<div className={`${e.title === optionSelected && "active-subheader-analytics"}`} onClick={() => setOptionSeleted(e.title)}>
+					<div className={`subheader-analitycs ${e.title === optionSelected && "active-subheader-analytics"}`} onClick={() => setOptionSeleted(e.title)}>
 						<p>{e.title}</p>
 					</div>
 				))}
 			</div>
-			<div style={{width:"100vw",display:"flex",justifyContent:"center"}}>
+			<div style={{ width: "100vw", display: "flex", justifyContent: "center" }}>
 				<h1>Estadisticas</h1>
 			</div>
 			<div className="container_fechas_analytics">
 				<div className="container_inputs_analytics">
-					<div>
-						<label>Fecha inicial</label>
+					<div className="inputs_analytics">
+						<label>Fecha inicial: </label>
 						<input type="date" onChange={handleStartDateChange} />
 					</div>
-					<div>
-						<label>Fecha final:</label>
+					<div className="inputs_analytics">
+						<label>Fecha final: </label>
 						<input type="date" onChange={handleEndDateChange} />
 					</div>
 					<div>
-						<button onClick={() => handleRequestData()}>Buscar</button>
+						<ButtonStandard
+							text={"Buscar"}
+							handleClick={() => { handleRequestData() }}
+							width={"5vw"}
+							fontSize={"1.3rem"}
+							height={"3.5vh"}
+							backgroundColor={"#0080FF"}
+							colorText={"#fff"}
+							disabled={!(startDate !== '' && endDate !== '')}
+						/>
+						{/* <button disabled={!(startDate !== '' && endDate !== '')} onClick={() => handleRequestData()}>Buscar</button> */}
 					</div>
 				</div>
 			</div>

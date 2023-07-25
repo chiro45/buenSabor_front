@@ -33,7 +33,7 @@ const useUserRole = () => {
         setRol('ROL INVALIDO');
         setLoading(false);
       } catch (error) {
-        console.error('Error al obtener el rol:', error);
+        // console.error('Error al obtener el rol:', error);
         setRol('ERROR');
         setLoading(false);
       }
@@ -42,7 +42,7 @@ const useUserRole = () => {
     fetchUserRole();
   }, [getAccessTokenSilently]);
 
-  return { rol, loading };
+  return { rol, loading, getAccessTokenSilently };
 };
 
 export default useUserRole;
