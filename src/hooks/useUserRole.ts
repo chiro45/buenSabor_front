@@ -42,7 +42,7 @@ const useUserRole = () => {
     fetchUserRole();
   }, [getAccessTokenSilently]);
 
-  return { rol, loading };
+  return { rol, loading, getAccessTokenSilently };
 };
 
 export default useUserRole;
