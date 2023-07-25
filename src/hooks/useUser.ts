@@ -1,25 +1,35 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import  { useEffect, useState } from 'react'
-import { getElementSetState } from '../helpers';
+import { useEffect, useState } from 'react'
+import { fetchGet, getElementSetState } from '../helpers';
 import { IUsuario } from '../interfaces';
 const urlUsuario = `${import.meta.env.VITE_URL_USUARIO}`
-const useUser = async() => {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-    const [userBD, setuserBD] = useState<IUsuario>()
+const useUser = () => {
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0(); // Replace 'your-auth-library' with the actual authentication library you are using
+    const [userBD, setUserBD] = useState<IUsuario | null>(null); // Initialize userBD as null initially
+    const [isLoading, setIsLoading] = useState(true); // Add a loading state
+
     const getUsuario = async () => {
         const token = await getAccessTokenSilently();
         const headers = {
-          'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         };
-        getElementSetState(`${urlUsuario}/getByUsuario/${user?.email}`, headers, setuserBD);
-    }
+        if (user?.email !== undefined) {
+            const userfetch = await fetchGet(`${urlUsuario}/getByUsuario/${user?.email}`, headers);
+            setUserBD(userfetch);
+            setIsLoading(false); // Once the user data is fetched, set isLoading to false
+        }
+    };
+
     useEffect(() => {
         if (isAuthenticated) {
             getUsuario();
+        } else {
+            setIsLoading(false); // If not authenticated, set isLoading to false
         }
-    }, [isAuthenticated, ])
-    
-    return userBD;
-}
+    }, [isAuthenticated]);
 
-export default useUser
+    // Return the userBD and isLoading state as an object
+    return  userBD;
+};
+
+export default useUser;

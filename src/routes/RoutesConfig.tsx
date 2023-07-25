@@ -19,93 +19,205 @@ import LoginEmployed from "../components/Screens/LoginEmployed/LoginEmployed";
 import ConfigAdmin from "../components/Screens/ConfigAdmin/ConfigAdmin";
 import { Analytics } from "../components/Screens/Analytics/Analytics";
 
+// export const routesConfig = [
+//   {
+//     path: '/',
+//     component: Landing,
+//   },
+//   {
+//     path: '/config/category',
+//     component: ConfigCategory,
+//   },
+//   {
+//     path: '/config/articuloInsumo',
+//     component: ConfigArticuloInsumo,
+//   },
+//   {
+//     path: '/config/unidadMedida',
+//     component: ConfigUnidadMedida,
+//   },
+//   {
+//     path: '/config/articuloManufacturado',
+//     component: ConfigArtiruloManufacturado,
+//   },
+//   {
+//     path: '/cart*',
+//     component: Cart,
+//   },
+//   {
+//     path: '/address',
+//     component: AddressPage,
+//   },
+//   {
+//     path: '/profile',
+//     component: ProfilePage,
+//   },
+//   {
+//     path: '/store',
+//     component: StorePage,
+//   },
+//   {
+//     path: '/order',
+//     component: Ordenes,
+//   },  
+//   {
+//     path: '/ViewProduct',
+//     component: ViewProduct,
+//   },
+//   {
+//     path: '/viewPedido',
+//     component: PedidosPrueba,
+//   },
+//   {
+//     path: '/viewPedidoPrivate',
+//     component: PedidosPruebaPrivate,
+//   },
+//   {
+//     path: '/kitchen/process',
+//     component: Kitchen,
+//   },
+//   {
+//     path: '/kitchen/done',
+//     component: Kitchen,
+//   },
+//   {
+//     path: '/caseRegister/process',
+//     component: CaseRegister,
+//   },
+//   {
+//     path: '/caseRegister/done',
+//     component: CaseRegister,
+//   },
+//   {
+//     path: '/deliveryView',
+//     component: Deliveryview,
+//   },
+//   {
+//     path: '/config/employedRegister',
+//     component: LoginRegisterAdminEmployed,
+//   },
+//   {
+//     path: '/config/loginEmployed',
+//     component: LoginEmployed,
+//   },
+//   {
+//     path: '/config/admin',
+//     component: ConfigAdmin,
+//   },
+//   {
+//     path: '/analytics',
+//     component: Analytics,
+//   }
+// ];
 export const routesConfig = [
   {
     path: '/',
     component: Landing,
+    allowedRoles: [],
   },
   {
     path: '/config/category',
     component: ConfigCategory,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/config/articuloInsumo',
     component: ConfigArticuloInsumo,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/config/unidadMedida',
     component: ConfigUnidadMedida,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/config/articuloManufacturado',
     component: ConfigArtiruloManufacturado,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/cart*',
     component: Cart,
+    allowedRoles: ['CAJERO', 'CLIENTE'],
   },
   {
     path: '/address',
     component: AddressPage,
+    allowedRoles: ['CLIENTE'],
   },
   {
     path: '/profile',
     component: ProfilePage,
+    allowedRoles: ['CLIENTE'],
   },
   {
     path: '/store',
     component: StorePage,
+    allowedRoles: ['CAJERO', 'CLIENTE'],
   },
   {
     path: '/order',
     component: Ordenes,
-  },  
+    allowedRoles: ['CLIENTE'],
+  },
   {
     path: '/ViewProduct',
     component: ViewProduct,
+    allowedRoles: ['CAJERO', 'CLIENTE'],
   },
-  {
-    path: '/viewPedido',
-    component: PedidosPrueba,
-  },
-  {
-    path: '/viewPedidoPrivate',
-    component: PedidosPruebaPrivate,
-  },
+  // {
+  //   path: '/viewPedido',
+  //   component: PedidosPrueba,
+  //   allowedRoles: ['ADMIN', 'COCINERO', 'DELIVERY'],
+  // },
+  // {
+  //   path: '/viewPedidoPrivate',
+  //   component: PedidosPruebaPrivate,
+  //   allowedRoles: ['ADMIN', 'COCINERO', 'DELIVERY'],
+  // },
   {
     path: '/kitchen/process',
     component: Kitchen,
+    allowedRoles: ['COCINERO'],
   },
   {
     path: '/kitchen/done',
     component: Kitchen,
+    allowedRoles: ['COCINERO'],
   },
   {
     path: '/caseRegister/process',
     component: CaseRegister,
+    allowedRoles: ['CAJERO'],
   },
   {
     path: '/caseRegister/done',
     component: CaseRegister,
+    allowedRoles: ['CAJERO'],
   },
   {
     path: '/deliveryView',
     component: Deliveryview,
+    allowedRoles: ['DELIVERY'],
   },
   {
     path: '/config/employedRegister',
     component: LoginRegisterAdminEmployed,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/config/loginEmployed',
     component: LoginEmployed,
+    allowedRoles: ['CAJERO','DELIVERY','COCINERO'],
   },
   {
     path: '/config/admin',
     component: ConfigAdmin,
+    allowedRoles: ['ADMIN'],
   },
   {
     path: '/analytics',
     component: Analytics,
-  }
+    allowedRoles: ['ADMIN'],
+  },
 ];
