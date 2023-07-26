@@ -1,13 +1,14 @@
-.containerPrincipal__productFavorities{
+.containerPrincipal__productFavorities {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 30vh;
+    height: 40vh;
     color: #fff;
 }
-.productFavorities__containerItems{
+
+.productFavorities__containerItems {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,15 +19,25 @@
     min-height: 95%;
     border-radius: .4rem;
 }
-.productFavorities__titleAndAction{
+
+.containerCardItem {
+    min-width: 30vw;
+    min-height: 90%;
     display: flex;
-    justify-content: space-between;
-    width: 90%;
-    height: 20%;
+    justify-content: center;
     align-items: center;
 }
-.productFavorities__buttonViewAll{
-    background-color:#ed6139;
+
+.productFavorities__titleAndAction {
+    display: flex;
+    justify-content: space-between;
+    min-width: 90%;
+    min-height: 20%;
+    align-items: center;
+}
+
+.productFavorities__buttonViewAll {
+    background-color: #ed6139;
     color: #fff;
     border: none;
     margin-top: .4rem;
@@ -36,7 +47,8 @@
     width: 25vw;
 
 }
-.productFavorities__cardItemsContainer{
+
+.productFavorities__cardItemsContainer {
     display: flex;
     width: 94%;
     max-width: 95%;
@@ -46,4 +58,241 @@
     height: 100%;
     justify-content: space-between;
     align-items: center;
+}
+
+.card {
+    position: relative;
+    min-width: 100%;
+    min-height: 99%;
+}
+
+.card__image {
+    position: absolute;
+    max-width: 100%;
+    min-width: 99%;
+    height: 50%;
+    object-fit: fill;
+    top: -2%;
+    z-index: 2;
+    transition: all 0.3s ease-out;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+}
+
+.card__data {
+    border-radius: .4rem;
+    background-color: rgba(54, 54, 54, 0.867);
+    min-height: 20vh;
+    max-height: 20.1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 0.3s ease-out 0.1s;
+}
+
+.card__info {
+    padding: 0 10px;
+    margin-bottom: 2vh;
+}
+
+.card__info h2 {
+    font-size: 1.5vh;
+    font-weight: 800;
+}
+
+.card__info p {
+    font-size: 2.2vh;
+    line-height: 14px;
+    color: #a2a2a2;
+}
+
+.card__action {
+    display: grid;
+    grid-template: 30px / 1fr 35px;
+}
+
+.card__price {
+    height: 30px;
+    padding: 0 10px 0 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+}
+
+.card__add {
+    overflow: hidden;
+    width: 35px;
+    height: 30px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #222222;
+    border: none;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: .4rem;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in;
+}
+
+.card__add:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.card__add:active {
+    opacity: 1;
+    transform: scale(0.8);
+}
+
+.card:hover .card__image {
+    top: -10%;
+}
+
+.card:hover .card__data {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 1024px) {
+    .containerPrincipal__productFavorities {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 35vh;
+        color: #fff;
+    }
+
+    .productFavorities__containerItems {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: .4;
+        background-color: #121212;
+        width: 95%;
+        min-height: 95%;
+        border-radius: .4rem;
+    }
+
+    .containerCardItem {
+        min-width: 13vw;
+        max-width: 13vw;
+        min-height: 20vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productFavorities__titleAndAction {
+        display: flex;
+        justify-content: space-between;
+        min-width: 90%;
+        min-height: 20%;
+        align-items: center;
+    }
+
+    .card {
+        position: relative;
+        min-width: 80%;
+        max-width: 80%;
+        min-height: 99%;
+
+    }
+
+    .card__image {
+        position: absolute;
+        max-width: 61%;
+        min-width: 60%;
+        height: 50%;
+        object-fit: fill;
+        top: -2%;
+        left: 20%;
+        z-index: 2;
+        transition: all 0.3s ease-out;
+        -webkit-filter: drop-shadow(5px 5px 5px #222);
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+    }
+
+    .card__data {
+        border-radius: .4rem;
+        background-color: rgba(54, 54, 54, 0.867);
+        min-height: 20vh;
+        max-height: 20.1vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        transition: all 0.3s ease-out 0.1s;
+    }
+
+    .card__info {
+        padding: 0 10px;
+        margin-bottom: 2vh;
+    }
+
+    .card__info h2 {
+        font-size: 1.5vh;
+        font-weight: 800;
+    }
+
+    .card__info p {
+        font-size: 2.2vh;
+        line-height: 14px;
+        color: #a2a2a2;
+    }
+
+    .card__action {
+        display: grid;
+        grid-template: 30px / 1fr 35px;
+    }
+
+    .card__price {
+        height: 30px;
+        padding: 0 10px 0 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        font-weight: 800;
+    }
+
+    .card__add {
+        overflow: hidden;
+        width: 35px;
+        height: 30px;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        background-color: #222222;
+        border: none;
+        color: #fff;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: .4rem;
+        font-size: 20px;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.3s ease-in;
+    }
+
+    .card__add:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+
+    .card__add:active {
+        opacity: 1;
+        transform: scale(0.8);
+    }
+
+    .card:hover .card__image {
+        top: -12%;
+    }
+
+
 }
