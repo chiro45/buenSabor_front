@@ -4,6 +4,8 @@
     justify-content: center;
     position: fixed;
     bottom: 0vh;
+    z-index: 400;
+
 }
 
 .navBarMobile__containerPrincipal {
@@ -16,6 +18,7 @@
     display: flex;
     align-items: center;
     height: 100%;
+    z-index: 400;
     justify-content: space-around;
     width: 100%;
 

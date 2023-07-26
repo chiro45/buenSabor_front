@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons"
 import "./CardItem.css"
 import { useNavigate } from "react-router-dom"
+import { useLocalStorage } from "../../../hooks/useLocalStorage"
+import { IcartLocalStorage } from "../../Screens/Cart"
 
 export const CardItem = ({ item }: any) => {
 
@@ -11,28 +13,45 @@ export const CardItem = ({ item }: any) => {
         navigate('/viewProduct')
     }
 
-    const handleaddToCart = () => {
-        
-    }
+  
+
+    const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
+
+
+
+    const handleAddCart = () => {
+
+        const existingItemIndex = items.findIndex(
+            (el) => el.articuloManufacturado.denominacion === item.denominacion
+        );
+        const updatedItems = [...items];
+
+        if (existingItemIndex !== -1) {
+            updatedItems[existingItemIndex].cantidad = 1;
+                updatedItems.splice(existingItemIndex, 1);
+            
+        } else {
+            updatedItems.push({
+                articuloManufacturado: item,
+                subtotal: (item.precioVenta),
+                cantidad: updatedItems[existingItemIndex].cantidad = updatedItems[existingItemIndex].cantidad + 1
+            });
+        }
+        setItem(updatedItems);
+    };
 
     return (
-        <div  className="containerPrincipal__cardItem">
-            <div className="container__butoonAddCart__cardItem">
-                    <button onClick={handleaddToCart} className="butoonAddCart__cardItem">
-                        <FontAwesomeIcon fontSize={'1.7vh'} icon={faCartPlus} />
-                    </button>
-                </div>
-            <div className="containerImg__cardItem">
-                
-                <img onClick={handleViewProduct} src={`${item.url}`} />
+         <div className="containerCardItem">
+                <article className="card">
+                <img onClick={handleViewProduct} className="card__image" src={item.url} alt={`${item.name}`} />
+                    <div className="card__data">
+                        <div className="card__info">
+                            <h2>{item.name}</h2>
+                            <p>${item.price}</p>
+                        </div>
+                    <button className="card__add" onClick={handleAddCart}>+</button>
+                    </div>
+                </article>
             </div>
-            <div className="containerTitle__cardItem">
-                <p><b>{item.name}</b></p>
-            </div>
-            <div className="containerPrice__cardItem">
-                <b>Precio:</b> ${item.price}
-            </div>
-
-        </div>
     )
 }
