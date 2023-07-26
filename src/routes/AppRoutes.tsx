@@ -10,6 +10,7 @@ import useUserRole from "../hooks/useUserRole"
 
 import "../styles/Global.css"
 import { routesConfig } from "./RoutesConfig"
+import { AddressPage } from "../components/Screens/AddressPage/AddressPage"
 
 export const AppRoutes = () => {
   const {isLoading} = useAuth0()
@@ -47,6 +48,7 @@ export const AppRoutes = () => {
       ))}
       {/* {(rol === 'COCINERO' || rol === 'CAJERO' || rol === 'DELIVERY') && <Route path="/config/loginEmployed" element={<LoginEmployed/>}/>} */}
       <Route path="/config/loginEmployed" element={<LoginEmployed/>}/>
+      <Route path="/address" element={<AddressPage/>}/>
       <Route path="/config/employedRegister" element={<LoginRegisterAdminEmployed/>}/>
 
       <Route path="*" element={
