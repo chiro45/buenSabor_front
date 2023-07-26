@@ -1,6 +1,4 @@
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons"
 import "./CardItem.css"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "../../../hooks/useLocalStorage"
@@ -13,11 +11,7 @@ export const CardItem = ({ item }: any) => {
         navigate('/viewProduct')
     }
 
-  
-
     const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
-
-
 
     const handleAddCart = () => {
 

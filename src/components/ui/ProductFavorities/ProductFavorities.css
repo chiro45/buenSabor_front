@@ -182,7 +182,8 @@
     }
 
     .containerCardItem {
-        min-width: 25vw;
+        min-width: 13vw;
+        max-width: 13vw;
         min-height: 20vh;
         display: flex;
         justify-content: center;
@@ -199,7 +200,8 @@
 
     .card {
         position: relative;
-        min-width: 40%;
+        min-width: 80%;
+        max-width: 80%;
         min-height: 99%;
 
     }
