@@ -54,7 +54,7 @@ const DropdownLogin = () => {
                 loginWithRedirect({
                   authorizationParams: {
                     screen_hint: 'signup',
-                    redirect_uri: 'http://localhost:5173/address',
+                    redirect_uri: 'https://buen-sabor-front-ahcs-cd0k67ot8-chiro45.vercel.app/address',
                   },
                 })}
               className='dropdown_option'>

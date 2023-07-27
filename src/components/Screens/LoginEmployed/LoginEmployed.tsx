@@ -7,7 +7,7 @@ import { alertError } from '../../../functions/alerts';
 import Swal from 'sweetalert2';
 
 const urlEmployedLoginLogout = `${import.meta.env.VITE_URL_LOGIN_LOGOUT_EMPLOYED}`
-
+const urlBase = `${import.meta.env.VITE_FRONT_BASE}`
 const LoginEmployed = () => {
     const { loginWithRedirect, isAuthenticated, getAccessTokenSilently, logout, isLoading } = useAuth0();
     const [rol, setRol] = useState('')
@@ -39,11 +39,11 @@ const LoginEmployed = () => {
     useEffect(() => {
         if (isAuthenticated) {
             if (rol === 'COCINERO') {
-                window.location.href = 'http://localhost:5173/kitchen/process';
+                window.location.href = `/kitchen/process`;
             } else if (rol === 'DELIVERY') {
-                window.location.href = 'http://localhost:5173/deliveryView';
+                window.location.href = `/deliveryView`;
             } else if (rol === 'CAJERO') {
-                window.location.href = 'http://localhost:5173/caseRegister/process';
+                window.location.href = `/caseRegister/proces`;
             } else {
                 Swal.fire({
                     icon: 'error',
