@@ -8,7 +8,7 @@ import './DropdownLogin.css'
 
 const urlEmployedLoginLogout = `${import.meta.env.VITE_URL_LOGIN_LOGOUT_EMPLOYED}`;
 const urladminLogout = `${import.meta.env.VITE_URL_LOGOUT_ADMIN_REGISTER_EMPLOYED}`;
-
+const urlBaseFront = `${import.meta.env.VITE_FRONT_BASE}`
 const DropdownLogin = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const { rol, loading } = useUserRole();
@@ -54,7 +54,7 @@ const DropdownLogin = () => {
                 loginWithRedirect({
                   authorizationParams: {
                     screen_hint: 'signup',
-                    redirect_uri: 'https://buen-sabor-front-ahcs-cd0k67ot8-chiro45.vercel.app/address',
+                    redirect_uri: `${urlBaseFront}/address`,
                   },
                 })}
               className='dropdown_option'>
