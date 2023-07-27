@@ -37,10 +37,10 @@ const DropdownLogin = () => {
               </>
             ) : rol === 'ADMIN' ? (
               // Si el rol es ADMIN y está autenticado, mostrar opciones para cerrar sesión con URL específica
-               <a className='dropdown_option' onClick={() => logout({ logoutParams: { returnTo: urladminLogout } })}>
+              <a className='dropdown_option' onClick={() => logout({ logoutParams: { returnTo: urladminLogout } })}>
                 Cerrar Sesión
               </a>
-             
+
             ) : (
               // Si no es CLIENTE ni ADMIN, pero está autenticado, mostrar opciones para cerrar sesión
               <a className='dropdown_option' onClick={() => logout({ logoutParams: { returnTo: urlEmployedLoginLogout } })}>
@@ -50,13 +50,15 @@ const DropdownLogin = () => {
           ) : (
             // Si no está autenticado, mostrar opción para iniciar sesión
             <a
-              onClick={() =>
+              onClick={() => {
+                console.log(`${urlBaseFront}/address`)
                 loginWithRedirect({
                   authorizationParams: {
                     screen_hint: 'signup',
                     redirect_uri: `${urlBaseFront}/address`,
                   },
-                })}
+                })
+              }}
               className='dropdown_option'>
               Iniciar Sesión
             </a>

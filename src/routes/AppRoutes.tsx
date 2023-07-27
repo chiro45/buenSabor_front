@@ -37,16 +37,16 @@ export const AppRoutes = () => {
   
   const hasPermission = (allowedRoles: any) => {
 
-    if (!rol || !usuarioListo) {
-      console.log(usuarioListo)
-      return false;
-    }
+    // if (!rol || !usuarioListo) {
+    //   console.log(usuarioListo)
+    //   return false;
+    // }
     // console.log(usuarioListo?.rol, rol)
-    if (rol === usuarioListo?.rol) {
-      console.log(usuarioListo.rol, rol)
-      return allowedRoles.includes(usuarioListo?.rol);
-    }
-    return false;
+    // if (rol === usuarioListo?.rol) {
+    //   console.log(usuarioListo.rol, rol)
+    // }
+    //return false;
+    return allowedRoles.includes(usuarioListo?.rol);
   };
   const fetchRoutes = async () => {
    getusers()
