@@ -33,5 +33,75 @@
 
 .containerCloseMOdalDeliverty button {
     width: 25vw !important;
-    background-color: var(--terciario);
+    background-color: red;
+}
+
+.containerSleectDelivery {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.containerSelect {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.containerSelect select {
+    width: 80%;
+    height: 5vh;
+    border-radius: .4rem;
+}
+
+.containerButtonsSelectDelivery {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.containerButtonsSelectDelivery button {
+    cursor: pointer;
+}
+
+.confirm {
+    background-color: green;
+}
+
+.cancel {
+    background-color: red;
+}
+
+.containerSleectDelivery {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    height: 50%;
+}
+
+.containerSelect {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.containerSelect select {
+    width: 80%;
+    height: 5vh;
+    border-radius: .4rem;
+}
+
+.containerButtonsSelectDelivery {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.containerButtonsSelectDelivery button {
+    cursor: pointer;
 }
