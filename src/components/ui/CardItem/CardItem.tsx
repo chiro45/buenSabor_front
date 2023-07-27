@@ -41,7 +41,7 @@ export const CardItem = ({ item }: { item: IArticuloManufacturado }) => {
             updatedItems.push({
                 articuloManufacturado: item,
                 subtotal: (item.precioVenta),
-                cantidad: updatedItems[existingItemIndex] ? updatedItems[existingItemIndex].cantidad + 1: 1
+                cantidad: updatedItems[existingItemIndex] ? updatedItems[existingItemIndex].cantidad + 1 : 1
             });
         }
 
