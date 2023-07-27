@@ -13,13 +13,17 @@
 
 }
 
+.card__image {
+    border-radius: .4rem;
+}
+
 .containerImg__cardItem {
     display: flex;
     z-index: 400;
     flex-direction: column;
     min-height: 10vh;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 .container__butoonAddCart__cardItem {
@@ -38,6 +42,7 @@
     color: #c79455;
     border: none;
 }
+
 .containerImg__cardItem img {
     max-height: 7vh;
     min-height: 5vh;

@@ -1,12 +1,29 @@
 import { useNavigate } from "react-router-dom"
 import { CardItem } from "../CardItem/CardItem"
 import "./ProductFavorities.css"
+import { IArticuloManufacturado } from "../../../interfaces"
+import { addCategoryActive } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
+import { useDispatch } from "react-redux"
 
 
-export const ProductFavorities = ({ productFav }: any) => {
-    const { nameCategory, urlViewAll, arrItems } = productFav
+export const ProductFavorities = ({
+    categoryName,
+    nameCategory,
+    productFav
+}: {
+    categoryName: string
+    nameCategory: string,
+    productFav: IArticuloManufacturado[]
+}) => {
+    const dispatch = useDispatch()
 
-
+    const navigate = useNavigate()
+    
+    const handleStoreCategory = () => {
+        dispatch(addCategoryActive(categoryName))
+        navigate('/store')
+    }
+    
     return (
         <div className="containerPrincipal__productFavorities">
             <div className="productFavorities__containerItems">
@@ -14,14 +31,14 @@ export const ProductFavorities = ({ productFav }: any) => {
                     <h4>{nameCategory}</h4>
                     <button
                         onClick={() => {
-                            console.log(urlViewAll)
+                            handleStoreCategory()
                         }}
                         className="productFavorities__buttonViewAll">Ver todos</button>
                 </div>
                 <div className="productFavorities__cardItemsContainer">
                     {
-                        arrItems !== undefined &&
-                        arrItems.map((el: any, i: number) => (
+                        productFav !== undefined &&
+                        productFav.map((el: IArticuloManufacturado, i: number) => (
                             <CardItem key={i} item={el} />
                         ))
                     }

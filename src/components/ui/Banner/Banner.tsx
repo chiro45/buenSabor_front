@@ -1,8 +1,9 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import "./Banner.css"
-export const Banner = ({bannerItem}:any) => {
+import { IArticuloManufacturado } from "../../../interfaces";
+export const Banner = ({ bannerItem }: { bannerItem: IArticuloManufacturado }) => {
 
-    const {id, name, url}=bannerItem;
+    
     const navigate = useNavigate();
     const handleaddToCart = () => {
         navigate('/cart')
@@ -13,10 +14,10 @@ export const Banner = ({bannerItem}:any) => {
     return (
         <div onClick={handleViewProduct} className="containerPrincipal-Banner">
             <div className="containerBanner-Info">
-                <h1>{name}</h1>
+                <h1>{bannerItem.denominacion}</h1>
                 <button  onClick={handleaddToCart} className="btnComprar-Banner">Comprar</button>
             </div>
-            <img className="containerBanner-img" src={`${url}`} />
+            <img className="containerBanner-img" src={`${bannerItem.imagen}`} />
         </div>
     )
 }
