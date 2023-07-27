@@ -140,8 +140,7 @@ export const Analytics = () => {
 			<div className="container-subheader-analytics">
 				{[{ title: "Clientes" },
 				{ title: "Productos" },
-				{ title: "Costos" },
-				{ title: "Pedidos por cliente" }].map((e) => (
+				{ title: "Costos" }].map((e) => (
 					<div className={`subheader-analitycs ${e.title === optionSelected && "active-subheader-analytics"}`} onClick={() => setOptionSeleted(e.title)}>
 						<p>{e.title}</p>
 					</div>

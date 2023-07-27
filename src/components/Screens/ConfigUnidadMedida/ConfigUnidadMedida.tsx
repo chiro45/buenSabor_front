@@ -41,10 +41,10 @@ export const ConfigUnidadMedida = () => {
 
                     <ModalUnidadMedida />
                     {/* Búsqueda genérica */}
-                    <SearchGeneric
+                    {/* <SearchGeneric
                         label={""}
                         placeholder={"Ingrese su Unidad medida"}
-                    />
+                    /> */}
                 </div>
                 {/* Muestra el componente ModalUnidadMedida */}
                 {/* Muestra el componente ModalViewElements */}

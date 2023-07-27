@@ -44,10 +44,10 @@ export const ConfigArticuloInsumo = () => {
                 <div className="containerButtonAndSearchArticulo" >
                     <ModalArticuloInsumo />
                     {/* Búsqueda genérica */}
-                    <SearchGeneric
+                    {/* <SearchGeneric
                         label={""}
                         placeholder={"Ingrese su articulo"}
-                    />
+                    /> */}
                 </div>
 
                 {/* Modal de visualización de elementos */}

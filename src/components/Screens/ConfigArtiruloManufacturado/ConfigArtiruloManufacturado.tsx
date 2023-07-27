@@ -46,11 +46,11 @@ export const ConfigArtiruloManufacturado = () => {
             <div className="Body-Modals">
                 <div className="containerButtonAndSearchArticulo" >
                     <ModalArticuloManufacturado />
-                    {/* Búsqueda genérica */}
+                    {/* Búsqueda genérica
                     <SearchGeneric
                         label={""}
                         placeholder={"Ingrese su articulo"}
-                    />
+                    /> */}
                 </div>
 
                 <ModalViewElements />

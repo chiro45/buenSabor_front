@@ -41,10 +41,10 @@ export const ConfigCategory = () => {
 
                     <ModalCategoria />
                     {/* Búsqueda genérica */}
-                    <SearchGeneric
+                    {/* <SearchGeneric
                         label={""}
                         placeholder={"Ingrese su categoria"}
-                    />
+                    /> */}
                 </div>
                 <ModalViewElements />
                 <GenericTable<ICategoria>
