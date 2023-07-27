@@ -4,9 +4,9 @@ import { EEstadoPedido, IPedido } from '../../../../interfaces';
 import { useAccessToken } from '../../../../hooks';
 import { cancelOrder, payOrder, sendToKitchen } from "../CaseRegisterTableFunctions";
 import { ViewProductDetail } from '../modal/ViewProductDetail/ViewProductDetail';
-
-import { DeliverOrderMOdal } from '../modal/DeliverORderModal/DeliverOrderMOdal';
 import { FacturaModal } from '../modal/Factura/FacturaMOdal';
+import { DeliverOrderMOdal } from '../modal/DeliverORderModal/DeliverOrderMOdal';
+import { alertConfirm } from '../../../../functions/alerts';
 interface ActionButton {
     element: IPedido,
     textButton: string;
@@ -27,7 +27,12 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
         else if (fnOnclick === 'viewFacture') {
             setFacture(element)
         } else if (fnOnclick === 'cancelOrder') {
-            cancelOrder(element, header)
+            alertConfirm('Va a eliminar un pedido, desea continuar?',
+                'Eliminar pedido',
+                'Si',
+                () => cancelOrder(element, header),
+                'No')
+
         } else if (fnOnclick === 'payOrder') {
             payOrder(element, header)
         } else if (fnOnclick === 'deliverOrder') {
@@ -51,7 +56,6 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
     const [facture, setFacture] = useState<IPedido | null>(null)
     const [modalEnvio, setModalEnvio] = useState<IPedido | null>(null)
 
-
     return (
         <div className='container__ButtonsTableCaseRegister'>
             {
@@ -72,10 +76,10 @@ export const ButtonsTableCaseRegister: FC<ActionButton> = ({ element, className,
                 />
             }
             {modalEnvio &&
-                <DeliverOrderMOdal 
-                    modalEnvio={modalEnvio} 
-                    setModalEnvio={setModalEnvio} 
-                
+                <DeliverOrderMOdal
+                    pedido={modalEnvio}
+                    setModalEnvio={setModalEnvio}
+
                 />
             }
 
