@@ -57,7 +57,7 @@ export const DeliverOrderMOdal: FC<{ pedido: IPedido, setModalEnvio: Function }>
                     'Authorization': `Bearer ${token}`
                 };
                 const idAuth0 = user?.sub?.split('|').pop();
-                if (idAuth0) handleUpdateStateEnvio(EEstadoPedido.CAMINO, modalEnvio, headers, idAuth0)
+                if (idAuth0) handleUpdateStateEnvio(EEstadoPedido.ENTREGADO, modalEnvio, headers, idAuth0)
                 alertSuccess("Pedido Entregado", 'Correcto')
                 setModalEnvio(null)
             },
@@ -99,6 +99,7 @@ export const DeliverOrderMOdal: FC<{ pedido: IPedido, setModalEnvio: Function }>
                         </div>
                         <div className="containerSelect">
                             <select value={optionSelected?.usuario || ''} onChange={onchangeSelect}>
+                                <option>selecciona</option>
                                 {deliverys.map((option) => (
                                     <option key={option.usuario} value={option.usuario}>
                                         {option.usuario}

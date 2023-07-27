@@ -5,7 +5,7 @@ import { Footer } from '../../ui/Footer/Footer';
 import { ItemDelivery } from './ItemOrdersDelivery/ItemOrdersDelivery';
 import { Header } from '../../ui';
 import { useSocket } from '../../../hooks';
-import { getElementSetState } from '../../../helpers';
+import { fetchGet, getElementSetState } from '../../../helpers';
 import { useAuth0 } from '@auth0/auth0-react';
 import { IPedido } from '../../../interfaces';
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
@@ -32,7 +32,9 @@ export const Deliveryview = () => {
         const headers = {
             'Authorization': `Bearer ${token}`
         };
-        getElementSetState(`${url}/${idAuth0}`, headers, setPedido);
+        const data = await fetchGet(`${url}/${idAuth0}`,headers)
+        console.log(data)
+        setPedido(data)
     }
 
     useEffect(() => {
@@ -54,21 +56,21 @@ export const Deliveryview = () => {
             <div className='containerBodyDelivery'>
 
                 <div className='containerPadding'>
-                    <div className={`containerCheckDisponible ${isChecked ? 'disponible' : 'noDisponible'}`}>
+                    <div className={`containerCheckDisponible disponible`}>
                         <div>
-                            <h3>{isChecked ? 'Disponible' : 'No Disponible'}</h3>
+                            <h3>Pedidos a repartir</h3>
                         </div>
-                        <div>
+                        {/* <div>
                             <label className="switch">
                                 <input type="checkbox" checked={isChecked} onChange={handleChange} />
                                 <span className="slider round" />
                             </label>
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div>
+                    {/* <div>
                         <h3>Pedidos</h3>
-                    </div>
+                    </div> */}
                     <div className='containerPedidos'>
                         <div className="containerHeaderPedidos">
                             <div><p>Nº</p></div>

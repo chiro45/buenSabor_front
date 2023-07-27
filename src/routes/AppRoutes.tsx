@@ -6,7 +6,6 @@ import LoginEmployed from "../components/Screens/LoginEmployed/LoginEmployed"
 import DefaultRoute from "../components/ui/DefaultRoute/DefaultRoute"
 import { LoginRegisterAdminEmployed } from "../components/ui/LoginRegisterAdminEmployed/LoginRegisterAdminEmployed"
 import useUserRole from "../hooks/useUserRole"
-
 import "../styles/Global.css"
 import { routesConfig } from "./RoutesConfig"
 import { AddressPage } from "../components/Screens/AddressPage/AddressPage"
@@ -25,9 +24,11 @@ export const AppRoutes = () => {
 
   const getusers = async () => {
     const token = await getAccessTokenSilently();
+    console.log(token)
     const headers = {
       'Authorization': `Bearer ${token}`
     };
+    
     const userfetch = await fetchGet(`${urlUsuario}/getByIdAuth0/${idAuth0}`, headers);
     // console.log(userfetch)
    setusuarioListo(userfetch)
@@ -37,7 +38,7 @@ export const AppRoutes = () => {
   const hasPermission = (allowedRoles: any) => {
 
     if (!rol || !usuarioListo) {
-      // console.log(usuarioListo)
+      console.log(usuarioListo)
       return false;
     }
     // console.log(usuarioListo?.rol, rol)
