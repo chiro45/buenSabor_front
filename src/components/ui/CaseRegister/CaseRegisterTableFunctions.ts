@@ -9,8 +9,7 @@ export const handleUpdateState = async (estado: EEstadoPedido, pedido: IPedido, 
 
 }
 export const handleUpdateStateEnvio = async (estado: EEstadoPedido, pedido: IPedido, header: any, delivery: string) => {
-    console.log(`${urlUpdateEstadoDelivery}/${pedido.id}/${estado}/${delivery}`, header)
-    await axios.put(`${urlUpdateEstadoDelivery}/${pedido.id}/${estado}/${delivery}`, header)
+   await axios.put(`${urlUpdateEstadoDelivery}/${pedido.id}/${estado}/${delivery}`, header)
 
 }
 

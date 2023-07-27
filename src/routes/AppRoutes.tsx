@@ -14,7 +14,7 @@ import { IUsuario } from "../interfaces"
 import { Deliveryview } from "../components/Screens/DeliveryView/Deliveryview"
 
 export const AppRoutes = () => {
-  const { getAccessTokenSilently , user} = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
   const { rol } = useUserRole();
   const [allowedRoutes, setAllowedRoutes] = useState<any>([])
   // const user: any = useUser();
@@ -28,28 +28,28 @@ export const AppRoutes = () => {
     const headers = {
       'Authorization': `Bearer ${token}`
     };
-    
+
     const userfetch = await fetchGet(`${urlUsuario}/getByIdAuth0/${idAuth0}`, headers);
     // console.log(userfetch)
-   setusuarioListo(userfetch)
+    setusuarioListo(userfetch)
   }
 
-  
+
   const hasPermission = (allowedRoles: any) => {
 
-    // if (!rol || !usuarioListo) {
-    //   console.log(usuarioListo)
-    //   return false;
-    // }
-    // console.log(usuarioListo?.rol, rol)
-    // if (rol === usuarioListo?.rol) {
-    //   console.log(usuarioListo.rol, rol)
-    // }
-    //return false;
-    return allowedRoles.includes(usuarioListo?.rol);
+    if (!rol || !usuarioListo) {
+      console.log(usuarioListo)
+      return false;
+    }
+    console.log(usuarioListo?.rol, rol)
+    if (rol === usuarioListo?.rol) {
+      console.log(usuarioListo.rol, rol)
+      return allowedRoles.includes(usuarioListo?.rol);
+    }
+    return false;
   };
   const fetchRoutes = async () => {
-   getusers()
+    getusers()
   }
   useEffect(() => {
     if (rol !== 'ERROR' && rol !== undefined && rol !== '') {
@@ -60,7 +60,7 @@ export const AppRoutes = () => {
   }, [rol])
   useEffect(() => {
     // console.log(usuarioListo)
-    
+
     setAllowedRoutes(routesConfig.filter((route) => hasPermission(route.allowedRoles)))
 
   }, [usuarioListo])

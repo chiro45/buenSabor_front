@@ -14,6 +14,10 @@ export const ViewProductDetail = ({ pedido, width, height, handleClose }: { pedi
                 <div className="inner-container">
                     <h1>Informacion del pedido</h1>
                     <p><b>Número de pedido:</b> {pedido.numero}</p>
+                    {
+                        pedido.usuarioEntrega.usuario &&
+                        <p><b>Entrega a cargo:</b> {pedido.usuarioEntrega.usuario}</p>
+                    }
                     <p><b>Email:</b> {pedido.cliente.email}</p>
                     <p><b>Forma de Pago:</b> {pedido.formaPago}</p>
                     <p><b>Monto:</b>$ {pedido.monto}</p>
