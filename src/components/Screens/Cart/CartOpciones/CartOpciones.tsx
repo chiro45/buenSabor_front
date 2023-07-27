@@ -13,8 +13,9 @@ interface CartOpcionesProps {
 
 const CartOpciones: React.FC<CartOpcionesProps> = ({ opciones, iconos, propiedad }) => {
     const [itemsPedido, setItemsPedido] = useLocalStorage<IPedido | {}>(`cart${propiedad}`, {});
-    const [opcionSeleccionada, setOpcionSeleccionada] = useState(itemsPedido? itemsPedido : opciones[0]);
-
+    const [opcionSeleccionada, setOpcionSeleccionada] = useState(!itemsPedido? itemsPedido : opciones[0]);
+    console.log(opciones[0])
+    console.log(!itemsPedido)
     const handleClick = (opcion: any) => {
         setOpcionSeleccionada(opcion);
     };
