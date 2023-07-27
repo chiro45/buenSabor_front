@@ -4,11 +4,23 @@ import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "../../../hooks/useLocalStorage"
 import { IcartLocalStorage } from "../../Screens/Cart"
 import { IArticuloManufacturado } from "../../../interfaces"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useDispatch } from "react-redux"
+import { startAddProductActive } from "../../../Redux/Reducers/StoreProductReducers/StoreProductReducer"
 
 export const CardItem = ({ item }: { item: IArticuloManufacturado }) => {
+    const { getAccessTokenSilently } = useAuth0()
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
-    const handleViewProduct = () => {
+    const handleViewProduct = async () => {
+        const token = await getAccessTokenSilently();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
+        dispatch(startAddProductActive(url, item.id, headers))
+        navigate('/ViewProduct')
         navigate('/viewProduct')
     }
 

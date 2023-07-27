@@ -61,11 +61,11 @@
     border: 1px solid  var(--principal);
     color:var(--principal);
 }
-.confirm{
+.confirmadd{
     border: 1px solid green;
     color: green;
 }
-.cancel{
+.canceladd{
     border: 1px solid #F00;
     color: #F00;
 }

@@ -16,7 +16,7 @@ interface IItemStore {
 
 interface IcartLocalStorage {
     articuloManufacturado: IArticuloManufacturado
-    subtotal:number
+    subtotal: number
     cantidad: number
 }
 
@@ -26,7 +26,7 @@ export const ItemStore: FC<IItemStore> = ({ articuloManufacturado: itemStore }) 
     const [cont, setCont] = useState(0)
     const [showMoreLess, setShoMoreLess] = useState(false)
 
-    const {getAccessTokenSilently} = useAuth0()
+    const { getAccessTokenSilently } = useAuth0()
     const navigate = useNavigate()
     const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
 
@@ -57,7 +57,7 @@ export const ItemStore: FC<IItemStore> = ({ articuloManufacturado: itemStore }) 
         } else {
             updatedItems.push({
                 articuloManufacturado: itemStore,
-                subtotal:(cont * itemStore.precioVenta),
+                subtotal: (cont * itemStore.precioVenta),
                 cantidad: cont
             });
         }
@@ -67,7 +67,7 @@ export const ItemStore: FC<IItemStore> = ({ articuloManufacturado: itemStore }) 
 
 
     const dispatch = useDispatch()
-    const handleViewProduct = async() => {
+    const handleViewProduct = async () => {
         const token = await getAccessTokenSilently();
         const headers = {
             'Authorization': `Bearer ${token}`
@@ -100,12 +100,12 @@ export const ItemStore: FC<IItemStore> = ({ articuloManufacturado: itemStore }) 
                                 <FontAwesomeIcon icon={faMinus} />
                             </button>
                             <button
-                                className="buttonActionCart confirm"
+                                className="buttonActionCart confirmadd"
                                 onClick={() => { handleAddCart() }}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </button>
                             <button
-                                className="buttonActionCart cancel"
+                                className="buttonActionCart canceladd"
                                 onClick={() => {
                                     setShoMoreLess(false)
                                     setCont(1)

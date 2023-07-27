@@ -11,6 +11,7 @@ import jsPDF from "jspdf"
 import { ViewProductDetail } from "../../ui/CaseRegister/modal/ViewProductDetail/ViewProductDetail"
 import { ViewFacture } from "../../ui/ViewFacture/ViewFacture"
 import "./Ordenes.css"
+import { useNavigate } from "react-router-dom"
 const urlWs = `${import.meta.env.VITE_URL_WS}`;
 const urlPedidosByID = `${import.meta.env.VITE_URL_PEDIDOSBYCLIENTE}/`
 
@@ -39,7 +40,7 @@ export const Ordenes = () => {
 
     const printRef = useRef<HTMLElement | null>(null);
 
-    const handleDownloadPDF = (i:number) => {
+    const handleDownloadPDF = (i: number) => {
         printRef.current = document.getElementById(`divPrint${i}`)
         if (printRef.current) {
             const pdf = new jsPDF('p', 'pt', 'letter');
@@ -53,7 +54,10 @@ export const Ordenes = () => {
         }
 
     };
-
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate('/store');
+    };
     return (
         <>
             {
@@ -73,7 +77,9 @@ export const Ordenes = () => {
                     height: '8vh'
                 }}>
                     <button className="buttonVolverAStore" >
-                        <FontAwesomeIcon icon={faArrowLeft} /> Volver a la tienda</button>
+                        <FontAwesomeIcon icon={faArrowLeft} onClick={() => {
+                            handleGoBack()
+                        }} /> Volver a la tienda</button>
                 </div>
                 <div className="containerTitleOrders">
                     <p >Mis Ordenes</p>
