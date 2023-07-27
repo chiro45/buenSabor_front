@@ -21,7 +21,6 @@ export const CardItem = ({ item }: { item: IArticuloManufacturado }) => {
         const url = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}`
         dispatch(startAddProductActive(url, item.id, headers))
         navigate('/ViewProduct')
-        navigate('/viewProduct')
     }
 
     const [items, setItem] = useLocalStorage<IcartLocalStorage[] | []>('cart', []);
@@ -31,6 +30,7 @@ export const CardItem = ({ item }: { item: IArticuloManufacturado }) => {
         const existingItemIndex = items.findIndex(
             (el) => el.articuloManufacturado.denominacion === item.denominacion
         );
+        console.log(existingItemIndex)
         const updatedItems = [...items];
 
         if (existingItemIndex !== -1) {
@@ -41,9 +41,10 @@ export const CardItem = ({ item }: { item: IArticuloManufacturado }) => {
             updatedItems.push({
                 articuloManufacturado: item,
                 subtotal: (item.precioVenta),
-                cantidad: updatedItems[existingItemIndex].cantidad = updatedItems[existingItemIndex].cantidad + 1
+                cantidad: updatedItems[existingItemIndex] ? updatedItems[existingItemIndex].cantidad + 1: 1
             });
         }
+
         setItem(updatedItems);
     };
 
