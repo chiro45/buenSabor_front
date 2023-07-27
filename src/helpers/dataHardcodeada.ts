@@ -1,6 +1,6 @@
 import { IArticuloManufacturado } from "../interfaces";
 
-export const dataHardcodeada: IArticuloManufacturado[] = [
+export const dataHardcodeada: any[] = [
     {
         id: 1,
         tipoClase: "ArticuloManufacturado",

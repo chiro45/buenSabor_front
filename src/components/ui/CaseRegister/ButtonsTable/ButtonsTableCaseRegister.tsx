@@ -12,7 +12,7 @@ interface ActionButton {
     textButton: string;
     className: string;
     conditions: EEstadoPedido[]
-    fnOnclick: 'viewDetail' | 'viewFacture' | 'sendtoKittchen' | 'payOrder' | 'cancelOrder' | 'deliverOrder';
+    fnOnclick?: 'viewDetail' | 'viewFacture' | 'sendtoKittchen' | 'payOrder' | 'cancelOrder' | 'deliverOrder';
 
 }
 
