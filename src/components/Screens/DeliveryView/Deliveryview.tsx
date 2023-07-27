@@ -1,16 +1,46 @@
 import './DeliveryView.css'
 import img from '../../../assets/logopng.webp'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Footer } from '../../ui/Footer/Footer';
 import { ItemDelivery } from './ItemOrdersDelivery/ItemOrdersDelivery';
 import { Header } from '../../ui';
+import { useSocket } from '../../../hooks';
+import { getElementSetState } from '../../../helpers';
+import { useAuth0 } from '@auth0/auth0-react';
+import { IPedido } from '../../../interfaces';
+const urlWs = `${import.meta.env.VITE_URL_WS}`;
+const urlPedidosByDelivery = `${import.meta.env.VITE_URL_PEDIDOS}/allByDelivery`
+
 export const Deliveryview = () => {
 
     const [isChecked, setIsChecked] = useState(false);
+    const [statePedidos, setStatePedidos] = useState<IPedido[]>([])
 
     const handleChange = () => {
         setIsChecked(!isChecked);
     };
+
+    const { getAccessTokenSilently, user } = useAuth0()
+
+    const socketState = useSocket({
+        connectionUrl: urlWs, subscriptionTopic: `/pedidows/public`
+    })
+
+    const fetchData = async (url: string, setPedido: Function) => {
+        const idAuth0 = user?.sub?.split('|').pop();
+        const token = await getAccessTokenSilently();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        getElementSetState(`${url}/${idAuth0}`, headers, setPedido);
+    }
+
+    useEffect(() => {
+        fetchData(urlPedidosByDelivery, setStatePedidos)
+
+    }, [socketState]);
+
+
 
 
     return (
@@ -20,7 +50,7 @@ export const Deliveryview = () => {
                 <div className='imgHeader'><img src={img} /></div>
                 `   <div className='buttonAccountHeader'><button>Mi cuenta</button></div>
             </div> */}
-            <Header/>
+            <Header />
             <div className='containerBodyDelivery'>
 
                 <div className='containerPadding'>
@@ -48,8 +78,8 @@ export const Deliveryview = () => {
                         </div>
                         <div className='containerPedidosBody'>
                             {
-                                [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}].map(() => (
-                                    <ItemDelivery />
+                                statePedidos.map((el) => (
+                                    <ItemDelivery element={el}/>
                                 ))
                             }
                         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { IPedido } from "../../../../interfaces";
 
-export const ItemDelivery = () => {
+export const ItemDelivery = ({ element }: { element:IPedido}) => {
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -24,9 +25,9 @@ export const ItemDelivery = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <button className="buttonViewItemOrder">Ver</button>
+            <button className="buttonViewItemOrder">Ver</button>
             </div>
-            <div>Tomas thomas 259</div>
+            <div><p>{element.domicilio.calle}</p></div>
         </div>
     )
 }
