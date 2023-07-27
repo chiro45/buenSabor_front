@@ -8,7 +8,7 @@ import { ProductFavorities } from "../../ui/ProductFavorities/ProductFavorities"
 import "./Landing.css"
 
 import { IArticuloManufacturado } from "../../../interfaces"
-const URLBASE = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/default }`
+const URLBASE = `${import.meta.env.VITE_URL_ARTICULOMANUFACTURADO}/pagedPrice/0/default`
 interface InterfaceFiltre {
     content: IArticuloManufacturado[]
 }
